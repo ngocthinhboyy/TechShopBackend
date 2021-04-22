@@ -1,17 +1,62 @@
 package com.techshopbe.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	
+	@Autowired
+	private UserDetailsService userDetailsService;
+	
+	@Bean
+	@Override
+	protected AuthenticationManager authenticationManager() throws Exception {
+		// TODO Auto-generated method stub
+		return super.authenticationManager();
+	}
+	
+	
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.cors();
+		http
+			.csrf().disable()
+			.antMatcher("/api/**")
+			.authorizeRequests()
+			.antMatchers("/api/v1/auth/**")
+			.permitAll() 
+			.antMatchers("/api/v1/user/**")
+			.hasAnyRole("MANAGER")
+			.anyRequest()
+			.authenticated();
+		
+		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), userDetailsService));
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+	}
+	
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth
+			.userDetailsService(userDetailsService)
+			.passwordEncoder(new BCryptPasswordEncoder());
+	}
+	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		
-		
+		// TODO Auto-generated method stub
+		// cau hinh nhung thu ko can kiem tra dang nhap 
 		web.ignoring()
 		.antMatchers("/v2/api-docs",
 				"/configuration/ui",
