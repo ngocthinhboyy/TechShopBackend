@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.techshopbe.entity.Product;
+import com.techshopbe.dto.ProductDTO;
 import com.techshopbe.service.ProductService;
 
 @RestController
@@ -21,9 +21,9 @@ public class ProductController {
 	@GetMapping(value = "")
 	public Object index() {
 		try {
-			List<Product> productList = productService.getAll();
+			List<ProductDTO> productList = productService.getAll();
 
-			return new ResponseEntity<List<Product>>(productList, HttpStatus.OK);
+			return new ResponseEntity<List<ProductDTO>>(productList, HttpStatus.OK);
 		} catch(Exception e) {
 			return new ResponseEntity<String>("Failed", HttpStatus.BAD_REQUEST);
 		}

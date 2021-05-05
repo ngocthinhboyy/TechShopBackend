@@ -10,7 +10,7 @@ public class Category {
 	private String categoryName;
 	private String categorySlug;
 	private boolean categoryExact;
-
+	
 	public Category() {
 	}
 

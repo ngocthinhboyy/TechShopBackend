@@ -9,11 +9,8 @@ public class Brand {
 	private int brandID;
 	private String brandName;
 	private String brandImg;
-	
-
 	public Brand() {
 	}
-
 
 	public Brand(int brandID, String brandName, String brandImg) {
 		super();

@@ -2,8 +2,8 @@ package com.techshopbe.service;
 
 import java.util.List;
 
-import com.techshopbe.entity.Product;
+import com.techshopbe.dto.ProductDTO;
 
 public interface ProductService {
-	public List<Product> getAll();
+	public List<ProductDTO> getAll();
 }

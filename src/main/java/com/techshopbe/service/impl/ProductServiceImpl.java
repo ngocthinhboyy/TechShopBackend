@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.techshopbe.entity.Product;
+import com.techshopbe.dto.ProductDTO;
 import com.techshopbe.repository.ProductRepository;
 import com.techshopbe.service.ProductService;
 
@@ -16,8 +16,8 @@ public class ProductServiceImpl implements ProductService {
 
 	
 	@Override
-	public List<Product> getAll() {
-		return productRepository.findAll();
+	public List<ProductDTO> getAll() {
+		return productRepository.getAll();
 	}
 
 }

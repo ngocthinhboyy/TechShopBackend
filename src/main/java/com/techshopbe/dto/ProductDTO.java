@@ -1,19 +1,10 @@
-package com.techshopbe.entity;
+package com.techshopbe.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+public class ProductDTO {
 
-@Entity
-@Table(name = "PRODUCT")
-public class Product {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int productID;
-	private int categoryID;
-	private int brandID;
+	private String categoryName;
+	private String brandName;
 	private float productRate;
 	private String productName;
 	private int productPrice;
@@ -24,25 +15,7 @@ public class Product {
 	private int purchased;
 	private String specs;
 	
-	public Product() {
-	}
-
-	public Product(int productID, int categoryID, int brandID, float productRate, String productName, int productPrice,
-			String shortDescrip, String longDescrip, int stock, int warranty, int purchased, String specs) {
-		super();
-		this.productID = productID;
-		this.categoryID = categoryID;
-		this.brandID = brandID;
-		this.productRate = productRate;
-		this.productName = productName;
-		this.productPrice = productPrice;
-		this.shortDescrip = shortDescrip;
-		this.longDescrip = longDescrip;
-		this.stock = stock;
-		this.warranty = warranty;
-		this.purchased = purchased;
-		this.specs = specs;
-	}
+	public ProductDTO() {}
 
 	public int getProductID() {
 		return productID;
@@ -52,20 +25,20 @@ public class Product {
 		this.productID = productID;
 	}
 
-	public int getCategoryID() {
-		return categoryID;
+	public String getCategoryName() {
+		return categoryName;
 	}
 
-	public void setCategoryID(int categoryID) {
-		this.categoryID = categoryID;
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
-	public int getBrandID() {
-		return brandID;
+	public String getBrandName() {
+		return brandName;
 	}
 
-	public void setBrandID(int brandID) {
-		this.brandID = brandID;
+	public void setBrandName(String brandName) {
+		this.brandName = brandName;
 	}
 
 	public float getProductRate() {
@@ -140,4 +113,25 @@ public class Product {
 		this.specs = specs;
 	}
 
+	public ProductDTO(int productID, String categoryName, String brandName, float productRate, String productName,
+			int productPrice, String shortDescrip, String longDescrip, int stock, int warranty, int purchased,
+			String specs) {
+		super();
+		this.productID = productID;
+		this.categoryName = categoryName;
+		this.brandName = brandName;
+		this.productRate = productRate;
+		this.productName = productName;
+		this.productPrice = productPrice;
+		this.shortDescrip = shortDescrip;
+		this.longDescrip = longDescrip;
+		this.stock = stock;
+		this.warranty = warranty;
+		this.purchased = purchased;
+		this.specs = specs;
+	};
+	
+	
+	
+	
 }
