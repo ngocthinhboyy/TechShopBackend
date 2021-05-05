@@ -3,9 +3,12 @@ package com.techshopbe.entity;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Category {
 	@Id
+	@JsonIgnore
 	private int categoryID;
 	private String categoryName;
 	private String categorySlug;
