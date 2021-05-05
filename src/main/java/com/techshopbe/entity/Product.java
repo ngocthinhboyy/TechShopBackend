@@ -2,8 +2,10 @@ package com.techshopbe.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "PRODUCT")
 public class Product {
 	@Id
 	private int productID;
