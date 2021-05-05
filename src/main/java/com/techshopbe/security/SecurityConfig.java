@@ -35,10 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.csrf().disable()
 			.antMatcher("/api/**")
 			.authorizeRequests()
-			.antMatchers("/api/v1/auth/**")
-			.permitAll() 
 			.antMatchers("/api/v1/user/**")
-			.hasAnyRole("MANAGER")
+			.permitAll() 
 			.anyRequest()
 			.authenticated();
 		
@@ -62,8 +60,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				"/configuration/ui",
 				"/swagger-resources/**",
 				"/configuration/security",
-				"/swagger-ui.html",
 				"/webjars/**",
+				"/swagger-ui.html",
 				"/upload/**");
 	}
 }

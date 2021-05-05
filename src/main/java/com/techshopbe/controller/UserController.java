@@ -28,6 +28,8 @@ public class UserController {
 	public Object index() {
 		try {
 			List<User> userList = userService.getAll();
+			if(userList.isEmpty())
+				return new ResponseEntity<List<User>>(userList, HttpStatus.OK);
 			return new ResponseEntity<List<User>>(userList, HttpStatus.OK);
 		} catch(Exception e) {
 			return new ResponseEntity<String>("Failed", HttpStatus.BAD_REQUEST);

@@ -26,7 +26,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void add(User user) throws Exception {
 		User entityHasSameEmail = userRepository.findByEmail(user.getEmail());
-		
 		if(entityHasSameEmail == null) {
 			String hashPassword = BCrypt.hashpw(user.getPswd(), BCrypt.gensalt());
 			user.setPswd(hashPassword);

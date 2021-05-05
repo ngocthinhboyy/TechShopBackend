@@ -43,7 +43,7 @@ public class AuthenticationController {
 			return new ResponseEntity<String>(token, HttpStatus.OK);
 		}
 		catch(BadCredentialsException e) {
-			return new ResponseEntity<String>("Sai thong tin dang nhap", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>("Sai thong tin dang nhap", HttpStatus.UNAUTHORIZED);
 		}
 		catch (Exception e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);

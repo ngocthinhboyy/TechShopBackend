@@ -4,10 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 public class User {
@@ -16,64 +15,83 @@ public class User {
 	private int userID;
 	private String email;
 	private String fullname;
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String pswd;
-	private String rolename;
+	private String DOB;
+	private String phone;
+	private String address;
+	private int roleID;
+	private String gender;
 	
-	
-	public User(int userID, String email, String fullname, String pswd, String rolename) {
+	public User() {};
+	public User(int userID, String email, String fullname, String pswd, String dOB, String phone, String address,
+			int roleID, String gender) {
 		super();
 		this.userID = userID;
 		this.email = email;
 		this.fullname = fullname;
 		this.pswd = pswd;
-		this.rolename = rolename;
+		DOB = dOB;
+		this.phone = phone;
+		this.address = address;
+		this.roleID = roleID;
+		this.gender = gender;
 	}
-
 	public int getUserID() {
 		return userID;
 	}
-
 	public void setUserID(int userID) {
 		this.userID = userID;
 	}
-
-	
 	public String getEmail() {
 		return email;
 	}
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 	public String getFullname() {
 		return fullname;
 	}
-
 	public void setFullname(String fullname) {
 		this.fullname = fullname;
 	}
-
 	public String getPswd() {
 		return pswd;
 	}
-
 	public void setPswd(String pswd) {
 		this.pswd = pswd;
 	}
-	
-	
-	public String getRolename() {
-		return rolename;
+	public String getDOB() {
+		return DOB;
 	}
-
-	public void setRolename(String rolename) {
-		this.rolename = rolename;
+	public void setDOB(String dOB) {
+		DOB = dOB;
 	}
-
-	public User() {}
-
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public int getRoleID() {
+		return roleID;
+	}
+	public void setRoleID(int roleID) {
+		this.roleID = roleID;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 	
-	
+
 	
 }
