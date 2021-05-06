@@ -1,6 +1,8 @@
 package com.techshopbe.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -9,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Entity
 public class User {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int userID;
 	private String email;
 	private String fullname;
@@ -19,10 +22,11 @@ public class User {
 	private String address;
 	private int roleID;
 	private String gender;
+	private int totalInvoices = 0;
 	
 	public User() {};
 	public User(int userID, String email, String fullname, String pswd, String dOB, String phone, String address,
-			int roleID, String gender) {
+			int roleID, String gender, int totalInvoices) {
 		super();
 		this.userID = userID;
 		this.email = email;
@@ -33,6 +37,14 @@ public class User {
 		this.address = address;
 		this.roleID = roleID;
 		this.gender = gender;
+		this.totalInvoices = totalInvoices;
+	}
+	
+	public int getTotalInvoices() {
+		return totalInvoices;
+	}
+	public void setTotalInvoices(int totalInvoices) {
+		this.totalInvoices = totalInvoices;
 	}
 	public int getUserID() {
 		return userID;

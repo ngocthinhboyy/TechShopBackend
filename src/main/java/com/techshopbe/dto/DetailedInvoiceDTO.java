@@ -1,10 +1,24 @@
 package com.techshopbe.dto;
 
-public class DetailedOrderDTO {
+// chi tiet hoa don
+public class DetailedInvoiceDTO {
 	private int productID;
 	private int productPrice;
 	private int quantity;
 	private int totalPrice;
+	private String productName;
+	
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+	public DetailedInvoiceDTO() {
+	}
 
 	public int getProductID() {
 		return productID;
@@ -38,12 +52,15 @@ public class DetailedOrderDTO {
 		this.totalPrice = totalPrice;
 	}
 
-	public DetailedOrderDTO(int productID, int productPrice, int quantity, int totalPrice) {
+	public DetailedInvoiceDTO(int productID, int productPrice, int quantity, int totalPrice, String productName) {
 		super();
 		this.productID = productID;
 		this.productPrice = productPrice;
 		this.quantity = quantity;
 		this.totalPrice = totalPrice;
+		this.productName = productName;
 	}
+
+	
 
 }

@@ -1,9 +1,12 @@
 package com.techshopbe.entity;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 public class SaleProduct {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int productID;
 	private String startSale;
 	private String endSale;

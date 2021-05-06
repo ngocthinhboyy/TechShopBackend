@@ -1,9 +1,15 @@
 package com.techshopbe.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+@Entity
 public class Invoice {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int invoiceID;
 	private int userID;
 	private int totalCost;
@@ -11,13 +17,35 @@ public class Invoice {
 	private String shippingDate;
 	private String note;
 	private boolean otherShippingAddress;
+	private String statusInvoice= "PENDING";
+	private String userInvoiceIndex;
 
 	public Invoice() {
 	}
 	
 
+	public String getStatusInvoice() {
+		return statusInvoice;
+	}
+
+
+	public void setStatusInvoice(String statusInvoice) {
+		this.statusInvoice = statusInvoice;
+	}
+
+
+	public String getUserInvoiceIndex() {
+		return userInvoiceIndex;
+	}
+
+
+	public void setUserInvoiceIndex(String userInvoiceIndex) {
+		this.userInvoiceIndex = userInvoiceIndex;
+	}
+
+
 	public Invoice(int invoiceID, int userID, int totalCost, String invoiceDate, String shippingDate, String note,
-			boolean otherShippingAddress) {
+			boolean otherShippingAddress, String statusInvoice, String userInvoiceIndex) {
 		super();
 		this.invoiceID = invoiceID;
 		this.userID = userID;
@@ -26,6 +54,8 @@ public class Invoice {
 		this.shippingDate = shippingDate;
 		this.note = note;
 		this.otherShippingAddress = otherShippingAddress;
+		this.statusInvoice = statusInvoice;
+		this.userInvoiceIndex = userInvoiceIndex;
 	}
 
 

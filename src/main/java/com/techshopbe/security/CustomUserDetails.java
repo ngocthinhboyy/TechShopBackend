@@ -8,9 +8,15 @@ import org.springframework.security.core.userdetails.User;
 public class CustomUserDetails extends User {
 	
 	private static final long serialVersionUID = 1L;
-	
-	public CustomUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities) {
-		super(username, password, authorities);
+	private final int userID;
+
+	public int getUserID() {
+		return userID;
+	}
+
+	public CustomUserDetails(String username, String password, int userID, Collection<? extends GrantedAuthority> authorities) {
+		super(username, password, authorities );
+		this.userID = userID;
 		// TODO Auto-generated constructor stub
 	}
 

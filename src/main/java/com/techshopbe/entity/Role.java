@@ -10,6 +10,7 @@ import javax.persistence.Table;
 @Entity
 public class Role {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int roleID;
 	private String roleName;
 	public Role() {}
