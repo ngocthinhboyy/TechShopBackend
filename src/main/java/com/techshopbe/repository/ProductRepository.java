@@ -26,4 +26,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Query("SELECT new com.techshopbe.dto.DetailedProductDTO(p.productID, p.categoryID, p.brandID, c.categoryName, b.brandName, p.productRate, p.productName, p.productPrice, p.shortDescrip, p.longDescrip,p.stock, p.warranty, p.purchased, p.specs, p.shortTech) FROM Product p, Category c, Brand b WHERE p.categoryID = c.categoryID AND p.brandID = b.brandID AND productID = ?1")
 	DetailedProductDTO findDetailedProductByProductID(int productID);
 	
+	 @Query("SELECT productPrice FROM Product p where p.productID = ?1") 
+	int findProductPriceByProductID(int id);
+	
 }

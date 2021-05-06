@@ -11,19 +11,31 @@ public class DetailedInvoice {
 	private int productID;
 	private int quantity;
 	private int price;
+	private int totalPrice;
 
 
 	public DetailedInvoice() {
 	}
 
 
-	public DetailedInvoice(int detailedInvoiceID, int invoiceID, int productID, int quantity, int price) {
+	public DetailedInvoice(int detailedInvoiceID, int invoiceID, int productID, int quantity, int price, int totalPrice) {
 		super();
 		this.detailedInvoiceID = detailedInvoiceID;
 		this.invoiceID = invoiceID;
 		this.productID = productID;
 		this.quantity = quantity;
 		this.price = price;
+		this.totalPrice = totalPrice;
+	}
+
+
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+
+
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 
 
