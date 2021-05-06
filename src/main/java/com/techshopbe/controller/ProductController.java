@@ -3,10 +3,13 @@ package com.techshopbe.controller;
 import java.io.Console;
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,28 +23,28 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
-	@GetMapping(value = "", params = {"sortOrder"})
-	public Object index(@RequestParam String sortOrder) {
+	@GetMapping(value = "")
+	public Object index() {
 		try {
-			List<ProductDTO> productList = productService.getAll(sortOrder);
+			List<ProductDTO> productList = productService.getAll();
 			return new ResponseEntity<List<ProductDTO>>(productList, HttpStatus.OK);
 		} catch(Exception e) {
 			return new ResponseEntity<String>("Failed", HttpStatus.BAD_REQUEST);
 		}
 	}
 	
-	@GetMapping(value = "", params = {"categorySlug","sortOrder"})
-	public Object getProductsByCategory(@RequestParam String categorySlug, @RequestParam String sortOrder) {
+	@GetMapping(value = "/{categorySlug}")
+	public Object getProductsByCategory(@PathVariable String categorySlug) {
 		try {
-			List<ProductDTO> productsByCategory= productService.getProductsByCategory(categorySlug, sortOrder);
+			List<ProductDTO> productsByCategory= productService.getProductsByCategory(categorySlug);
 			return new ResponseEntity<List<ProductDTO>>(productsByCategory, HttpStatus.OK);
 		} catch(Exception e) {
 			return new ResponseEntity<String>("Failed", HttpStatus.BAD_REQUEST);
 		}
 	}
 	
-	@GetMapping(value = "/toppurchased")
-	public Object getTopPurchasedProducts(@RequestParam int categoryID) {
+	@GetMapping(value = "/toppurchased/{categoryID}")
+	public Object getTopPurchasedProducts(@PathVariable int categoryID) {
 		try {
 			List<ProductDTO> topPurchasedProducts = productService.getTopPurchasedProducts(categoryID);
 

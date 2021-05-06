@@ -16,12 +16,9 @@ public class ProductServiceImpl implements ProductService {
 	private ProductRepository productRepository;
 
 	@Override
-	public List<ProductDTO> getAll(String sortOrder) {
-		if(sortOrder.equalsIgnoreCase("asc"))
-			return productRepository.findAllByOrderByPriceAsc();
-		else {
-			return productRepository.findAllByOrderByPriceDesc();
-		}
+	public List<ProductDTO> getAll() {
+		return productRepository.getAll();
+		
 	}
 
 	@Override
@@ -48,12 +45,10 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductDTO> getProductsByCategory(String categorySlug, String sortOrder) {
-		if(sortOrder.equals("asc"))
-			return productRepository.findByCategorySlugByOrderByPriceAsc(categorySlug);
-		else {
-			return productRepository.findByCategorySlugByOrderByPriceDesc(categorySlug);
-		}
+	public List<ProductDTO> getProductsByCategory(String categorySlug) {
+		
+		return productRepository.findByCategorySlug(categorySlug);
+		
 	}
 
 	

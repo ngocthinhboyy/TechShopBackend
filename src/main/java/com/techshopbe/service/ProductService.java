@@ -7,8 +7,8 @@ import javax.swing.SortOrder;
 import com.techshopbe.dto.ProductDTO;
 
 public interface ProductService {
-	public List<ProductDTO> getAll(String sortOrder);
+	public List<ProductDTO> getAll();
 	public List<ProductDTO> getTrendingProducts();
-	public List<ProductDTO> getProductsByCategory(String categorySlug, String sortOrder);
+	public List<ProductDTO> getProductsByCategory(String categorySlug);
 	public List<ProductDTO> getTopPurchasedProducts(int categoryID);
 }
