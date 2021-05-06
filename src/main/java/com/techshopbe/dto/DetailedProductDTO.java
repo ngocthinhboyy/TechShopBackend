@@ -16,12 +16,13 @@ public class DetailedProductDTO {
 	private int purchased;
 	private String specs;
 	private String stockStatus;
+	private String shortTech;
 	
 	public DetailedProductDTO() {}
 
 	public DetailedProductDTO(int productID, int categoryID, int brandID, String categoryName, String brandName, float productRate,
 			String productName, int productPrice, String shortDescrip, String longDescrip, int stock, int warranty,
-			int purchased, String specs) {
+			int purchased, String specs, String shortTech) {
 		super();
 		this.productID = productID;
 		this.categoryID = categoryID;
@@ -37,9 +38,18 @@ public class DetailedProductDTO {
 		this.warranty = warranty;
 		this.purchased = purchased;
 		this.specs = specs;
+		this.shortTech = shortTech;
 	}
 	
 	
+
+	public String getShortTech() {
+		return shortTech;
+	}
+
+	public void setShortTech(String shortTech) {
+		this.shortTech = shortTech;
+	}
 
 	public int getCategoryID() {
 		return categoryID;
