@@ -2,6 +2,8 @@ package com.techshopbe.dto;
 
 public class DetailedProductDTO {
 	private int productID;
+	private int categoryID;
+	private int brandID;
 	private String categoryName;
 	private String brandName;
 	private float productRate;
@@ -17,11 +19,13 @@ public class DetailedProductDTO {
 	
 	public DetailedProductDTO() {}
 
-	public DetailedProductDTO(int productID, String categoryName, String brandName, float productRate,
+	public DetailedProductDTO(int productID, int categoryID, int brandID, String categoryName, String brandName, float productRate,
 			String productName, int productPrice, String shortDescrip, String longDescrip, int stock, int warranty,
 			int purchased, String specs) {
 		super();
 		this.productID = productID;
+		this.categoryID = categoryID;
+		this.brandID = brandID;
 		this.categoryName = categoryName;
 		this.brandName = brandName;
 		this.productRate = productRate;
@@ -33,6 +37,24 @@ public class DetailedProductDTO {
 		this.warranty = warranty;
 		this.purchased = purchased;
 		this.specs = specs;
+	}
+	
+	
+
+	public int getCategoryID() {
+		return categoryID;
+	}
+
+	public void setCategoryID(int categoryID) {
+		this.categoryID = categoryID;
+	}
+
+	public int getBrandID() {
+		return brandID;
+	}
+
+	public void setBrandID(int brandID) {
+		this.brandID = brandID;
 	}
 
 	public int getProductID() {
