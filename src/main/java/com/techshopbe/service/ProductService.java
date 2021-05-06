@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.swing.SortOrder;
 
+import com.techshopbe.dto.DetailedProductDTO;
 import com.techshopbe.dto.ProductDTO;
 
 public interface ProductService {
@@ -11,4 +12,5 @@ public interface ProductService {
 	public List<ProductDTO> getTrendingProducts();
 	public List<ProductDTO> getProductsByCategory(String categorySlug);
 	public List<ProductDTO> getTopPurchasedProducts(int categoryID);
+	public DetailedProductDTO getDetailedProduct(int productID);
 }

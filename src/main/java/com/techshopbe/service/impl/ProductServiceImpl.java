@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.techshopbe.dto.DetailedProductDTO;
 import com.techshopbe.dto.ProductDTO;
 import com.techshopbe.repository.ProductRepository;
 import com.techshopbe.service.ProductService;
@@ -49,6 +50,16 @@ public class ProductServiceImpl implements ProductService {
 		
 		return productRepository.findByCategorySlug(categorySlug);
 		
+	}
+
+	@Override
+	public DetailedProductDTO getDetailedProduct(int productID) {
+		DetailedProductDTO detailedProduct = productRepository.findDetailedProductByProductID(productID);
+		if(detailedProduct.getStock() > 0)
+			detailedProduct.setStockStatus("in-stock");
+		else if(detailedProduct.getStock() == 0)
+			detailedProduct.setStockStatus("out-of-stock");
+		return detailedProduct;
 	}
 
 	
