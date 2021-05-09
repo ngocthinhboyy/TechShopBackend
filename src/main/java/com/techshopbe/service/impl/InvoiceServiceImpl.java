@@ -51,7 +51,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 		String email = userDetails.getUsername();
 		invoiceDTO.setEmail(email);
 		
-		// set detailed invoice
+		// set detailed invoice (calculate price and total price)
 		invoiceDTO.setDetailedInvoices(getDetailedInvoices(invoiceDTO.getDetailedInvoices()));
 
 		// set shipping info
@@ -98,14 +98,12 @@ public class InvoiceServiceImpl implements InvoiceService {
 		int invoiceID = invoiceRepository.findInvoiceIDByUserInvoiceIndex(userInvoiceIndex);
 		
 		// SHIPPINGINFO invoiceID, fullname, phone, address
-		if(otherShippingAddress) {
-			ShippingInfo shippingInfo = new ShippingInfo();
-			shippingInfo.setInvoiceID(invoiceID);
-			shippingInfo.setAddress(invoiceDTO.getShippingInfo().getAddress());
-			shippingInfo.setFullname(invoiceDTO.getShippingInfo().getFullname());
-			shippingInfo.setPhone(invoiceDTO.getShippingInfo().getPhone());
-			shippingInfoRepository.save(shippingInfo);
-		}
+		ShippingInfo shippingInfo = new ShippingInfo();
+		shippingInfo.setInvoiceID(invoiceID);
+		shippingInfo.setAddress(invoiceDTO.getShippingInfo().getAddress());
+		shippingInfo.setFullname(invoiceDTO.getShippingInfo().getFullname());
+		shippingInfo.setPhone(invoiceDTO.getShippingInfo().getPhone());
+		shippingInfoRepository.save(shippingInfo);
 		
 		/*
 		 * Insert new DETAILED INVOICE 
