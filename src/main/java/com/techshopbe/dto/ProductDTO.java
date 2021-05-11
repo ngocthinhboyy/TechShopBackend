@@ -14,7 +14,16 @@ public class ProductDTO {
 	private int warranty;
 	private int purchased;
 	private String specs;
+	private String categorySlug;
 	
+	public String getCategorySlug() {
+		return categorySlug;
+	}
+
+	public void setCategorySlug(String categorySlug) {
+		this.categorySlug = categorySlug;
+	}
+
 	public ProductDTO() {}
 
 	public int getProductID() {
@@ -115,7 +124,7 @@ public class ProductDTO {
 
 	public ProductDTO(int productID, String categoryName, String brandName, float productRate, String productName,
 			int productPrice, String shortDescrip, String longDescrip, int stock, int warranty, int purchased,
-			String specs) {
+			String specs, String categorySlug) {
 		super();
 		this.productID = productID;
 		this.categoryName = categoryName;
@@ -129,7 +138,10 @@ public class ProductDTO {
 		this.warranty = warranty;
 		this.purchased = purchased;
 		this.specs = specs;
-	};
+		this.categorySlug = categorySlug;
+	}
+
+	
 	
 	
 	
