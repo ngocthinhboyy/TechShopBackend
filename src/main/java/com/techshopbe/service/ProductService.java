@@ -13,4 +13,6 @@ public interface ProductService {
 	public List<ProductDTO> getProductsByCategory(String categorySlug);
 	public List<ProductDTO> getTopPurchasedProducts(int categoryID);
 	public DetailedProductDTO getDetailedProduct(int productID);
+	public List<ProductDTO> getRelatedCategoryProducts(int productID);
+	public List<ProductDTO> getRelatedBrandProducts(int productID);
 }

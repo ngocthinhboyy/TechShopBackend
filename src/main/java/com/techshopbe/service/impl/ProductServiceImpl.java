@@ -19,7 +19,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<ProductDTO> getAll() {
 		return productRepository.getAll();
-		
+
 	}
 
 	@Override
@@ -32,35 +32,54 @@ public class ProductServiceImpl implements ProductService {
 		return trendingProducts;
 	}
 
-
 	@Override
 	public List<ProductDTO> getTopPurchasedProducts(int categoryID) {
-		
+
 		List<ProductDTO> productsByCategory = productRepository.findTopPurchasedByCategoryId(categoryID);
 		List<ProductDTO> topPurchasedProducts = new ArrayList<ProductDTO>();
 		for (int i = 0; i < 5; i++) {
 			topPurchasedProducts.add(productsByCategory.get(i));
 		}
 		return topPurchasedProducts;
-		
+
 	}
 
 	@Override
 	public List<ProductDTO> getProductsByCategory(String categorySlug) {
-		
+
 		return productRepository.findByCategorySlug(categorySlug);
-		
+
 	}
 
 	@Override
 	public DetailedProductDTO getDetailedProduct(int productID) {
 		DetailedProductDTO detailedProduct = productRepository.findDetailedProductByProductID(productID);
-		if(detailedProduct.getStock() > 0)
+		if (detailedProduct.getStock() > 0)
 			detailedProduct.setStockStatus("in-stock");
-		else if(detailedProduct.getStock() == 0)
+		else if (detailedProduct.getStock() == 0)
 			detailedProduct.setStockStatus("out-of-stock");
 		return detailedProduct;
 	}
 
-	
+	@Override
+	public List<ProductDTO> getRelatedCategoryProducts(int productID) {
+		List<ProductDTO> productsByCategory = productRepository.findRelatedProductsByCategory(productID);
+		List<ProductDTO> relatedProducts = new ArrayList<ProductDTO>();
+		for (int i = 0; i < 4; i++) {
+			relatedProducts.add(productsByCategory.get(i));
+		}
+		return relatedProducts;
+	}
+
+	@Override
+	public List<ProductDTO> getRelatedBrandProducts(int productID) {
+		List<ProductDTO> productsByBrand = productRepository.findRelatedProductsByBrand(productID);
+		List<ProductDTO> relatedProducts = new ArrayList<ProductDTO>();
+		//System.out.println(productsByBrand.size());
+		for (int i = 0; i < productsByBrand.size() && i < 4; i++) {
+			relatedProducts.add(productsByBrand.get(i));
+		}
+		return relatedProducts;
+	}
+
 }

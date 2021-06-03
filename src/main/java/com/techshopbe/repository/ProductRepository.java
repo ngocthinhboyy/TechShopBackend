@@ -22,11 +22,17 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
 	@Query("SELECT new com.techshopbe.dto.ProductDTO(p.productID, c.categoryName, b.brandName, p.productRate, p.productName, p.productPrice, p.shortDescrip, p.longDescrip,p.stock, p.warranty, p.purchased, p.specs, c.categorySlug) FROM Product p, Category c, Brand b WHERE p.categoryID = c.categoryID AND p.brandID = b.brandID AND c.categorySlug = ?1")
 	List<ProductDTO> findByCategorySlug(String categorySlug);
-	
+
 	@Query("SELECT new com.techshopbe.dto.DetailedProductDTO(p.productID, p.categoryID, p.brandID, c.categoryName, b.brandName, p.productRate, p.productName, p.productPrice, p.shortDescrip, p.longDescrip,p.stock, p.warranty, p.purchased, p.specs, p.shortTech) FROM Product p, Category c, Brand b WHERE p.categoryID = c.categoryID AND p.brandID = b.brandID AND productID = ?1")
 	DetailedProductDTO findDetailedProductByProductID(int productID);
-	
-	 @Query("SELECT productPrice FROM Product p where p.productID = ?1") 
+
+	@Query("SELECT productPrice FROM Product p where p.productID = ?1")
 	int findProductPriceByProductID(int id);
+
+	@Query("SELECT new com.techshopbe.dto.ProductDTO(p.productID, c.categoryName, b.brandName, p.productRate, p.productName, p.productPrice, p.shortDescrip, p.longDescrip,p.stock, p.warranty, p.purchased, p.specs, c.categorySlug) FROM Product p, Category c, Brand b WHERE p.categoryID = c.categoryID AND p.brandID = b.brandID AND p.productID != ?1 AND c.categoryID = (SELECT categoryID FROM Product p where p.productID = ?1) ")
+	List<ProductDTO> findRelatedProductsByCategory(int productID);
 	
+	@Query("SELECT new com.techshopbe.dto.ProductDTO(p.productID, c.categoryName, b.brandName, p.productRate, p.productName, p.productPrice, p.shortDescrip, p.longDescrip,p.stock, p.warranty, p.purchased, p.specs, c.categorySlug) FROM Product p, Category c, Brand b WHERE p.categoryID = c.categoryID AND p.brandID = b.brandID AND p.productID != ?1 AND b.brandID = (SELECT brandID FROM Product p where p.productID = ?1) ")
+	List<ProductDTO> findRelatedProductsByBrand(int productID);
+
 }
