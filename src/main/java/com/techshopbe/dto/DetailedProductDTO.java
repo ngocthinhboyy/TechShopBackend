@@ -17,12 +17,22 @@ public class DetailedProductDTO {
 	private String specs;
 	private String stockStatus;
 	private String shortTech;
+	private int totalReviews;
 	
+	
+	public int getTotalReviews() {
+		return totalReviews;
+	}
+
+	public void setTotalReviews(int totalReviews) {
+		this.totalReviews = totalReviews;
+	}
+
 	public DetailedProductDTO() {}
 
 	public DetailedProductDTO(int productID, int categoryID, int brandID, String categoryName, String brandName, float productRate,
 			String productName, int productPrice, String shortDescrip, String longDescrip, int stock, int warranty,
-			int purchased, String specs, String shortTech) {
+			int purchased, String specs, String shortTech,int totalReviews) {
 		super();
 		this.productID = productID;
 		this.categoryID = categoryID;
@@ -39,6 +49,7 @@ public class DetailedProductDTO {
 		this.purchased = purchased;
 		this.specs = specs;
 		this.shortTech = shortTech;
+		this.totalReviews = totalReviews;
 	}
 	
 	
