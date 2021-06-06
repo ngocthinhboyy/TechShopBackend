@@ -15,4 +15,5 @@ public interface ProductService {
 	public DetailedProductDTO getDetailedProduct(int productID);
 	public List<ProductDTO> getRelatedCategoryProducts(int productID);
 	public List<ProductDTO> getRelatedBrandProducts(int productID);
+	public void updateRating(int productID, float rate);
 }

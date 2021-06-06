@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.redis.RedisProperties.Lettuce;
 import org.springframework.stereotype.Service;
 
 import com.techshopbe.dto.DetailedProductDTO;
 import com.techshopbe.dto.ProductDTO;
+import com.techshopbe.dto.RatingInfoDTO;
 import com.techshopbe.repository.ProductRepository;
 import com.techshopbe.service.ProductService;
 
@@ -75,11 +77,21 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductDTO> getRelatedBrandProducts(int productID) {
 		List<ProductDTO> productsByBrand = productRepository.findRelatedProductsByBrand(productID);
 		List<ProductDTO> relatedProducts = new ArrayList<ProductDTO>();
-		//System.out.println(productsByBrand.size());
+		// System.out.println(productsByBrand.size());
 		for (int i = 0; i < productsByBrand.size() && i < 4; i++) {
 			relatedProducts.add(productsByBrand.get(i));
 		}
 		return relatedProducts;
+	}
+
+	@Override
+	public void updateRating(int productID, float rate) {
+		RatingInfoDTO ratingInfoDTO = productRepository.findRatingInfoByProductID(productID);
+		int newTotalReviews = ratingInfoDTO.getTotalReviews() + 1;
+		float newRating = (ratingInfoDTO.getProductRate() * ratingInfoDTO.getTotalReviews() + rate) / newTotalReviews;
+		System.out.println(newRating);
+		System.out.println(newTotalReviews);
+		productRepository.updateRatingInfoByProductID(newRating, newTotalReviews, productID);
 	}
 
 }

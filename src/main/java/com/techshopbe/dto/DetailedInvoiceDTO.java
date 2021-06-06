@@ -7,7 +7,22 @@ public class DetailedInvoiceDTO {
 	private int quantity;
 	private int totalPrice;
 	private String productName;
+	private boolean isReviewed;
+
 	
+	
+
+	public void setReviewed(boolean isReviewed) {
+		this.isReviewed = isReviewed;
+	}
+
+	public boolean getIsReviewed() {
+		return isReviewed;
+	}
+
+	public void setIsReviewed(boolean isReviewed) {
+		this.isReviewed = isReviewed;
+	}
 
 	public String getProductName() {
 		return productName;
@@ -52,13 +67,14 @@ public class DetailedInvoiceDTO {
 		this.totalPrice = totalPrice;
 	}
 
-	public DetailedInvoiceDTO(int productID, int productPrice, int quantity, int totalPrice, String productName) {
+	public DetailedInvoiceDTO(int productID, int productPrice, int quantity, int totalPrice, String productName, boolean isReviewed) {
 		super();
 		this.productID = productID;
 		this.productPrice = productPrice;
 		this.quantity = quantity;
 		this.totalPrice = totalPrice;
 		this.productName = productName;
+		this.isReviewed = isReviewed;
 	}
 
 	

@@ -9,5 +9,6 @@ public interface InvoiceService {
 	public void add(String invoice);
 	public List<Invoice> getAllUserInvoices();
 	public InvoiceDTO getByInvoiceID(int invoiceID);
+	public void updateReviewStatus(int invoiceID, int productID);
 
 }

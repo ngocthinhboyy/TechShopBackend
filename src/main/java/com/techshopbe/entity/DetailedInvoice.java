@@ -18,13 +18,14 @@ public class DetailedInvoice {
 	private int quantity;
 	private int price;
 	private int totalPrice;
+	private boolean isReviewed;
 
 
 	public DetailedInvoice() {
 	}
 
 
-	public DetailedInvoice(int detailedInvoiceID, int invoiceID, int productID, int quantity, int price, int totalPrice) {
+	public DetailedInvoice(int detailedInvoiceID, int invoiceID, int productID, int quantity, int price, int totalPrice, boolean isReviewed) {
 		super();
 		this.detailedInvoiceID = detailedInvoiceID;
 		this.invoiceID = invoiceID;
@@ -32,6 +33,17 @@ public class DetailedInvoice {
 		this.quantity = quantity;
 		this.price = price;
 		this.totalPrice = totalPrice;
+		this.isReviewed = isReviewed;
+	}
+
+
+	public boolean getIsReviewed() {
+		return isReviewed;
+	}
+
+
+	public void setIsReviewed(boolean isReviewed) {
+		this.isReviewed = isReviewed;
 	}
 
 
