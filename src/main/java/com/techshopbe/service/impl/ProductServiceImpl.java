@@ -89,8 +89,8 @@ public class ProductServiceImpl implements ProductService {
 		RatingInfoDTO ratingInfoDTO = productRepository.findRatingInfoByProductID(productID);
 		int newTotalReviews = ratingInfoDTO.getTotalReviews() + 1;
 		float newRating = (ratingInfoDTO.getProductRate() * ratingInfoDTO.getTotalReviews() + rate) / newTotalReviews;
-		System.out.println(newRating);
-		System.out.println(newTotalReviews);
+		//System.out.println(newRating);
+		//System.out.println(newTotalReviews);
 		productRepository.updateRatingInfoByProductID(newRating, newTotalReviews, productID);
 	}
 
