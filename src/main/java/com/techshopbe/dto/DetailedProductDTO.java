@@ -18,6 +18,7 @@ public class DetailedProductDTO {
 	private String stockStatus;
 	private String shortTech;
 	private int totalReviews;
+	private String images;
 	
 	
 	public int getTotalReviews() {
@@ -32,7 +33,7 @@ public class DetailedProductDTO {
 
 	public DetailedProductDTO(int productID, int categoryID, int brandID, String categoryName, String brandName, float productRate,
 			String productName, int productPrice, String shortDescrip, String longDescrip, int stock, int warranty,
-			int purchased, String specs, String shortTech,int totalReviews) {
+			int purchased, String specs, String shortTech,int totalReviews, String images) {
 		super();
 		this.productID = productID;
 		this.categoryID = categoryID;
@@ -50,6 +51,7 @@ public class DetailedProductDTO {
 		this.specs = specs;
 		this.shortTech = shortTech;
 		this.totalReviews = totalReviews;
+		this.images = images;
 	}
 	
 	
@@ -180,6 +182,14 @@ public class DetailedProductDTO {
 
 	public void setStockStatus(String stockStatus) {
 		this.stockStatus = stockStatus;
+	}
+
+	public String getImages() {
+		return images;
+	}
+
+	public void setImages(String images) {
+		this.images = images;
 	};
 	
 	

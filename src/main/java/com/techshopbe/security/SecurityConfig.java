@@ -3,6 +3,7 @@ package com.techshopbe.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -35,10 +36,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.csrf().disable()
 			.antMatcher("/api/**")
 			.authorizeRequests()
-			.antMatchers("/api/v1/**")
-			.permitAll() 
-			.anyRequest()
-			.authenticated();
+				//.antMatchers("/api/v1/user/**")
+				//.hasAnyRole("ADMIN")
+				.antMatchers("/api/v1/invoice/**")
+				.hasAnyRole("CUSTOMER")
+				.antMatchers(HttpMethod.POST, "/api/v1/review/**")
+				.hasRole("CUSTOMER")
+				.antMatchers("/api/v1/**")
+				.permitAll() 
+				.anyRequest()
+				.authenticated();
 		
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), userDetailsService));
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

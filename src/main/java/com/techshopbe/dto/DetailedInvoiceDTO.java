@@ -8,9 +8,15 @@ public class DetailedInvoiceDTO {
 	private int totalPrice;
 	private String productName;
 	private boolean isReviewed;
+	private String images;
 
-	
-	
+	public String getImages() {
+		return images;
+	}
+
+	public void setImages(String images) {
+		this.images = images;
+	}
 
 	public void setReviewed(boolean isReviewed) {
 		this.isReviewed = isReviewed;
@@ -67,7 +73,8 @@ public class DetailedInvoiceDTO {
 		this.totalPrice = totalPrice;
 	}
 
-	public DetailedInvoiceDTO(int productID, int productPrice, int quantity, int totalPrice, String productName, boolean isReviewed) {
+	public DetailedInvoiceDTO(int productID, int productPrice, int quantity, int totalPrice, String productName,
+			boolean isReviewed, String images) {
 		super();
 		this.productID = productID;
 		this.productPrice = productPrice;
@@ -75,8 +82,7 @@ public class DetailedInvoiceDTO {
 		this.totalPrice = totalPrice;
 		this.productName = productName;
 		this.isReviewed = isReviewed;
+		this.images = images;
 	}
-
-	
 
 }

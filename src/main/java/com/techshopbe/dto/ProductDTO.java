@@ -15,7 +15,16 @@ public class ProductDTO {
 	private int purchased;
 	private String specs;
 	private String categorySlug;
+	private String images;
 	
+	public String getImages() {
+		return images;
+	}
+
+	public void setImages(String images) {
+		this.images = images;
+	}
+
 	public String getCategorySlug() {
 		return categorySlug;
 	}
@@ -124,7 +133,7 @@ public class ProductDTO {
 
 	public ProductDTO(int productID, String categoryName, String brandName, float productRate, String productName,
 			int productPrice, String shortDescrip, String longDescrip, int stock, int warranty, int purchased,
-			String specs, String categorySlug) {
+			String specs, String categorySlug, String images) {
 		super();
 		this.productID = productID;
 		this.categoryName = categoryName;
@@ -139,6 +148,7 @@ public class ProductDTO {
 		this.purchased = purchased;
 		this.specs = specs;
 		this.categorySlug = categorySlug;
+		this.images = images;
 	}
 
 	

@@ -25,13 +25,14 @@ public class Product {
 	private String specs;
 	private String shortTech;
 	private int totalReviews;
+	private String images;
 
 	public Product() {
 	}
 
 	public Product(int productID, int categoryID, int brandID, float productRate, String productName, int productPrice,
 			String shortDescrip, String longDescrip, int stock, int warranty, int purchased, String specs,
-			String shortTech, int totalReviews) {
+			String shortTech, int totalReviews, String images) {
 		super();
 		this.productID = productID;
 		this.categoryID = categoryID;
@@ -47,6 +48,15 @@ public class Product {
 		this.specs = specs;
 		this.shortTech = shortTech;
 		this.totalReviews = totalReviews;
+		this.images = images;
+	}
+
+	public String getImages() {
+		return images;
+	}
+
+	public void setImages(String images) {
+		this.images = images;
 	}
 
 	public int getTotalReviews() {
