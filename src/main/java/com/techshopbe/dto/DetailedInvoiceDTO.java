@@ -9,6 +9,16 @@ public class DetailedInvoiceDTO {
 	private String productName;
 	private boolean isReviewed;
 	private String images;
+	private String categorySlug;
+	
+
+	public String getCategorySlug() {
+		return categorySlug;
+	}
+
+	public void setCategorySlug(String categorySlug) {
+		this.categorySlug = categorySlug;
+	}
 
 	public String getImages() {
 		return images;
@@ -74,7 +84,7 @@ public class DetailedInvoiceDTO {
 	}
 
 	public DetailedInvoiceDTO(int productID, int productPrice, int quantity, int totalPrice, String productName,
-			boolean isReviewed, String images) {
+			boolean isReviewed, String images, String categorySlug) {
 		super();
 		this.productID = productID;
 		this.productPrice = productPrice;
@@ -83,6 +93,7 @@ public class DetailedInvoiceDTO {
 		this.productName = productName;
 		this.isReviewed = isReviewed;
 		this.images = images;
+		this.categorySlug = categorySlug;
 	}
 
 }
