@@ -11,27 +11,62 @@ import javax.persistence.Table;
 public class Invoice {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int invoiceID;
+	private int id;
 	private int userID;
 	private int totalCost;
-	private String invoiceDate;
-	private String shippingDate;
 	private String note;
 	private boolean otherShippingAddress;
-	private String statusInvoice= "PENDING";
+	private String status;
 	private String userInvoiceIndex;
+	private String statusID;
+	private String cancelID;
+	private boolean isCancelled;
+	private String processDate;
+	private int step;
+	private int totalItems;
+	
+	public String getStatusID() {
+		return statusID;
+	}
+
+
+	public void setStatusID(String statusID) {
+		this.statusID = statusID;
+	}
+
+
+	public boolean isCancelled() {
+		return isCancelled;
+	}
+
+
+	public void setCancelled(boolean isCancelled) {
+		this.isCancelled = isCancelled;
+	}
+
+
+	public String getProcessDate() {
+		return processDate;
+	}
+
+
+	public void setProcessDate(String processDate) {
+		this.processDate = processDate;
+	}
+
+	
 
 	public Invoice() {
 	}
 	
 
-	public String getStatusInvoice() {
-		return statusInvoice;
+	public String getStatus() {
+		return status;
 	}
 
 
-	public void setStatusInvoice(String statusInvoice) {
-		this.statusInvoice = statusInvoice;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 
@@ -45,27 +80,45 @@ public class Invoice {
 	}
 
 
-	public Invoice(int invoiceID, int userID, int totalCost, String invoiceDate, String shippingDate, String note,
-			boolean otherShippingAddress, String statusInvoice, String userInvoiceIndex) {
+	public Invoice(int id, int userID, int totalCost, String note,
+			boolean otherShippingAddress, String status, String userInvoiceIndex) {
 		super();
-		this.invoiceID = invoiceID;
+		this.id = id;
 		this.userID = userID;
 		this.totalCost = totalCost;
-		this.invoiceDate = invoiceDate;
-		this.shippingDate = shippingDate;
 		this.note = note;
 		this.otherShippingAddress = otherShippingAddress;
-		this.statusInvoice = statusInvoice;
+		this.status = status;
 		this.userInvoiceIndex = userInvoiceIndex;
 	}
+	
 
 
-	public int getInvoiceID() {
-		return invoiceID;
+	public Invoice(int id, int userID, int totalCost, String note,
+			boolean otherShippingAddress, String status, String userInvoiceIndex, String statusID, String cancelID,
+			boolean isCancelled, String processDate, int step) {
+		super();
+		this.id = id;
+		this.userID = userID;
+		this.totalCost = totalCost;
+		this.note = note;
+		this.otherShippingAddress = otherShippingAddress;
+		this.status = status;
+		this.userInvoiceIndex = userInvoiceIndex;
+		this.statusID = statusID;
+		this.cancelID = cancelID;
+		this.isCancelled = isCancelled;
+		this.processDate = processDate;
+		this.step = step;
 	}
 
-	public void setInvoiceID(int invoiceID) {
-		this.invoiceID = invoiceID;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getUserID() {
@@ -84,21 +137,6 @@ public class Invoice {
 		this.totalCost = totalCost;
 	}
 
-	public String getInvoiceDate() {
-		return invoiceDate;
-	}
-
-	public void setInvoiceDate(String invoiceDate) {
-		this.invoiceDate = invoiceDate;
-	}
-
-	public String getShippingDate() {
-		return shippingDate;
-	}
-
-	public void setShippingDate(String shippingDate) {
-		this.shippingDate = shippingDate;
-	}
 
 	public String getNote() {
 		return note;
@@ -114,6 +152,36 @@ public class Invoice {
 
 	public void setOtherShippingAddress(boolean otherShippingAddress) {
 		this.otherShippingAddress = otherShippingAddress;
+	}
+
+
+	public String getCancelID() {
+		return cancelID;
+	}
+
+
+	public void setCancelID(String cancelID) {
+		this.cancelID = cancelID;
+	}
+
+
+	public int getStep() {
+		return step;
+	}
+
+
+	public void setStep(int step) {
+		this.step = step;
+	}
+
+
+	public int getTotalItems() {
+		return totalItems;
+	}
+
+
+	public void setTotalItems(int totalItems) {
+		this.totalItems = totalItems;
 	}
 	
 	

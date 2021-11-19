@@ -1,22 +1,31 @@
 package com.techshopbe.dto;
 
+import java.util.Map;
+
 public class ProductDTO {
 
-	private int productID;
+	private int id;
 	private String categoryName;
 	private String brandName;
-	private float productRate;
-	private String productName;
-	private int productPrice;
-	private String shortDescrip;
-	private String longDescrip;
+	private float rate;
+	private String name;
+	private int price;
 	private int stock;
 	private int warranty;
 	private int purchased;
-	private String specs;
 	private String categorySlug;
 	private String images;
+	private String shortDescrip;
+
 	
+	public String getShortDescrip() {
+		return shortDescrip;
+	}
+
+	public void setShortDescrip(String shortDescrip) {
+		this.shortDescrip = shortDescrip;
+	}
+
 	public String getImages() {
 		return images;
 	}
@@ -25,22 +34,22 @@ public class ProductDTO {
 		this.images = images;
 	}
 
-	public String getCategorySlug() {
+	public String getcategorySlug() {
 		return categorySlug;
 	}
 
-	public void setCategorySlug(String categorySlug) {
+	public void setcategorySlug(String categorySlug) {
 		this.categorySlug = categorySlug;
 	}
 
 	public ProductDTO() {}
 
-	public int getProductID() {
-		return productID;
+	public int getId() {
+		return id;
 	}
 
-	public void setProductID(int productID) {
-		this.productID = productID;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getCategoryName() {
@@ -59,44 +68,28 @@ public class ProductDTO {
 		this.brandName = brandName;
 	}
 
-	public float getProductRate() {
-		return productRate;
+	public float getRate() {
+		return rate;
 	}
 
-	public void setProductRate(float productRate) {
-		this.productRate = productRate;
+	public void setRate(float rate) {
+		this.rate = rate;
 	}
 
-	public String getProductName() {
-		return productName;
+	public String getName() {
+		return name;
 	}
 
-	public void setProductName(String productName) {
-		this.productName = productName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public int getProductPrice() {
-		return productPrice;
+	public int getprice() {
+		return price;
 	}
 
-	public void setProductPrice(int productPrice) {
-		this.productPrice = productPrice;
-	}
-
-	public String getShortDescrip() {
-		return shortDescrip;
-	}
-
-	public void setShortDescrip(String shortDescrip) {
-		this.shortDescrip = shortDescrip;
-	}
-
-	public String getLongDescrip() {
-		return longDescrip;
-	}
-
-	public void setLongDescrip(String longDescrip) {
-		this.longDescrip = longDescrip;
+	public void setprice(int price) {
+		this.price = price;
 	}
 
 	public int getStock() {
@@ -123,36 +116,22 @@ public class ProductDTO {
 		this.purchased = purchased;
 	}
 
-	public String getSpecs() {
-		return specs;
-	}
-
-	public void setSpecs(String specs) {
-		this.specs = specs;
-	}
-
-	public ProductDTO(int productID, String categoryName, String brandName, float productRate, String productName,
-			int productPrice, String shortDescrip, String longDescrip, int stock, int warranty, int purchased,
-			String specs, String categorySlug, String images) {
+	public ProductDTO(int id, String categoryName, String brandName, float rate, String name,
+			int price, int stock, int warranty, int purchased, String categorySlug, String images, String shortDescrip) {
 		super();
-		this.productID = productID;
+		this.id = id;
 		this.categoryName = categoryName;
 		this.brandName = brandName;
-		this.productRate = productRate;
-		this.productName = productName;
-		this.productPrice = productPrice;
-		this.shortDescrip = shortDescrip;
-		this.longDescrip = longDescrip;
+		this.rate = rate;
+		this.name = name;
+		this.price = price;
 		this.stock = stock;
 		this.warranty = warranty;
 		this.purchased = purchased;
-		this.specs = specs;
 		this.categorySlug = categorySlug;
 		this.images = images;
+		this.shortDescrip = shortDescrip;
 	}
-
-	
-	
 	
 	
 	

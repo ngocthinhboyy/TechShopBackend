@@ -1,24 +1,24 @@
 package com.techshopbe.dto;
 
+import java.util.Map;
+
 public class DetailedProductDTO {
-	private int productID;
+	private int id;
 	private int categoryID;
 	private int brandID;
 	private String categoryName;
 	private String brandName;
-	private float productRate;
-	private String productName;
-	private int productPrice;
-	private String shortDescrip;
-	private String longDescrip;
+	private float rate;
+	private String name;
+	private int price;
 	private int stock;
 	private int warranty;
 	private int purchased;
-	private String specs;
 	private String stockStatus;
-	private String shortTech;
 	private int totalReviews;
 	private String images;
+	private String shortDescrip;
+	private Map<String, Object> specifications;
 	
 	
 	public int getTotalReviews() {
@@ -31,37 +31,24 @@ public class DetailedProductDTO {
 
 	public DetailedProductDTO() {}
 
-	public DetailedProductDTO(int productID, int categoryID, int brandID, String categoryName, String brandName, float productRate,
-			String productName, int productPrice, String shortDescrip, String longDescrip, int stock, int warranty,
-			int purchased, String specs, String shortTech,int totalReviews, String images) {
+	public DetailedProductDTO(int id, int categoryID, int brandID, String categoryName, String brandName, float rate,
+			String name, int price, int stock, int warranty,
+			int purchased,int totalReviews, String images, String shortDescrip) {
 		super();
-		this.productID = productID;
+		this.id = id;
 		this.categoryID = categoryID;
 		this.brandID = brandID;
 		this.categoryName = categoryName;
 		this.brandName = brandName;
-		this.productRate = productRate;
-		this.productName = productName;
-		this.productPrice = productPrice;
-		this.shortDescrip = shortDescrip;
-		this.longDescrip = longDescrip;
+		this.rate = rate;
+		this.name = name;
+		this.price = price;
 		this.stock = stock;
 		this.warranty = warranty;
 		this.purchased = purchased;
-		this.specs = specs;
-		this.shortTech = shortTech;
 		this.totalReviews = totalReviews;
 		this.images = images;
-	}
-	
-	
-
-	public String getShortTech() {
-		return shortTech;
-	}
-
-	public void setShortTech(String shortTech) {
-		this.shortTech = shortTech;
+		this.shortDescrip = shortDescrip;
 	}
 
 	public int getCategoryID() {
@@ -80,12 +67,12 @@ public class DetailedProductDTO {
 		this.brandID = brandID;
 	}
 
-	public int getProductID() {
-		return productID;
+	public int getId() {
+		return id;
 	}
 
-	public void setProductID(int productID) {
-		this.productID = productID;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getCategoryName() {
@@ -104,44 +91,28 @@ public class DetailedProductDTO {
 		this.brandName = brandName;
 	}
 
-	public float getProductRate() {
-		return productRate;
+	public float getRate() {
+		return rate;
 	}
 
-	public void setProductRate(float productRate) {
-		this.productRate = productRate;
+	public void setRate(float rate) {
+		this.rate = rate;
 	}
 
-	public String getProductName() {
-		return productName;
+	public String getName() {
+		return name;
 	}
 
-	public void setProductName(String productName) {
-		this.productName = productName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public int getProductPrice() {
-		return productPrice;
+	public int getPrice() {
+		return price;
 	}
 
-	public void setProductPrice(int productPrice) {
-		this.productPrice = productPrice;
-	}
-
-	public String getShortDescrip() {
-		return shortDescrip;
-	}
-
-	public void setShortDescrip(String shortDescrip) {
-		this.shortDescrip = shortDescrip;
-	}
-
-	public String getLongDescrip() {
-		return longDescrip;
-	}
-
-	public void setLongDescrip(String longDescrip) {
-		this.longDescrip = longDescrip;
+	public void setPrice(int price) {
+		this.price = price;
 	}
 
 	public int getStock() {
@@ -168,13 +139,6 @@ public class DetailedProductDTO {
 		this.purchased = purchased;
 	}
 
-	public String getSpecs() {
-		return specs;
-	}
-
-	public void setSpecs(String specs) {
-		this.specs = specs;
-	}
 
 	public String getStockStatus() {
 		return stockStatus;
@@ -190,8 +154,22 @@ public class DetailedProductDTO {
 
 	public void setImages(String images) {
 		this.images = images;
-	};
-	
-	
+	}
+
+	public String getShortDescrip() {
+		return shortDescrip;
+	}
+
+	public void setShortDescrip(String shortDescrip) {
+		this.shortDescrip = shortDescrip;
+	}
+
+	public Map<String, Object> getSpecifications() {
+		return specifications;
+	}
+
+	public void setSpecifications(Map<String, Object> specifications) {
+		this.specifications = specifications;
+	}
 	
 }

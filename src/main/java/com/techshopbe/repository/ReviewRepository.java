@@ -13,7 +13,7 @@ import com.techshopbe.entity.Review;
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Integer>  {
 	
-	@Query("SELECT new com.techshopbe.dto.ReviewDTO(r.reviewID, r.productID, u.fullname, r.reviewDate, r.reviewContent, r.rate) FROM Review r, Product p, User u WHERE r.productID = p.productID AND r.userID = u.userID AND r.productID = ?1 ORDER BY r.reviewDate DESC")
+	@Query("SELECT new com.techshopbe.dto.ReviewDTO(r.id, r.productID, u.fullname, r.reviewDate, r.reviewContent, r.rate) FROM Review r, Product p, User u WHERE r.productID = p.id AND r.userID = u.id AND r.productID = ?1 ORDER BY r.reviewDate DESC")
 	public List<ReviewDTO> getAllByProductID(int productID, Pageable page);
 
 }

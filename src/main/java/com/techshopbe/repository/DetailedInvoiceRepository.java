@@ -15,12 +15,12 @@ import com.techshopbe.entity.DetailedInvoice;
 @Repository
 public interface DetailedInvoiceRepository extends JpaRepository<DetailedInvoice, Integer>{
 
-	@Query("SELECT new com.techshopbe.dto.DetailedInvoiceDTO(p.productID, d.price, d.quantity, d.totalPrice, p.productName, d.isReviewed, p.images, c.categorySlug) FROM Product p, DetailedInvoice d, Category c WHERE p.productID = d.productID AND d.invoiceID = ?1 AND p.categoryID = c.categoryID")
+	@Query("SELECT new com.techshopbe.dto.DetailedInvoiceDTO(p.id, d.price, d.quantity, d.totalPrice, p.name, d.isReviewed, p.images, c.slug) FROM Product p, DetailedInvoice d, Category c WHERE p.id = d.productID AND d.invoiceID = ?1 AND p.categoryID = c.id")
 	List<DetailedInvoiceDTO> findAllByInvoiceID(int invoiceID);
 	
 	@Transactional
 	@Modifying
-    @Query("UPDATE DetailedInvoice d SET d.isReviewed = true WHERE d.invoiceID = ?1 AND d.productID = ?2")
+    @Query("UPDATE DetailedInvoice d SET d.isReviewed = true WHERE d.id = ?1 AND d.productID = ?2")
     int updateRatingInfoByProductID(int invoiceID, int productID);
 	
 

@@ -11,7 +11,7 @@ import javax.persistence.Table;
 public class Review {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int reviewID;
+	private int id;
 	private int productID;
 	private int userID;
 	private String reviewDate;
@@ -21,9 +21,9 @@ public class Review {
 	public Review() {
 	}
 
-	public Review(int reviewID, int productID, int userID, String reviewDate, String reviewContent, float rate) {
+	public Review(int id, int productID, int userID, String reviewDate, String reviewContent, float rate) {
 		super();
-		this.reviewID = reviewID;
+		this.id = id;
 		this.productID = productID;
 		this.userID = userID;
 		this.reviewDate = reviewDate;
@@ -31,12 +31,12 @@ public class Review {
 		this.rate = rate;
 	}
 
-	public int getReviewID() {
-		return reviewID;
+	public int getId() {
+		return id;
 	}
 
-	public void setReviewID(int reviewID) {
-		this.reviewID = reviewID;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getProductID() {

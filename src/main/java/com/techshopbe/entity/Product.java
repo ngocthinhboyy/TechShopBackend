@@ -11,14 +11,13 @@ import javax.persistence.Table;
 public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int productID;
+	private int id;
 	private int categoryID;
 	private int brandID;
-	private float productRate;
-	private String productName;
-	private int productPrice;
+	private float rate;
+	private String name;
+	private int price;
 	private String shortDescrip;
-	private String longDescrip;
 	private int stock;
 	private int warranty;
 	private int purchased;
@@ -30,18 +29,17 @@ public class Product {
 	public Product() {
 	}
 
-	public Product(int productID, int categoryID, int brandID, float productRate, String productName, int productPrice,
-			String shortDescrip, String longDescrip, int stock, int warranty, int purchased, String specs,
-			String shortTech, int totalReviews, String images) {
+	public Product(int id, int categoryID, int brandID, float rate, String name, int price, int stock, int warranty, int purchased, String specs,
+			String shortTech, int totalReviews, String images, 
+			String shortDescrip) {
 		super();
-		this.productID = productID;
+		this.id = id;
 		this.categoryID = categoryID;
 		this.brandID = brandID;
-		this.productRate = productRate;
-		this.productName = productName;
-		this.productPrice = productPrice;
+		this.rate = rate;
+		this.name = name;
+		this.price = price;
 		this.shortDescrip = shortDescrip;
-		this.longDescrip = longDescrip;
 		this.stock = stock;
 		this.warranty = warranty;
 		this.purchased = purchased;
@@ -75,12 +73,12 @@ public class Product {
 		this.shortTech = shortTech;
 	}
 
-	public int getProductID() {
-		return productID;
+	public int getId() {
+		return id;
 	}
 
-	public void setProductID(int productID) {
-		this.productID = productID;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getCategoryID() {
@@ -99,28 +97,28 @@ public class Product {
 		this.brandID = brandID;
 	}
 
-	public float getProductRate() {
-		return productRate;
+	public float getRate() {
+		return rate;
 	}
 
-	public void setProductRate(float productRate) {
-		this.productRate = productRate;
+	public void setRate(float rate) {
+		this.rate = rate;
 	}
 
-	public String getProductName() {
-		return productName;
+	public String getName() {
+		return name;
 	}
 
-	public void setProductName(String productName) {
-		this.productName = productName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public int getProductPrice() {
-		return productPrice;
+	public int getPrice() {
+		return price;
 	}
 
-	public void setProductPrice(int productPrice) {
-		this.productPrice = productPrice;
+	public void setPrice(int price) {
+		this.price = price;
 	}
 
 	public String getShortDescrip() {
@@ -129,14 +127,6 @@ public class Product {
 
 	public void setShortDescrip(String shortDescrip) {
 		this.shortDescrip = shortDescrip;
-	}
-
-	public String getLongDescrip() {
-		return longDescrip;
-	}
-
-	public void setLongDescrip(String longDescrip) {
-		this.longDescrip = longDescrip;
 	}
 
 	public int getStock() {

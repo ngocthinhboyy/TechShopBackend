@@ -12,7 +12,7 @@ public class DetailedInvoice {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int detailedInvoiceID;
+	private int id;
 	private int invoiceID;
 	private int productID;
 	private int quantity;
@@ -25,9 +25,9 @@ public class DetailedInvoice {
 	}
 
 
-	public DetailedInvoice(int detailedInvoiceID, int invoiceID, int productID, int quantity, int price, int totalPrice, boolean isReviewed) {
+	public DetailedInvoice(int id, int invoiceID, int productID, int quantity, int price, int totalPrice, boolean isReviewed) {
 		super();
-		this.detailedInvoiceID = detailedInvoiceID;
+		this.id = id;
 		this.invoiceID = invoiceID;
 		this.productID = productID;
 		this.quantity = quantity;
@@ -57,13 +57,13 @@ public class DetailedInvoice {
 	}
 
 
-	public int getDetailedInvoiceID() {
-		return detailedInvoiceID;
+	public int getId() {
+		return id;
 	}
 
 
-	public void setDetailedInvoiceID(int detailedInvoiceID) {
-		this.detailedInvoiceID = detailedInvoiceID;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 

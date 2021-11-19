@@ -38,8 +38,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 				//.antMatchers("/api/v1/user/**")
 				//.hasAnyRole("ADMIN")
-				.antMatchers("/api/v1/invoice/**")
-				.hasAnyRole("CUSTOMER")
 				.antMatchers(HttpMethod.POST, "/api/v1/review/**")
 				.hasRole("CUSTOMER")
 				.antMatchers("/api/v1/**")

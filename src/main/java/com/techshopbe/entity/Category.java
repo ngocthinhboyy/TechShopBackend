@@ -14,52 +14,53 @@ public class Category {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@JsonIgnore
-	private int categoryID;
-	private String categoryName;
-	private String categorySlug;
-	private boolean categoryExact;
+	private int id;
+	private String name;
+	private String slug;
+	private boolean exact;
 	
 	public Category() {
 	}
 
-	public Category(int categoryID, String categoryName, String categorySlug, boolean categoryExact) {
+	public Category(int id, String name, String slug, boolean exact) {
 		super();
-		this.categoryID = categoryID;
-		this.categoryName = categoryName;
-		this.categorySlug = categorySlug;
-		this.categoryExact = categoryExact;
+		this.id = id;
+		this.name = name;
+		this.slug = slug;
+		this.exact = exact;
+	}
+	
+
+	public int getId() {
+		return id;
 	}
 
-	public int getCategoryID() {
-		return categoryID;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public void setCategoryID(int categoryID) {
-		this.categoryID = categoryID;
+	public String getName() {
+		return name;
 	}
 
-	public String getCategoryName() {
-		return categoryName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
+	public String getSlug() {
+		return slug;
 	}
 
-	public String getCategorySlug() {
-		return categorySlug;
+	public void setSlug(String slug) {
+		this.slug = slug;
 	}
 
-	public void setCategorySlug(String categorySlug) {
-		this.categorySlug = categorySlug;
+	public boolean isExact() {
+		return exact;
 	}
 
-	public boolean isCategoryExact() {
-		return categoryExact;
-	}
-
-	public void setCategoryExact(boolean categoryExact) {
-		this.categoryExact = categoryExact;
+	public void setExact(boolean exact) {
+		this.exact = exact;
 	}
 
 }

@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int userID;
+	private int id;
 	private String email;
 	private String fullname;
 	@JsonProperty(access = Access.WRITE_ONLY)
@@ -27,10 +27,10 @@ public class User {
 	private int totalInvoices = 0;
 	
 	public User() {};
-	public User(int userID, String email, String fullname, String pswd, String dOB, String phone, String address,
+	public User(int id, String email, String fullname, String pswd, String dOB, String phone, String address,
 			int roleID, String gender, int totalInvoices) {
 		super();
-		this.userID = userID;
+		this.id = id;
 		this.email = email;
 		this.fullname = fullname;
 		this.pswd = pswd;
@@ -48,11 +48,11 @@ public class User {
 	public void setTotalInvoices(int totalInvoices) {
 		this.totalInvoices = totalInvoices;
 	}
-	public int getUserID() {
-		return userID;
+	public int getId() {
+		return id;
 	}
-	public void setUserID(int userID) {
-		this.userID = userID;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getEmail() {
 		return email;

@@ -1,19 +1,18 @@
 package com.techshopbe.service.impl;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StreamUtils;
 
 import com.techshopbe.dto.DetailedProductDTO;
 import com.techshopbe.dto.ProductDTO;
 import com.techshopbe.dto.RatingInfoDTO;
+import com.techshopbe.dto.SpecificationAttributeDTO;
 import com.techshopbe.repository.ProductRepository;
 import com.techshopbe.service.ProductService;
 
@@ -25,7 +24,6 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<ProductDTO> getAll() {
 		return productRepository.getAll();
-
 	}
 
 	@Override
@@ -59,7 +57,13 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public DetailedProductDTO getDetailedProduct(int productID) {
-		DetailedProductDTO detailedProduct = productRepository.findDetailedProductByProductID(productID);
+		DetailedProductDTO detailedProduct = productRepository.findDetailedProductByid(productID);
+		List<Object[]> specs = productRepository.findSpecificationsByid(productID);
+		Map<String, Object> result = new HashMap<>();
+		for(Object[] spec : specs) {
+			result.put(spec[0].toString(), spec[1]);
+		}
+		detailedProduct.setSpecifications(result);
 		if (detailedProduct.getStock() > 0)
 			detailedProduct.setStockStatus("in-stock");
 		else if (detailedProduct.getStock() == 0)
@@ -90,12 +94,22 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public void updateRating(int productID, float rate) {
-		RatingInfoDTO ratingInfoDTO = productRepository.findRatingInfoByProductID(productID);
+		RatingInfoDTO ratingInfoDTO = productRepository.findRatingInfoByid(productID);
 		int newTotalReviews = ratingInfoDTO.getTotalReviews() + 1;
 		float newRating = (ratingInfoDTO.getProductRate() * ratingInfoDTO.getTotalReviews() + rate) / newTotalReviews;
 		//System.out.println(newRating);
 		//System.out.println(newTotalReviews);
-		productRepository.updateRatingInfoByProductID(newRating, newTotalReviews, productID);
+		productRepository.updateRatingInfoByid(newRating, newTotalReviews, productID);
+	}
+
+	@Override
+	public List<SpecificationAttributeDTO> getProductSpecificationAttribute(int categoryID, int brandID) {
+		List<Object[]> objects = productRepository.getSpecificationAttributeBycategoryIDAndbrandID(categoryID, brandID);
+		List<SpecificationAttributeDTO> specifcationAttributes = new ArrayList<SpecificationAttributeDTO>();
+		for(Object[] object : objects) {
+			specifcationAttributes.add(new SpecificationAttributeDTO(Integer.parseInt(object[0].toString()),object[1].toString(),object[2].toString()));
+		}
+		return specifcationAttributes;
 	}
 
 }

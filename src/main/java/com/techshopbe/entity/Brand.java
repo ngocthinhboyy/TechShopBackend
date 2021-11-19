@@ -11,37 +11,35 @@ import javax.persistence.Table;
 public class Brand {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int brandID;
-	private String brandName;
+	private int id;
+	private String name;
 	private String brandImg;
 	public Brand() {
 	}
 
-	public Brand(int brandID, String brandName, String brandImg) {
+	public Brand(int id, String name, String brandImg) {
 		super();
-		this.brandID = brandID;
-		this.brandName = brandName;
+		this.id = id;
+		this.name = name;
 		this.brandImg = brandImg;
 	}
 
 
-	public int getBrandID() {
-		return brandID;
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 
-	public void setBrandID(int brandID) {
-		this.brandID = brandID;
-	}
-
-
-	public String getBrandName() {
-		return brandName;
-	}
-
-
-	public void setBrandName(String brandName) {
-		this.brandName = brandName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 

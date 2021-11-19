@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.techshopbe.dto.DetailedProductDTO;
 import com.techshopbe.dto.ProductDTO;
+import com.techshopbe.dto.SpecificationAttributeDTO;
 import com.techshopbe.service.ProductService;
 
 
@@ -41,6 +42,7 @@ public class ProductController {
 			DetailedProductDTO detailedProduct = productService.getDetailedProduct(productID);
 			return new ResponseEntity<DetailedProductDTO>(detailedProduct, HttpStatus.OK);
 		} catch (Exception e) {
+			System.out.println(e);
 			return new ResponseEntity<String>("Failed", HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -96,6 +98,16 @@ public class ProductController {
 			List<ProductDTO> relatedBrandProducts = productService.getRelatedBrandProducts(productID);
 
 			return new ResponseEntity<List<ProductDTO>>(relatedBrandProducts, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>("Failed", HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping(value = "specification/{categoryID}/{brandID}")
+	public Object getProductSpecificationAttribute(@PathVariable int categoryID, @PathVariable int brandID) {
+		try {
+			List<SpecificationAttributeDTO> specificationAttributes = productService.getProductSpecificationAttribute(categoryID, brandID);
+			return new ResponseEntity<List<SpecificationAttributeDTO>>(specificationAttributes, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<String>("Failed", HttpStatus.BAD_REQUEST);
 		}

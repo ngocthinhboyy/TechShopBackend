@@ -1,7 +1,9 @@
 package com.techshopbe.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -12,13 +14,18 @@ import com.google.gson.Gson;
 import com.techshopbe.dto.DetailedInvoiceDTO;
 import com.techshopbe.dto.InvoiceDTO;
 import com.techshopbe.dto.ShippingInfoDTO;
+import com.techshopbe.dto.InvoiceForUserDTO;
+import com.techshopbe.entity.CancelInvoice;
 import com.techshopbe.entity.DetailedInvoice;
 import com.techshopbe.entity.Invoice;
+import com.techshopbe.entity.StatusInvoice;
 import com.techshopbe.entity.ShippingInfo;
+import com.techshopbe.repository.CancelInvoiceRepository;
 import com.techshopbe.repository.DetailedInvoiceRepository;
 import com.techshopbe.repository.InvoiceRepository;
 import com.techshopbe.repository.ProductRepository;
 import com.techshopbe.repository.ShippingInfoRepository;
+import com.techshopbe.repository.StatusInvoiceRepository;
 import com.techshopbe.repository.UserRepository;
 import com.techshopbe.security.CustomUserDetails;
 import com.techshopbe.service.InvoiceService;
@@ -36,6 +43,10 @@ public class InvoiceServiceImpl implements InvoiceService {
 	ShippingInfoRepository shippingInfoRepository;
 	@Autowired
 	DetailedInvoiceRepository detailedInvoiceRepository;
+	@Autowired
+	StatusInvoiceRepository statusInvoiceRepository;
+	@Autowired
+	CancelInvoiceRepository cancelInvoiceRepository;
 
 	@Override
 	public void add(String invoice) {
@@ -70,24 +81,26 @@ public class InvoiceServiceImpl implements InvoiceService {
 		// otherShippingAddress, statusInvoice
 		// shipping Date: now + 10 ngày
 		int userID = userDetails.getUserID();
-		LocalDateTime invoiceDate = LocalDateTime.now();
-		LocalDateTime shippingDate = invoiceDate.plusDays(3);
+		LocalDateTime processDate = LocalDateTime.now();
 
 		// totalInvoices: lưu tổng số hoá đơn của người dùng
 		// userInvoiceIndex: là key phân biệt các invoice (không lấy newest id)
 		// (userInvoiceIndex = email + totalInvoices)
 		int totalInvoices = userRepository.findTotalInvoicesByEmail(email);
 		String userInvoiceIndex = email + String.valueOf(totalInvoices);
+		StatusInvoice statusInvoice = statusInvoiceRepository.findByStep(1);
 
 		Invoice invoiceEntity = new Invoice();
+		int totalItems = 0;
 		invoiceEntity.setUserID(userID);
 		invoiceEntity.setTotalCost(invoiceDTO.getTotalPrice());
-		invoiceEntity.setInvoiceDate(invoiceDate.toString());
-		invoiceEntity.setShippingDate(shippingDate.toString());
 		invoiceEntity.setNote(invoiceDTO.getNote());
 		invoiceEntity.setOtherShippingAddress(otherShippingAddress);
 		invoiceEntity.setUserInvoiceIndex(userInvoiceIndex);
-
+		invoiceEntity.setStatusID(statusInvoice.getId());
+		invoiceEntity.setProcessDate(processDate.toString());
+		invoiceEntity.setStep(1);
+		invoiceEntity.setTotalItems(totalItems);
 		invoiceEntity = invoiceRepository.save(invoiceEntity);
 		// after insert invoice, increase totalInvoices of user
 		userRepository.updateTotalInvoicesByEmail(totalInvoices + 1, email);
@@ -118,8 +131,11 @@ public class InvoiceServiceImpl implements InvoiceService {
 			detailedInvoice.setProductID(detailedInvoiceDTO.getProductID());
 			detailedInvoice.setQuantity(detailedInvoiceDTO.getQuantity());
 			detailedInvoice.setTotalPrice(detailedInvoiceDTO.getTotalPrice());
+			totalItems += detailedInvoiceDTO.getQuantity();
 			detailedInvoiceRepository.save(detailedInvoice);
 		}
+		invoiceEntity.setTotalItems(totalItems);
+		invoiceRepository.save(invoiceEntity);
 
 	}
 
@@ -151,28 +167,69 @@ public class InvoiceServiceImpl implements InvoiceService {
 	}
 
 	@Override
-	public List<Invoice> getAllUserInvoices() {
+	public List<InvoiceForUserDTO> getAllUserInvoices() {
 		// TODO Auto-generated method stub
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
-
-		return invoiceRepository.findByUserID(userDetails.getUserID());
+		List<Invoice> invoices = invoiceRepository.findByUserID(userDetails.getUserID());
+		
+		List<InvoiceForUserDTO> invoicesForUser = new ArrayList<InvoiceForUserDTO>();
+		for (Invoice invoice: invoices) {
+			List<DetailedInvoiceDTO> detailedInvoices = detailedInvoiceRepository.findAllByInvoiceID(invoice.getId());
+			InvoiceForUserDTO invoiceForUser = new InvoiceForUserDTO();
+			invoiceForUser.setId(invoice.getId());
+			invoiceForUser.setTotal(invoice.getTotalCost());
+			invoiceForUser.setTotalItems(invoice.getTotalItems());
+			if(detailedInvoices.get(0) != null) {
+				invoiceForUser.setFirstProduct(detailedInvoices.get(0).getProductID(), detailedInvoices.get(0).getCategorySlug(), detailedInvoices.get(0).getProductName(), detailedInvoices.get(0).getImages(), detailedInvoices.get(0).getQuantity(), detailedInvoices.get(0).getProductPrice(), detailedInvoices.get(0).getProductPrice(), detailedInvoices.get(0).getTotalPrice());
+			}
+			
+			if(invoice.isCancelled()) {
+				CancelInvoice cancelInvoice = cancelInvoiceRepository.findById(invoice.getCancelID());
+				invoiceForUser.setStatus("Cancel");
+				invoiceForUser.setReason(cancelInvoice.getReason());
+			} else {
+				StatusInvoice statusInvoice = statusInvoiceRepository.findByid(invoice.getStatusID());
+				invoiceForUser.setStatus(statusInvoice.getStatus());
+				invoiceForUser.setStatusDetail(statusInvoice.getDetail());
+				invoiceForUser.setStatusNote(statusInvoice.getNote());
+			}
+			invoicesForUser.add(invoiceForUser);
+		}
+		return invoicesForUser;
 	}
 
 	@Override
 	public InvoiceDTO getByInvoiceID(int invoiceID) {
 		List<DetailedInvoiceDTO> detailedInvoices = detailedInvoiceRepository.findAllByInvoiceID(invoiceID);
 		ShippingInfoDTO shippingInfo = shippingInfoRepository.findByInvoiceID(invoiceID);
-		Invoice invoice = invoiceRepository.findByInvoiceID(invoiceID);
+		Invoice invoice = invoiceRepository.findByid(invoiceID);
+
+		StatusInvoice statusInvoice = statusInvoiceRepository.findByid(invoice.getStatusID());
 
 		InvoiceDTO invoiceDTO = new InvoiceDTO();
 		invoiceDTO.setDetailedInvoices(detailedInvoices);
 		invoiceDTO.setNote(invoice.getNote());
 		invoiceDTO.setShippingInfo(shippingInfo);
-		invoiceDTO.setStatusInvoice(invoice.getStatusInvoice());
+		invoiceDTO.setStatus(invoice.getStatus());
 		invoiceDTO.setTotalPrice(invoice.getTotalCost());
-		invoiceDTO.setShippingDate(invoice.getShippingDate());
-		invoiceDTO.setInvoiceDate(invoice.getInvoiceDate());
+		invoiceDTO.setTotalItems(invoice.getTotalItems());
+		if(invoice.isCancelled()) {
+			CancelInvoice cancelInvoice = cancelInvoiceRepository.findById(invoice.getCancelID());
+			statusInvoice = statusInvoiceRepository.findByStep(1);
+			invoiceDTO.setCancelled(true);
+			invoiceDTO.setCancelledDate(cancelInvoice.getCancelledDate());
+			invoiceDTO.setReason(cancelInvoice.getReason());
+			invoiceDTO.setStatus(statusInvoice.getStatus());
+			String[] processDate = {invoice.getProcessDate().split(", ")[0]};
+			invoiceDTO.setProcessDate(processDate);
+		}
+		else {
+			invoiceDTO.setStatus(statusInvoice.getStatus());
+			invoiceDTO.setStatusDetail(statusInvoice.getDetail());
+			invoiceDTO.setStatusNote(statusInvoice.getNote());
+			invoiceDTO.setProcessDate(invoice.getProcessDate().split(", "));
+		}
 
 		return invoiceDTO;
 	}
@@ -181,6 +238,58 @@ public class InvoiceServiceImpl implements InvoiceService {
 	public void updateReviewStatus(int invoiceID, int productID) {
 		detailedInvoiceRepository.updateRatingInfoByProductID(invoiceID, productID);
 
+	}
+
+	@Override
+	public void updateStatusInvoice(int invoiceID) throws Exception {
+		Invoice invoice = invoiceRepository.findByid(invoiceID);
+
+		if (invoice.getStep() < 6 && !invoice.isCancelled()) {
+			StatusInvoice statusInvoice = statusInvoiceRepository.findByStep(invoice.getStep() + 1);
+			LocalDateTime processDate = LocalDateTime.now();
+			
+			invoice.setStep(invoice.getStep() + 1);
+			invoice.setStatusID(statusInvoice.getId());
+			invoice.setProcessDate(invoice.getProcessDate() + ", " + processDate.toString());
+			invoiceRepository.save(invoice);
+		} else {
+			throw new Exception("Already Done Process Or Cancelled");
+		}
+	}
+
+	@Override
+	public void cancelInvoice(int invoiceID, String reason) throws Exception {
+		Invoice invoice = invoiceRepository.findByid(invoiceID);
+		
+		if (!invoice.isCancelled() && invoice.getStep() < 5) {
+			String cancelID = UUID.randomUUID().toString();
+			LocalDateTime cancelDate = LocalDateTime.now();
+			CancelInvoice cancelInvoice = new CancelInvoice();
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
+			
+			cancelInvoice.setId(cancelID);
+			cancelInvoice.setCancelledDate(cancelDate.toString());
+			if(!reason.isEmpty())
+				cancelInvoice.setReason(reason.substring(1, reason.length() - 1));
+			else 
+				cancelInvoice.setReason("");
+			if(userDetails.getAuthorities().toString().contains("CUSTOMER"))
+				cancelInvoice.setWhoCancel("CUSTOMER");
+			else
+				cancelInvoice.setWhoCancel("ADMIN");
+			
+			invoice.setCancelID(cancelID);
+			invoice.setCancelled(true);
+			
+			cancelInvoiceRepository.save(cancelInvoice);
+			invoiceRepository.save(invoice);
+		} else if (invoice.isCancelled()) {
+			throw new Exception("Already Cancelled");
+		} else if (invoice.getStep() >= 5) {
+			throw new Exception("Cancel Failed");
+		}
+		
 	}
 
 }

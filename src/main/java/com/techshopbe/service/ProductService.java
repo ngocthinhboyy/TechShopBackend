@@ -6,6 +6,7 @@ import javax.swing.SortOrder;
 
 import com.techshopbe.dto.DetailedProductDTO;
 import com.techshopbe.dto.ProductDTO;
+import com.techshopbe.dto.SpecificationAttributeDTO;
 
 public interface ProductService {
 	public List<ProductDTO> getAll();
@@ -16,4 +17,5 @@ public interface ProductService {
 	public List<ProductDTO> getRelatedCategoryProducts(int productID);
 	public List<ProductDTO> getRelatedBrandProducts(int productID);
 	public void updateRating(int productID, float rate);
+	public List<SpecificationAttributeDTO> getProductSpecificationAttribute(int categoryID, int brandID);
 }

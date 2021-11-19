@@ -11,7 +11,7 @@ import javax.persistence.Table;
 public class SaleProduct {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int productID;
+	private int id;
 	private String startSale;
 	private String endSale;
 	private int productPrice;
@@ -20,21 +20,21 @@ public class SaleProduct {
 	}
 	
 
-	public SaleProduct(int productID, String startSale, String endSale, int productPrice) {
+	public SaleProduct(int id, String startSale, String endSale, int productPrice) {
 		super();
-		this.productID = productID;
+		this.id = id;
 		this.startSale = startSale;
 		this.endSale = endSale;
 		this.productPrice = productPrice;
 	}
 
 
-	public int getProductID() {
-		return productID;
+	public int getId() {
+		return id;
 	}
 
-	public void setProductID(int productID) {
-		this.productID = productID;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getStartSale() {
