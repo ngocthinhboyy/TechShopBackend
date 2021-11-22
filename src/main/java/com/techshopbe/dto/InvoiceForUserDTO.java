@@ -13,6 +13,7 @@ public class InvoiceForUserDTO {
 	private int totalItems;
 	private int total;
 	private FirstProduct firstProduct;
+	private String lastConfirm;
 	public int getId() {
 		return id;
 	}
@@ -43,13 +44,14 @@ public class InvoiceForUserDTO {
 	public void setTotalItems(int totalItems) {
 		this.totalItems = totalItems;
 	}
-	public InvoiceForUserDTO(int id, String status, String statusNote, String statusDetail, int totalItems) {
+	public InvoiceForUserDTO(int id, String status, String statusNote, String statusDetail, int totalItems, String lastConfirm) {
 		super();
 		this.id = id;
 		this.status = status;
 		this.statusNote = statusNote;
 		this.statusDetail = statusDetail;
 		this.totalItems = totalItems;
+		this.lastConfirm = lastConfirm;
 		this.firstProduct = new FirstProduct();
 	}
 	public InvoiceForUserDTO() {};
@@ -79,6 +81,12 @@ public class InvoiceForUserDTO {
 	}
 	public void setReason(String reason) {
 		this.reason = reason;
+	}
+	public String getLastConfirm() {
+		return lastConfirm;
+	}
+	public void setLastConfirm(String lastConfirm) {
+		this.lastConfirm = lastConfirm;
 	}
 	
 }

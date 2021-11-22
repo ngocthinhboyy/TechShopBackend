@@ -169,9 +169,9 @@ public class InvoiceServiceImpl implements InvoiceService {
 		// TODO Auto-generated method stub
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
-		List<Invoice> invoices = invoiceRepository.findByUserID(userDetails.getUserID());
-		
+		List<Invoice> invoices = new ArrayList<Invoice>();
 		List<InvoiceForUserDTO> invoicesForUser = new ArrayList<InvoiceForUserDTO>();
+		invoices = invoiceRepository.findByUserID(userDetails.getUserID());
 		for (Invoice invoice: invoices) {
 			List<DetailedInvoiceDTO> detailedInvoices = detailedInvoiceRepository.findAllByInvoiceID(invoice.getId());
 			InvoiceForUserDTO invoiceForUser = new InvoiceForUserDTO();
@@ -211,7 +211,6 @@ public class InvoiceServiceImpl implements InvoiceService {
 		invoiceDTO.setNote(invoice.getNote());
 		invoiceDTO.setShippingInfo(shippingInfo);
 		invoiceDTO.setStatus(invoice.getStatus());
-		System.out.println(invoice.getStatus());
 		invoiceDTO.setTotal(invoice.getTotalCost());
 		invoiceDTO.setTotalItems(invoice.getTotalItems());
 		if(invoice.isCancelled()) {
@@ -220,9 +219,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 			invoiceDTO.setCancelled(true);
 			invoiceDTO.setCancelledDate(cancelInvoice.getCancelledDate());
 			invoiceDTO.setReason(cancelInvoice.getReason());
-//			invoiceDTO.setStatus(statusInvoice.getStatus());
 			invoiceDTO.setStatus("Cancelled");
-			System.out.println(statusInvoice.getStatus());
 			String[] processDate = {invoice.getProcessDate().split(", ")[0]};
 			invoiceDTO.setProcessDate(processDate);
 		}
@@ -292,6 +289,45 @@ public class InvoiceServiceImpl implements InvoiceService {
 			throw new Exception("Cancel Failed");
 		}
 		
+	}
+
+	@Override
+	public List<InvoiceForUserDTO> getAllInvoicesByMonthAndYear(int month, int year) {
+		
+		List<Invoice> invoices = new ArrayList<Invoice>();
+		List<InvoiceForUserDTO> allInvoicesByMonthAndYear = new ArrayList<InvoiceForUserDTO>();
+		invoices = invoiceRepository.findAll();
+		for (Invoice invoice: invoices) {
+			InvoiceForUserDTO invoiceForUser = new InvoiceForUserDTO();
+			invoiceForUser.setId(invoice.getId());
+			invoiceForUser.setTotal(invoice.getTotalCost());
+			invoiceForUser.setTotalItems(invoice.getTotalItems());
+			int monthLastConfirm = -1;
+			int yearLastConfirm = -1;
+			if(invoice.isCancelled()) {
+				CancelInvoice cancelInvoice = cancelInvoiceRepository.findById(invoice.getCancelID());
+				invoiceForUser.setStatus("Cancelled");
+				invoiceForUser.setStatusDetail("Cancelled");
+				invoiceForUser.setReason(cancelInvoice.getReason());
+				monthLastConfirm = Integer.parseInt(cancelInvoice.getCancelledDate().split("-")[1]);
+				yearLastConfirm = Integer.parseInt(cancelInvoice.getCancelledDate().split("-")[0]);
+				invoiceForUser.setLastConfirm(cancelInvoice.getCancelledDate());
+			} else {
+				StatusInvoice statusInvoice = statusInvoiceRepository.findByid(invoice.getStatusID());
+				invoiceForUser.setStatus(statusInvoice.getStatus());
+				invoiceForUser.setStatusDetail(statusInvoice.getDetail());
+				invoiceForUser.setStatusNote(statusInvoice.getNote());
+				String[] arrProcessDate =  invoice.getProcessDate().split(", ");
+				monthLastConfirm = Integer.parseInt(arrProcessDate[arrProcessDate.length - 1].split("-")[1]);
+				yearLastConfirm = Integer.parseInt(arrProcessDate[arrProcessDate.length - 1].split("-")[0]);
+				invoiceForUser.setLastConfirm(arrProcessDate[arrProcessDate.length - 1]);
+			}
+			if(month == monthLastConfirm && year == yearLastConfirm) {
+				allInvoicesByMonthAndYear.add(invoiceForUser);
+			}
+		}
+
+		return allInvoicesByMonthAndYear;
 	}
 
 }

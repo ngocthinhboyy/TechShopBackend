@@ -32,8 +32,18 @@ public class InvoiceController {
 			invoiceService.add(invoice);
 			return new ResponseEntity<String>("Order Successfully!", HttpStatus.CREATED);
 		} catch(Exception e) {
-			System.out.println(e);
 			return new ResponseEntity<String>("Order Failed", HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping(value = "/{month}/{year}")
+	public Object getAllInvoicesByMonthAndYear(@PathVariable int month, @PathVariable int year) {
+		
+		try {
+			List<InvoiceForUserDTO> userInvoices = invoiceService.getAllInvoicesByMonthAndYear(month, year);
+			return new ResponseEntity<List<InvoiceForUserDTO>>(userInvoices, HttpStatus.OK);
+		} catch(Exception e) {
+			return new ResponseEntity<String>("Failed", HttpStatus.BAD_REQUEST);
 		}
 	}
 	

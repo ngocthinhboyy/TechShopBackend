@@ -17,4 +17,5 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Integer>{
 	
 	List<Invoice> findByUserID(int userID);
 	Invoice findByid(int id);
+	List<Invoice> findAll();
 }
