@@ -84,9 +84,10 @@ public class ProductController {
 		
 		try {
 			List<ProductDTO> relatedCategoryProducts = productService.getRelatedCategoryProducts(productID);
-
+			
 			return new ResponseEntity<List<ProductDTO>>(relatedCategoryProducts, HttpStatus.OK);
 		} catch (Exception e) {
+			System.out.println(e);
 			return new ResponseEntity<String>("Failed", HttpStatus.BAD_REQUEST);
 		}
 	}

@@ -32,7 +32,7 @@ public class InvoiceController {
 			invoiceService.add(invoice);
 			return new ResponseEntity<String>("Order Successfully!", HttpStatus.CREATED);
 		} catch(Exception e) {
-			
+			System.out.println(e);
 			return new ResponseEntity<String>("Order Failed", HttpStatus.BAD_REQUEST);
 		}
 	}

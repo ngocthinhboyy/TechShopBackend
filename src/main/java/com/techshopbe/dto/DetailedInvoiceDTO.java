@@ -2,69 +2,30 @@ package com.techshopbe.dto;
 
 // chi tiet hoa don
 public class DetailedInvoiceDTO {
-	private int productID;
-	private int productPrice;
+	private int id;
+	private int oldPrice;
 	private int quantity;
 	private int totalPrice;
-	private String productName;
+	private String name;
 	private boolean isReviewed;
 	private String images;
 	private String categorySlug;
-	
+	private int salePrice;
 
-	public String getCategorySlug() {
-		return categorySlug;
+	public int getId() {
+		return id;
 	}
 
-	public void setCategorySlug(String categorySlug) {
-		this.categorySlug = categorySlug;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public String getImages() {
-		return images;
+	public int getOldPrice() {
+		return oldPrice;
 	}
 
-	public void setImages(String images) {
-		this.images = images;
-	}
-
-	public void setReviewed(boolean isReviewed) {
-		this.isReviewed = isReviewed;
-	}
-
-	public boolean getIsReviewed() {
-		return isReviewed;
-	}
-
-	public void setIsReviewed(boolean isReviewed) {
-		this.isReviewed = isReviewed;
-	}
-
-	public String getProductName() {
-		return productName;
-	}
-
-	public void setProductName(String productName) {
-		this.productName = productName;
-	}
-
-	public DetailedInvoiceDTO() {
-	}
-
-	public int getProductID() {
-		return productID;
-	}
-
-	public void setProductID(int productID) {
-		this.productID = productID;
-	}
-
-	public int getProductPrice() {
-		return productPrice;
-	}
-
-	public void setProductPrice(int productPrice) {
-		this.productPrice = productPrice;
+	public void setOldPrice(int oldPrice) {
+		this.oldPrice = oldPrice;
 	}
 
 	public int getQuantity() {
@@ -83,17 +44,58 @@ public class DetailedInvoiceDTO {
 		this.totalPrice = totalPrice;
 	}
 
-	public DetailedInvoiceDTO(int productID, int productPrice, int quantity, int totalPrice, String productName,
-			boolean isReviewed, String images, String categorySlug) {
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public boolean isReviewed() {
+		return isReviewed;
+	}
+
+	public void setReviewed(boolean isReviewed) {
+		this.isReviewed = isReviewed;
+	}
+
+	public String getImages() {
+		return images;
+	}
+
+	public void setImages(String images) {
+		this.images = images;
+	}
+
+	public String getCategorySlug() {
+		return categorySlug;
+	}
+
+	public void setCategorySlug(String categorySlug) {
+		this.categorySlug = categorySlug;
+	}
+
+	public int getSalePrice() {
+		return salePrice;
+	}
+
+	public void setSalePrice(int salePrice) {
+		this.salePrice = salePrice;
+	}
+
+	public DetailedInvoiceDTO(int id, int oldPrice, int quantity, int totalPrice, String name, boolean isReviewed,
+			String images, String categorySlug, int salePrice) {
 		super();
-		this.productID = productID;
-		this.productPrice = productPrice;
+		this.id = id;
+		this.oldPrice = oldPrice;
 		this.quantity = quantity;
 		this.totalPrice = totalPrice;
-		this.productName = productName;
+		this.name = name;
 		this.isReviewed = isReviewed;
 		this.images = images;
 		this.categorySlug = categorySlug;
+		this.salePrice = salePrice;
 	}
 
 }

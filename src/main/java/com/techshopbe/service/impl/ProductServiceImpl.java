@@ -60,7 +60,7 @@ public class ProductServiceImpl implements ProductService {
 		DetailedProductDTO detailedProduct = productRepository.findDetailedProductByid(productID);
 		List<Object[]> specs = productRepository.findSpecificationsByid(productID);
 		Map<String, Object> result = new HashMap<>();
-		for(Object[] spec : specs) {
+		for (Object[] spec : specs) {
 			result.put(spec[0].toString(), spec[1]);
 		}
 		detailedProduct.setSpecifications(result);
@@ -75,7 +75,7 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductDTO> getRelatedCategoryProducts(int productID) {
 		List<ProductDTO> productsByCategory = productRepository.findRelatedProductsByCategory(productID);
 		List<ProductDTO> relatedProducts = new ArrayList<ProductDTO>();
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < productsByCategory.size() && i < 4; i++) {
 			relatedProducts.add(productsByCategory.get(i));
 		}
 		return relatedProducts;
@@ -97,8 +97,8 @@ public class ProductServiceImpl implements ProductService {
 		RatingInfoDTO ratingInfoDTO = productRepository.findRatingInfoByid(productID);
 		int newTotalReviews = ratingInfoDTO.getTotalReviews() + 1;
 		float newRating = (ratingInfoDTO.getProductRate() * ratingInfoDTO.getTotalReviews() + rate) / newTotalReviews;
-		//System.out.println(newRating);
-		//System.out.println(newTotalReviews);
+		// System.out.println(newRating);
+		// System.out.println(newTotalReviews);
 		productRepository.updateRatingInfoByid(newRating, newTotalReviews, productID);
 	}
 
@@ -106,8 +106,9 @@ public class ProductServiceImpl implements ProductService {
 	public List<SpecificationAttributeDTO> getProductSpecificationAttribute(int categoryID, int brandID) {
 		List<Object[]> objects = productRepository.getSpecificationAttributeBycategoryIDAndbrandID(categoryID, brandID);
 		List<SpecificationAttributeDTO> specifcationAttributes = new ArrayList<SpecificationAttributeDTO>();
-		for(Object[] object : objects) {
-			specifcationAttributes.add(new SpecificationAttributeDTO(Integer.parseInt(object[0].toString()),object[1].toString(),object[2].toString()));
+		for (Object[] object : objects) {
+			specifcationAttributes.add(new SpecificationAttributeDTO(Integer.parseInt(object[0].toString()),
+					object[1].toString(), object[2].toString()));
 		}
 		return specifcationAttributes;
 	}

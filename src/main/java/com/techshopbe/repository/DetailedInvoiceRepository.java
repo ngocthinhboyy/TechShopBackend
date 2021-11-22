@@ -15,7 +15,7 @@ import com.techshopbe.entity.DetailedInvoice;
 @Repository
 public interface DetailedInvoiceRepository extends JpaRepository<DetailedInvoice, Integer>{
 
-	@Query("SELECT new com.techshopbe.dto.DetailedInvoiceDTO(p.id, d.price, d.quantity, d.totalPrice, p.name, d.isReviewed, p.images, c.slug) FROM Product p, DetailedInvoice d, Category c WHERE p.id = d.productID AND d.invoiceID = ?1 AND p.categoryID = c.id")
+	@Query("SELECT new com.techshopbe.dto.DetailedInvoiceDTO(p.id, d.price, d.quantity, d.totalPrice, p.name, d.isReviewed, p.images, c.slug, d.price) FROM Product p, DetailedInvoice d, Category c WHERE p.id = d.productID AND d.invoiceID = ?1 AND p.categoryID = c.id")
 	List<DetailedInvoiceDTO> findAllByInvoiceID(int invoiceID);
 	
 	@Transactional

@@ -12,7 +12,7 @@ public class InvoiceDTO {
 
 	private String email;
 
-	private int totalPrice;
+	private int total;
 
 	private String note;
 	private String status;
@@ -94,12 +94,14 @@ public class InvoiceDTO {
 		this.email = email;
 	}
 
-	public int getTotalPrice() {
-		return totalPrice;
+	
+
+	public int getTotal() {
+		return total;
 	}
 
-	public void setTotalPrice(int totalPrice) {
-		this.totalPrice = totalPrice;
+	public void setTotal(int total) {
+		this.total = total;
 	}
 
 	public String getNote() {
@@ -119,24 +121,24 @@ public class InvoiceDTO {
 	}
 
 	public InvoiceDTO(List<DetailedInvoiceDTO> detailedInvoices, ShippingInfoDTO shippingInfo, String email,
-			int totalPrice, String note, String status) {
+			int total, String note, String status) {
 		super();
 		this.detailedInvoices = detailedInvoices;
 		this.shippingInfo = shippingInfo;
 		this.email = email;
-		this.totalPrice = totalPrice;
+		this.total = total;
 		this.note = note;
 		this.status = status;
 	}
 
 	public InvoiceDTO(List<DetailedInvoiceDTO> detailedInvoices, ShippingInfoDTO shippingInfo, String email,
-			int totalPrice, String note, String status,
+			int total, String note, String status,
 			String statusNote, String statusDetail, boolean isCancelled, String[] processDate, String cancelledDate) {
 		super();
 		this.detailedInvoices = detailedInvoices;
 		this.shippingInfo = shippingInfo;
 		this.email = email;
-		this.totalPrice = totalPrice;
+		this.total = total;
 		this.note = note;
 		this.status = status;
 		this.statusNote = statusNote;

@@ -62,7 +62,7 @@ public class InvoiceForUserDTO {
 		this.firstProduct.id = id;
 		this.firstProduct.categorySlug = categorySlug;
 		this.firstProduct.name = name;
-		this.firstProduct.image = image;
+		this.firstProduct.images = image;
 		this.firstProduct.quantity = quantity;
 		this.firstProduct.oldPrice = oldPrice;
 		this.firstProduct.salePrice = salePrice;
@@ -87,7 +87,7 @@ class FirstProduct {
 	public int id;
 	public String categorySlug;
 	public String name;
-	public String image;
+	public String images;
 	public int quantity;
 	public int oldPrice;
 	public int salePrice;
@@ -99,7 +99,7 @@ class FirstProduct {
 		this.id = id;
 		this.categorySlug = categorySlug;
 		this.name = name;
-		this.image = image;
+		this.images = image;
 		this.quantity = quantity;
 		this.oldPrice = oldPrice;
 		this.salePrice = salePrice;

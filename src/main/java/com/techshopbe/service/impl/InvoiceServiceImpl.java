@@ -52,7 +52,6 @@ public class InvoiceServiceImpl implements InvoiceService {
 	public void add(String invoice) {
 		Gson g = new Gson();
 		InvoiceDTO invoiceDTO = g.fromJson(invoice, InvoiceDTO.class);
-
 		boolean otherShippingAddress = true;
 
 		// set email
@@ -72,7 +71,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 		}
 
 		// set total price of invoice
-		invoiceDTO.setTotalPrice(calculateTotalInvoiceCost(invoiceDTO.getDetailedInvoices()));
+		invoiceDTO.setTotal(calculateTotalInvoiceCost(invoiceDTO.getDetailedInvoices()));
 
 		/*
 		 * Insert new invoice
@@ -93,7 +92,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 		Invoice invoiceEntity = new Invoice();
 		int totalItems = 0;
 		invoiceEntity.setUserID(userID);
-		invoiceEntity.setTotalCost(invoiceDTO.getTotalPrice());
+		invoiceEntity.setTotalCost(invoiceDTO.getTotal());
 		invoiceEntity.setNote(invoiceDTO.getNote());
 		invoiceEntity.setOtherShippingAddress(otherShippingAddress);
 		invoiceEntity.setUserInvoiceIndex(userInvoiceIndex);
@@ -127,8 +126,8 @@ public class InvoiceServiceImpl implements InvoiceService {
 		for (DetailedInvoiceDTO detailedInvoiceDTO : invoiceDTO.getDetailedInvoices()) {
 			DetailedInvoice detailedInvoice = new DetailedInvoice();
 			detailedInvoice.setInvoiceID(invoiceID);
-			detailedInvoice.setPrice(detailedInvoiceDTO.getProductPrice());
-			detailedInvoice.setProductID(detailedInvoiceDTO.getProductID());
+			detailedInvoice.setPrice(detailedInvoiceDTO.getOldPrice());
+			detailedInvoice.setProductID(detailedInvoiceDTO.getId());
 			detailedInvoice.setQuantity(detailedInvoiceDTO.getQuantity());
 			detailedInvoice.setTotalPrice(detailedInvoiceDTO.getTotalPrice());
 			totalItems += detailedInvoiceDTO.getQuantity();
@@ -142,12 +141,11 @@ public class InvoiceServiceImpl implements InvoiceService {
 	public List<DetailedInvoiceDTO> getDetailedInvoices(List<DetailedInvoiceDTO> detailedInvoices) {
 
 		for (DetailedInvoiceDTO detailedInvoice : detailedInvoices) {
-			// System.out.println(detailedInvoice.getProductID());
-			int price = productRepository.findProductPriceByProductID(detailedInvoice.getProductID());
+			int price = productRepository.findProductPriceByProductID(detailedInvoice.getId());
 
 			int totalPrice = price * detailedInvoice.getQuantity();
 
-			detailedInvoice.setProductPrice(price);
+			detailedInvoice.setOldPrice(price);
 			detailedInvoice.setTotalPrice(totalPrice);
 		}
 		return detailedInvoices;
@@ -181,12 +179,13 @@ public class InvoiceServiceImpl implements InvoiceService {
 			invoiceForUser.setTotal(invoice.getTotalCost());
 			invoiceForUser.setTotalItems(invoice.getTotalItems());
 			if(detailedInvoices.get(0) != null) {
-				invoiceForUser.setFirstProduct(detailedInvoices.get(0).getProductID(), detailedInvoices.get(0).getCategorySlug(), detailedInvoices.get(0).getProductName(), detailedInvoices.get(0).getImages(), detailedInvoices.get(0).getQuantity(), detailedInvoices.get(0).getProductPrice(), detailedInvoices.get(0).getProductPrice(), detailedInvoices.get(0).getTotalPrice());
+				invoiceForUser.setFirstProduct(detailedInvoices.get(0).getId(), detailedInvoices.get(0).getCategorySlug(), detailedInvoices.get(0).getName(), detailedInvoices.get(0).getImages(), detailedInvoices.get(0).getQuantity(), detailedInvoices.get(0).getOldPrice(), detailedInvoices.get(0).getSalePrice(), detailedInvoices.get(0).getTotalPrice());
 			}
 			
 			if(invoice.isCancelled()) {
 				CancelInvoice cancelInvoice = cancelInvoiceRepository.findById(invoice.getCancelID());
-				invoiceForUser.setStatus("Cancel");
+				invoiceForUser.setStatus("Cancelled");
+				invoiceForUser.setStatusDetail("Cancelled");
 				invoiceForUser.setReason(cancelInvoice.getReason());
 			} else {
 				StatusInvoice statusInvoice = statusInvoiceRepository.findByid(invoice.getStatusID());
@@ -212,7 +211,8 @@ public class InvoiceServiceImpl implements InvoiceService {
 		invoiceDTO.setNote(invoice.getNote());
 		invoiceDTO.setShippingInfo(shippingInfo);
 		invoiceDTO.setStatus(invoice.getStatus());
-		invoiceDTO.setTotalPrice(invoice.getTotalCost());
+		System.out.println(invoice.getStatus());
+		invoiceDTO.setTotal(invoice.getTotalCost());
 		invoiceDTO.setTotalItems(invoice.getTotalItems());
 		if(invoice.isCancelled()) {
 			CancelInvoice cancelInvoice = cancelInvoiceRepository.findById(invoice.getCancelID());
@@ -220,7 +220,9 @@ public class InvoiceServiceImpl implements InvoiceService {
 			invoiceDTO.setCancelled(true);
 			invoiceDTO.setCancelledDate(cancelInvoice.getCancelledDate());
 			invoiceDTO.setReason(cancelInvoice.getReason());
-			invoiceDTO.setStatus(statusInvoice.getStatus());
+//			invoiceDTO.setStatus(statusInvoice.getStatus());
+			invoiceDTO.setStatus("Cancelled");
+			System.out.println(statusInvoice.getStatus());
 			String[] processDate = {invoice.getProcessDate().split(", ")[0]};
 			invoiceDTO.setProcessDate(processDate);
 		}
@@ -271,7 +273,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 			cancelInvoice.setId(cancelID);
 			cancelInvoice.setCancelledDate(cancelDate.toString());
 			if(!reason.isEmpty())
-				cancelInvoice.setReason(reason.substring(1, reason.length() - 1));
+				cancelInvoice.setReason(reason);
 			else 
 				cancelInvoice.setReason("");
 			if(userDetails.getAuthorities().toString().contains("CUSTOMER"))
