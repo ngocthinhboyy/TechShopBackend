@@ -32,7 +32,8 @@ import com.techshopbe.service.InvoiceService;
 
 @Service
 public class InvoiceServiceImpl implements InvoiceService {
-
+	 final int DELIVERIED_SUCCESSFULLY_STEP = 5;
+	 
 	@Autowired
 	ProductRepository productRepository;
 	@Autowired
@@ -240,7 +241,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 	}
 
 	@Override
-	public void updateStatusInvoice(int invoiceID) throws Exception {
+	public int updateStatusInvoice(int invoiceID) throws Exception {
 		Invoice invoice = invoiceRepository.findByid(invoiceID);
 
 		if (invoice.getStep() < 6 && !invoice.isCancelled()) {
@@ -251,6 +252,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 			invoice.setStatusID(statusInvoice.getId());
 			invoice.setProcessDate(invoice.getProcessDate() + ", " + processDate.toString());
 			invoiceRepository.save(invoice);
+			return invoice.getStep();
 		} else {
 			throw new Exception("Already Done Process Or Cancelled");
 		}
@@ -293,7 +295,8 @@ public class InvoiceServiceImpl implements InvoiceService {
 
 	@Override
 	public List<InvoiceForUserDTO> getAllInvoicesByMonthAndYear(int month, int year) {
-		
+		String cancelID = UUID.randomUUID().toString();
+		System.out.println(cancelID);
 		List<Invoice> invoices = new ArrayList<Invoice>();
 		List<InvoiceForUserDTO> allInvoicesByMonthAndYear = new ArrayList<InvoiceForUserDTO>();
 		invoices = invoiceRepository.findAll();

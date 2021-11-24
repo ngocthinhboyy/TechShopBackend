@@ -12,4 +12,7 @@ public interface UserService {
 	void add(User user) throws Exception;
 	void delete(int id);
 	ShippingInfoDTO getShippingInfoByEmail(String email);
+	void updateUserReward(int invoiceID, int step);
+	void updateUserReward(String rewardID);
+	void downgradeUserReward(String rewardID, int deletedLevel);
 }

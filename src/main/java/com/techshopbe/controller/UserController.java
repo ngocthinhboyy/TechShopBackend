@@ -1,6 +1,5 @@
 package com.techshopbe.controller;
 
-import java.io.Console;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.techshopbe.dto.DetailedProductDTO;
 import com.techshopbe.dto.ShippingInfoDTO;
-import com.techshopbe.dto.UserDTO;
 import com.techshopbe.entity.User;
 import com.techshopbe.service.UserService;
 

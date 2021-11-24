@@ -18,6 +18,7 @@ import com.techshopbe.dto.InvoiceDTO;
 import com.techshopbe.dto.InvoiceForUserDTO;
 import com.techshopbe.entity.Invoice;
 import com.techshopbe.service.InvoiceService;
+import com.techshopbe.service.UserService;
 
 @RestController
 @RequestMapping("api/v1/invoice")
@@ -25,8 +26,10 @@ import com.techshopbe.service.InvoiceService;
 public class InvoiceController {
 	@Autowired
 	InvoiceService invoiceService;
+	@Autowired
+	UserService userService;
 	
-	@PostMapping(value = "")
+	@PostMapping
 	public Object add(@RequestBody String invoice) {
 		try {
 			invoiceService.add(invoice);
@@ -71,7 +74,9 @@ public class InvoiceController {
 	@PutMapping(value = "/status/{invoiceID}")
 	public Object updateStatus(@PathVariable int invoiceID) {
 		try {
-			invoiceService.updateStatusInvoice(invoiceID);
+			int newStep = invoiceService.updateStatusInvoice(invoiceID);
+			userService.updateUserReward(invoiceID, newStep);
+			
 			return new ResponseEntity<String>("Update Successfully!", HttpStatus.OK);
 		} catch(Exception e) {
 			if(e.getMessage().isEmpty())

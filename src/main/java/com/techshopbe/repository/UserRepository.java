@@ -1,5 +1,7 @@
 package com.techshopbe.repository;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,7 +13,7 @@ import com.techshopbe.dto.ShippingInfoDTO;
 import com.techshopbe.entity.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<User, String> {
 
 	User findByEmail(String email);
 	
@@ -25,4 +27,11 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Modifying
     @Query("UPDATE User u SET u.totalInvoices = ?1 WHERE u.email = ?2")
     int updateTotalInvoicesByEmail(int totalInvoices, String email);
+	
+	User findById(int id);
+	void deleteById(int id);
+
+	List<User> findAllByRewardID(String rewardID);
+
+	List<User> findAllByRewardIDAndIsDeleted(String id, boolean b);
 }
