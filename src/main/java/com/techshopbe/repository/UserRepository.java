@@ -13,7 +13,7 @@ import com.techshopbe.dto.ShippingInfoDTO;
 import com.techshopbe.entity.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, String> {
+public interface UserRepository extends JpaRepository<User, Integer> {
 
 	User findByEmail(String email);
 	
@@ -28,8 +28,8 @@ public interface UserRepository extends JpaRepository<User, String> {
     @Query("UPDATE User u SET u.totalInvoices = ?1 WHERE u.email = ?2")
     int updateTotalInvoicesByEmail(int totalInvoices, String email);
 	
-	User findById(int id);
-	void deleteById(int id);
+	User findById(String id);
+	void deleteById(String id);
 
 	List<User> findAllByRewardID(String rewardID);
 

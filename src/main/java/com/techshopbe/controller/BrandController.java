@@ -18,7 +18,7 @@ public class BrandController {
 	@Autowired
 	BrandService brandService;
 
-	@GetMapping(value = "")
+	@GetMapping
 	public Object index() {
 		try {
 			List<Brand> brandList = brandService.getAll();

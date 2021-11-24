@@ -6,4 +6,5 @@ import com.techshopbe.entity.Category;
 
 public interface CategoryService {
 	public List<Category> getAll();
+	public void add(Category category);
 }

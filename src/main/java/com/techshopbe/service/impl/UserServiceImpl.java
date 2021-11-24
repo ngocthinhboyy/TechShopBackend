@@ -1,6 +1,7 @@
 package com.techshopbe.service.impl;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import com.techshopbe.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
-	final int CUSTOMER_ROLE = 1;
+	final String CUSTOMER_ROLE = "9b3822c0-3c36-4cd3-9e67-b6982637df5a";
 	final int DEFAULT_REWARD_LEVEL = 1;
 
 	@Autowired
@@ -34,7 +35,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDTO getById(int id) {
+	public UserDTO getById(String id) {
 		User user = userRepository.findById(id);
 		UserDTO userDTO = new UserDTO(user.getId(), user.getFullname(), user.getPhone(), user.getAddress(),
 				user.getEmail(), user.getGender(), user.getDOB());
@@ -54,6 +55,8 @@ public class UserServiceImpl implements UserService {
 			}
 
 			user.setPswd(hashPassword);
+			String userID = UUID.randomUUID().toString();
+			user.setId(userID);
 			userRepository.save(user);
 		} else {
 			throw new Exception("Email already existed");
@@ -61,7 +64,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(String id) {
 		userRepository.deleteById(id);
 	}
 
@@ -74,7 +77,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void updateUserReward(int invoiceID, int step) {
+	public void updateUserReward(String invoiceID, int step) {
 		if (step != 5) {
 			return;
 		}

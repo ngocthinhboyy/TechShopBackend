@@ -44,7 +44,7 @@ public class ReviewController {
 		}
 	}
 	
-	@PostMapping(value = "")
+	@PostMapping
 	public Object addReview(@RequestBody PostReviewDTO postReviewDTO) {
 		try {
 //			System.out.println(postReviewDTO.getOrderID());

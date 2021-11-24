@@ -10,26 +10,25 @@ import javax.persistence.Table;
 @Table(name = "BRAND")
 public class Brand {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private String id;
 	private String name;
-	private String brandImg;
+	private String img;
 	public Brand() {
 	}
 
-	public Brand(int id, String name, String brandImg) {
+	public Brand(String id, String name, String img) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.brandImg = brandImg;
+		this.img = img;
 	}
 
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -43,13 +42,13 @@ public class Brand {
 	}
 
 
-	public String getBrandImg() {
-		return brandImg;
+	public String getImg() {
+		return img;
 	}
 
 
-	public void setBrandImg(String brandImg) {
-		this.brandImg = brandImg;
+	public void setImg(String brandImg) {
+		this.img = brandImg;
 	}
 
 	

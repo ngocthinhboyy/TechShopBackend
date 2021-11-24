@@ -15,7 +15,7 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Integer>{
 	@Query("SELECT id FROM Invoice i WHERE i.userInvoiceIndex = ?1")
 	int findInvoiceIDByUserInvoiceIndex(String userInvoiceIndex);
 	
-	List<Invoice> findByUserID(int userID);
-	Invoice findByid(int id);
+	List<Invoice> findByUserID(String userID);
+	Invoice findByid(String id);
 	List<Invoice> findAll();
 }

@@ -6,6 +6,6 @@ import com.techshopbe.entity.Role;
 
 
 public interface RoleService {
-	Role getById(int id);
+	Role getById(String id);
 	List<Role> getAll();
 }

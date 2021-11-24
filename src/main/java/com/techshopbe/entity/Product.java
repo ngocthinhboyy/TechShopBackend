@@ -12,8 +12,8 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private int categoryID;
-	private int brandID;
+	private String categoryID;
+	private String brandID;
 	private float rate;
 	private String name;
 	private int price;
@@ -29,7 +29,7 @@ public class Product {
 	public Product() {
 	}
 
-	public Product(int id, int categoryID, int brandID, float rate, String name, int price, int stock, int warranty, int purchased, String specs,
+	public Product(int id, String categoryID, String brandID, float rate, String name, int price, int stock, int warranty, int purchased, String specs,
 			String shortTech, int totalReviews, String images, 
 			String shortDescrip) {
 		super();
@@ -81,19 +81,19 @@ public class Product {
 		this.id = id;
 	}
 
-	public int getCategoryID() {
+	public String getCategoryID() {
 		return categoryID;
 	}
 
-	public void setCategoryID(int categoryID) {
+	public void setCategoryID(String categoryID) {
 		this.categoryID = categoryID;
 	}
 
-	public int getBrandID() {
+	public String getBrandID() {
 		return brandID;
 	}
 
-	public void setBrandID(int brandID) {
+	public void setBrandID(String brandID) {
 		this.brandID = brandID;
 	}
 

@@ -80,7 +80,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 		// INVOICE userID, totalCost, invoiceDate, shippingDate, note,
 		// otherShippingAddress, statusInvoice
 		// shipping Date: now + 10 ngày
-		int userID = userDetails.getUserID();
+		String userID = userDetails.getUserID();
 		LocalDateTime processDate = LocalDateTime.now();
 
 		// totalInvoices: lưu tổng số hoá đơn của người dùng
@@ -92,6 +92,8 @@ public class InvoiceServiceImpl implements InvoiceService {
 
 		Invoice invoiceEntity = new Invoice();
 		int totalItems = 0;
+		String invoiceID = UUID.randomUUID().toString();
+		invoiceEntity.setId(invoiceID);
 		invoiceEntity.setUserID(userID);
 		invoiceEntity.setTotalCost(invoiceDTO.getTotal());
 		invoiceEntity.setNote(invoiceDTO.getNote());
@@ -109,10 +111,11 @@ public class InvoiceServiceImpl implements InvoiceService {
 		 * Insert new shipping
 		 */
 		// get current invoice ID through userInvoiceIndex
-		int invoiceID = invoiceRepository.findInvoiceIDByUserInvoiceIndex(userInvoiceIndex);
 
 		// SHIPPINGINFO invoiceID, fullname, phone, address
 		ShippingInfo shippingInfo = new ShippingInfo();
+		String shippingInfoID = UUID.randomUUID().toString();
+		shippingInfo.setId(shippingInfoID);
 		shippingInfo.setInvoiceID(invoiceID);
 		shippingInfo.setAddress(invoiceDTO.getShippingInfo().getAddress());
 		shippingInfo.setFullname(invoiceDTO.getShippingInfo().getFullname());
@@ -126,6 +129,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 		// DETAILEDINVOICE (invoiceID, productID, quantity, price)
 		for (DetailedInvoiceDTO detailedInvoiceDTO : invoiceDTO.getDetailedInvoices()) {
 			DetailedInvoice detailedInvoice = new DetailedInvoice();
+			detailedInvoice.setId(UUID.randomUUID().toString());
 			detailedInvoice.setInvoiceID(invoiceID);
 			detailedInvoice.setPrice(detailedInvoiceDTO.getOldPrice());
 			detailedInvoice.setProductID(detailedInvoiceDTO.getId());
@@ -200,7 +204,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 	}
 
 	@Override
-	public InvoiceDTO getByInvoiceID(int invoiceID) {
+	public InvoiceDTO getByInvoiceID(String invoiceID) {
 		List<DetailedInvoiceDTO> detailedInvoices = detailedInvoiceRepository.findAllByInvoiceID(invoiceID);
 		ShippingInfoDTO shippingInfo = shippingInfoRepository.findByInvoiceID(invoiceID);
 		Invoice invoice = invoiceRepository.findByid(invoiceID);
@@ -235,13 +239,13 @@ public class InvoiceServiceImpl implements InvoiceService {
 	}
 
 	@Override
-	public void updateReviewStatus(int invoiceID, int productID) {
+	public void updateReviewStatus(String invoiceID, int productID) {
 		detailedInvoiceRepository.updateRatingInfoByProductID(invoiceID, productID);
 
 	}
 
 	@Override
-	public int updateStatusInvoice(int invoiceID) throws Exception {
+	public int updateStatusInvoice(String invoiceID) throws Exception {
 		Invoice invoice = invoiceRepository.findByid(invoiceID);
 
 		if (invoice.getStep() < 6 && !invoice.isCancelled()) {
@@ -259,7 +263,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 	}
 
 	@Override
-	public void cancelInvoice(int invoiceID, String reason) throws Exception {
+	public void cancelInvoice(String invoiceID, String reason) throws Exception {
 		Invoice invoice = invoiceRepository.findByid(invoiceID);
 		
 		if (!invoice.isCancelled() && invoice.getStep() < 5) {
@@ -295,8 +299,6 @@ public class InvoiceServiceImpl implements InvoiceService {
 
 	@Override
 	public List<InvoiceForUserDTO> getAllInvoicesByMonthAndYear(int month, int year) {
-		String cancelID = UUID.randomUUID().toString();
-		System.out.println(cancelID);
 		List<Invoice> invoices = new ArrayList<Invoice>();
 		List<InvoiceForUserDTO> allInvoicesByMonthAndYear = new ArrayList<InvoiceForUserDTO>();
 		invoices = invoiceRepository.findAll();

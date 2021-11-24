@@ -10,9 +10,8 @@ import javax.persistence.Table;
 @Table(name = "INVOICE")
 public class Invoice {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	private int userID;
+	private String id;
+	private String userID;
 	private int totalCost;
 	private String note;
 	private boolean otherShippingAddress;
@@ -80,7 +79,7 @@ public class Invoice {
 	}
 
 
-	public Invoice(int id, int userID, int totalCost, String note,
+	public Invoice(String id, String userID, int totalCost, String note,
 			boolean otherShippingAddress, String status, String userInvoiceIndex) {
 		super();
 		this.id = id;
@@ -94,7 +93,7 @@ public class Invoice {
 	
 
 
-	public Invoice(int id, int userID, int totalCost, String note,
+	public Invoice(String id, String userID, int totalCost, String note,
 			boolean otherShippingAddress, String status, String userInvoiceIndex, String statusID, String cancelID,
 			boolean isCancelled, String processDate, int step) {
 		super();
@@ -113,19 +112,19 @@ public class Invoice {
 	}
 
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	public int getUserID() {
+	public String getUserID() {
 		return userID;
 	}
 
-	public void setUserID(int userID) {
+	public void setUserID(String userID) {
 		this.userID = userID;
 	}
 

@@ -11,9 +11,8 @@ import javax.persistence.Table;
 public class DetailedInvoice {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	private int invoiceID;
+	private String id;
+	private String invoiceID;
 	private int productID;
 	private int quantity;
 	private int price;
@@ -25,7 +24,7 @@ public class DetailedInvoice {
 	}
 
 
-	public DetailedInvoice(int id, int invoiceID, int productID, int quantity, int price, int totalPrice, boolean isReviewed) {
+	public DetailedInvoice(String id, String invoiceID, int productID, int quantity, int price, int totalPrice, boolean isReviewed) {
 		super();
 		this.id = id;
 		this.invoiceID = invoiceID;
@@ -57,22 +56,22 @@ public class DetailedInvoice {
 	}
 
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
 
-	public int getInvoiceID() {
+	public String getInvoiceID() {
 		return invoiceID;
 	}
 
 
-	public void setInvoiceID(int invoiceID) {
+	public void setInvoiceID(String invoiceID) {
 		this.invoiceID = invoiceID;
 	}
 

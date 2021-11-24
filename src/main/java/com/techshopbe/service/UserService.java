@@ -8,11 +8,11 @@ import com.techshopbe.entity.User;
 
 public interface UserService {
 	List<User> getAll();
-	UserDTO getById(int id);
+	UserDTO getById(String id);
 	void add(User user) throws Exception;
-	void delete(int id);
+	void delete(String id);
 	ShippingInfoDTO getShippingInfoByEmail(String email);
-	void updateUserReward(int invoiceID, int step);
+	void updateUserReward(String invoiceID, int step);
 	void updateUserReward(String rewardID);
 	void downgradeUserReward(String rewardID, int deletedLevel);
 }

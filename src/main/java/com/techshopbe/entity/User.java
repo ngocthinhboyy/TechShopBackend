@@ -13,8 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name = "USER")
 public class User {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private String id;
 	private String email;
 	private String fullname;
 	@JsonProperty(access = Access.WRITE_ONLY)
@@ -22,7 +21,7 @@ public class User {
 	private String DOB;
 	private String phone;
 	private String address;
-	private int roleID;
+	private String roleID;
 	private String gender;
 	private int totalInvoices = 0;
 	private String rewardID;
@@ -41,8 +40,8 @@ public class User {
 		this.isDeleted = isDeleted;
 	}
 
-	public User(int id, String email, String fullname, String pswd, String dOB, String phone, String address,
-			int roleID, String gender, int totalInvoices, String rewardID, int accumulativeOrder,
+	public User(String id, String email, String fullname, String pswd, String dOB, String phone, String address,
+			String roleID, String gender, int totalInvoices, String rewardID, int accumulativeOrder,
 			int accumulativeSpending, boolean isDeleted) {
 		super();
 		this.id = id;
@@ -69,11 +68,11 @@ public class User {
 		this.totalInvoices = totalInvoices;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -125,11 +124,11 @@ public class User {
 		this.address = address;
 	}
 
-	public int getRoleID() {
+	public String getRoleID() {
 		return roleID;
 	}
 
-	public void setRoleID(int roleID) {
+	public void setRoleID(String roleID) {
 		this.roleID = roleID;
 	}
 

@@ -19,7 +19,7 @@ public class RoleController {
 	@Autowired
 	private RoleService roleService;
 	
-	@GetMapping(value = "")
+	@GetMapping
 	public Object index() {
 		try {
 			List<Role> roleList = roleService.getAll();

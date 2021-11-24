@@ -4,8 +4,8 @@ import java.util.Map;
 
 public class DetailedProductDTO {
 	private int id;
-	private int categoryID;
-	private int brandID;
+	private String categoryID;
+	private String brandID;
 	private String categoryName;
 	private String brandName;
 	private float rate;
@@ -31,7 +31,7 @@ public class DetailedProductDTO {
 
 	public DetailedProductDTO() {}
 
-	public DetailedProductDTO(int id, int categoryID, int brandID, String categoryName, String brandName, float rate,
+	public DetailedProductDTO(int id, String categoryID, String brandID, String categoryName, String brandName, float rate,
 			String name, int price, int stock, int warranty,
 			int purchased,int totalReviews, String images, String shortDescrip) {
 		super();
@@ -51,19 +51,19 @@ public class DetailedProductDTO {
 		this.shortDescrip = shortDescrip;
 	}
 
-	public int getCategoryID() {
+	public String getCategoryID() {
 		return categoryID;
 	}
 
-	public void setCategoryID(int categoryID) {
+	public void setCategoryID(String categoryID) {
 		this.categoryID = categoryID;
 	}
 
-	public int getBrandID() {
+	public String getBrandID() {
 		return brandID;
 	}
 
-	public void setBrandID(int brandID) {
+	public void setBrandID(String brandID) {
 		this.brandID = brandID;
 	}
 

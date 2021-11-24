@@ -26,7 +26,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping(value = "")
+	@GetMapping
 	public Object index() {
 		try {
 			List<User> userList = userService.getAll();
@@ -52,7 +52,7 @@ public class UserController {
 		}
 	}
 	
-	@PostMapping(value = "")
+	@PostMapping
 	public Object add(@RequestBody User user) {
 		try {
 			userService.add(user);
@@ -65,7 +65,7 @@ public class UserController {
 		}
 	}
 	@DeleteMapping(value = "/{id}")
-	public Object delete(@PathVariable int id) {
+	public Object delete(@PathVariable String id) {
 		try {
 			userService.delete(id);
 			return new ResponseEntity<String>("Delete Successfully!", HttpStatus.OK);

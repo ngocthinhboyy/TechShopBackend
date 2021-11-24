@@ -47,7 +47,7 @@ public class ReviewServiceImpl implements ReviewService {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		CustomUserDetails userDetails = (CustomUserDetails)auth.getPrincipal();
 		
-		int userID = userDetails.getUserID();
+		String userID = userDetails.getUserID();
 		review.setUserID(userID);
 		
 		reviewRepository.save(review);

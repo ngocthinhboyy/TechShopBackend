@@ -62,7 +62,7 @@ public class InvoiceController {
 		}
 	}
 	@GetMapping(value = "/{invoiceID}")
-	public Object getByInvoiceID(@PathVariable int invoiceID) {
+	public Object getByInvoiceID(@PathVariable String invoiceID) {
 		
 		try {
 			InvoiceDTO invoice = invoiceService.getByInvoiceID(invoiceID);
@@ -72,7 +72,7 @@ public class InvoiceController {
 		}
 	}
 	@PutMapping(value = "/status/{invoiceID}")
-	public Object updateStatus(@PathVariable int invoiceID) {
+	public Object updateStatus(@PathVariable String invoiceID) {
 		try {
 			int newStep = invoiceService.updateStatusInvoice(invoiceID);
 			userService.updateUserReward(invoiceID, newStep);
@@ -86,7 +86,7 @@ public class InvoiceController {
 		}
 	}
 	@PutMapping(value = "/cancel/{invoiceID}")
-	public Object cancel(@PathVariable int invoiceID, @RequestBody String reason) {
+	public Object cancel(@PathVariable String invoiceID, @RequestBody String reason) {
 		try {
 			invoiceService.cancelInvoice(invoiceID, reason);
 			return new ResponseEntity<String>("Cancel Successfully!", HttpStatus.OK);

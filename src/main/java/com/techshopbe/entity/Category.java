@@ -12,9 +12,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "CATEGORY")
 public class Category {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@JsonIgnore
-	private int id;
+	private String id;
 	private String name;
 	private String slug;
 	private boolean exact;
@@ -22,7 +21,7 @@ public class Category {
 	public Category() {
 	}
 
-	public Category(int id, String name, String slug, boolean exact) {
+	public Category(String id, String name, String slug, boolean exact) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -31,11 +30,11 @@ public class Category {
 	}
 	
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

@@ -1,7 +1,7 @@
 package com.techshopbe.dto;
 
 public class UserDTO {
-	private int userID;
+	private String userID;
 	private String fullname;
 	private String phone;
 	private String address;
@@ -12,7 +12,7 @@ public class UserDTO {
 	public UserDTO() {
 	}
 
-	public UserDTO(int userID, String fullname, String phone, String address, String email, String gender, String dob) {
+	public UserDTO(String userID, String fullname, String phone, String address, String email, String gender, String dob) {
 		super();
 		this.userID = userID;
 		this.fullname = fullname;
@@ -23,11 +23,11 @@ public class UserDTO {
 		this.dob = dob;
 	}
 
-	public int getUserID() {
+	public String getUserID() {
 		return userID;
 	}
 
-	public void setUserID(int userID) {
+	public void setUserID(String userID) {
 		this.userID = userID;
 	}
 

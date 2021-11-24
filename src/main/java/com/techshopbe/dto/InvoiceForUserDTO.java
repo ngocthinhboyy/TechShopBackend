@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonInclude(Include.NON_NULL)
 public class InvoiceForUserDTO {
-	private int id;
+	private String id;
 	private String status;
 	private String statusNote;
 	private String statusDetail;
@@ -14,10 +14,10 @@ public class InvoiceForUserDTO {
 	private int total;
 	private FirstProduct firstProduct;
 	private String lastConfirm;
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getStatus() {
@@ -44,7 +44,7 @@ public class InvoiceForUserDTO {
 	public void setTotalItems(int totalItems) {
 		this.totalItems = totalItems;
 	}
-	public InvoiceForUserDTO(int id, String status, String statusNote, String statusDetail, int totalItems, String lastConfirm) {
+	public InvoiceForUserDTO(String id, String status, String statusNote, String statusDetail, int totalItems, String lastConfirm) {
 		super();
 		this.id = id;
 		this.status = status;
