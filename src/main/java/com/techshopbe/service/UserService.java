@@ -9,6 +9,7 @@ import com.techshopbe.entity.User;
 public interface UserService {
 	List<User> getAll();
 	UserDTO getById(String id);
+	UserDTO getByEmail(String email);
 	void add(User user) throws Exception;
 	void delete(String id);
 	ShippingInfoDTO getShippingInfoByEmail(String email);

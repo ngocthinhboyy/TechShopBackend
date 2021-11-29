@@ -31,7 +31,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 		if (user == null)
 			throw new UsernameNotFoundException("Khong tim thay");
 
-		String roleName = roleRepository.findById(user.getRoleID()).get().getRoleName();
+		String roleName = roleRepository.findById(user.getRoleID()).getRoleName();
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
 		authorities.add(new SimpleGrantedAuthority(roleName));

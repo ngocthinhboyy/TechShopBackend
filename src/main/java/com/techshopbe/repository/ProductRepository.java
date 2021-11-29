@@ -1,9 +1,7 @@
 package com.techshopbe.repository;
 
 import java.util.List;
-import java.util.Map;
 
-import javax.persistence.NamedNativeQuery;
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,7 +11,6 @@ import org.springframework.data.jpa.repository.Query;
 import com.techshopbe.dto.DetailedProductDTO;
 import com.techshopbe.dto.ProductDTO;
 import com.techshopbe.dto.RatingInfoDTO;
-import com.techshopbe.dto.SpecificationAttributeDTO;
 import com.techshopbe.entity.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
@@ -64,6 +61,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     int updateRatingInfoByid(float rate, int totalReviews, int id);
 	
 	@Query(value = "SELECT attr.id, attr.name, attr.dataType FROM attribute_set attr_set, attribute attr WHERE attr_set.id = attr.attributeSetID and attr_set.categoryID = ?1 and attr_set.brandID = ?2", nativeQuery = true)
-	List<Object[]> getSpecificationAttributeBycategoryIDAndbrandID(int categoryID, int brandID);
+	List<Object[]> getSpecificationAttributeBycategoryIDAndbrandID(String categoryID, String brandID);
 
 }

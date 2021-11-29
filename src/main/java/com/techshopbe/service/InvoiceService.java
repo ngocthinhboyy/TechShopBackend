@@ -13,4 +13,5 @@ public interface InvoiceService {
 	public int updateStatusInvoice(String invoiceID) throws Exception;
 	public void cancelInvoice(String invoiceID, String reason) throws Exception;
 	public List<InvoiceForUserDTO> getAllInvoicesByMonthAndYear(int month, int year);
+	public void updateShipperInformation(String invoiceID, String shipperID);
 }

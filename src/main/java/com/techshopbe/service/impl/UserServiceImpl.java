@@ -11,15 +11,18 @@ import com.techshopbe.dto.ShippingInfoDTO;
 import com.techshopbe.dto.UserDTO;
 import com.techshopbe.entity.Invoice;
 import com.techshopbe.entity.Reward;
+import com.techshopbe.entity.Role;
 import com.techshopbe.entity.User;
 import com.techshopbe.repository.InvoiceRepository;
 import com.techshopbe.repository.RewardRepository;
+import com.techshopbe.repository.RoleRepository;
 import com.techshopbe.repository.UserRepository;
 import com.techshopbe.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
 	final String CUSTOMER_ROLE = "9b3822c0-3c36-4cd3-9e67-b6982637df5a";
+	final String ADMIN_ROLE = "bb68f158-da4a-4b90-8694-0bd3f15ce4f4";
 	final int DEFAULT_REWARD_LEVEL = 1;
 
 	@Autowired
@@ -28,6 +31,8 @@ public class UserServiceImpl implements UserService {
 	private RewardRepository rewardRepository;
 	@Autowired
 	private InvoiceRepository invoiceRepository;
+	@Autowired
+	private RoleRepository roleRepository;
 
 	@Override
 	public List<User> getAll() {
@@ -49,9 +54,10 @@ public class UserServiceImpl implements UserService {
 		if (entityHasSameEmail == null) {
 			String hashPassword = BCrypt.hashpw(user.getPswd(), BCrypt.gensalt());
 
-			if (user.getRoleID() == CUSTOMER_ROLE) {
+			if (user.getRoleID() == null) {
 				Reward defaultReward = rewardRepository.findByLevel(DEFAULT_REWARD_LEVEL);
 				user.setRewardID(defaultReward.getId());
+				user.setRoleID(CUSTOMER_ROLE);
 			}
 
 			user.setPswd(hashPassword);
@@ -142,6 +148,22 @@ public class UserServiceImpl implements UserService {
 			user.setRewardID(newReward.getId());
 			userRepository.save(user);
 		}
+	}
+
+	@Override
+	public UserDTO getByEmail(String email) {
+		User user = userRepository.findByEmail(email);
+		Role role = roleRepository.findById(user.getRoleID());
+		UserDTO userDTO = new UserDTO();
+		userDTO.setUserID(user.getId());
+		userDTO.setEmail(user.getEmail());
+		userDTO.setFullname(user.getFullname());
+		userDTO.setAddress(user.getAddress());
+		userDTO.setDob(user.getDOB());
+		userDTO.setGender(user.getGender());
+		userDTO.setPhone(user.getPhone());
+		userDTO.setRole(role.getRoleName().replace("ROLE_", ""));
+		return userDTO;
 	}
 
 }

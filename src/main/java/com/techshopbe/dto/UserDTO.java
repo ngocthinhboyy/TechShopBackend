@@ -1,5 +1,9 @@
 package com.techshopbe.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(Include.NON_NULL)
 public class UserDTO {
 	private String userID;
 	private String fullname;
@@ -8,6 +12,17 @@ public class UserDTO {
 	private String email;
 	private String gender;
 	private String dob;
+	private String role;
+	
+	private String access_token;
+
+	public String getAccess_token() {
+		return access_token;
+	}
+
+	public void setAccess_token(String access_token) {
+		this.access_token = access_token;
+	}
 
 	public UserDTO() {
 	}
@@ -77,6 +92,14 @@ public class UserDTO {
 
 	public void setDob(String dob) {
 		this.dob = dob;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 }

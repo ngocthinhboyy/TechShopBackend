@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.techshopbe.entity.Shipper;
 
 @JsonInclude(Include.NON_NULL)
 public class InvoiceDTO {
@@ -24,6 +25,13 @@ public class InvoiceDTO {
 	private String cancelledDate;
 	private String reason;
 	private int totalItems;
+	private Shipper shipper;
+	public Shipper getShipper() {
+		return shipper;
+	}
+	public void setShipper(Shipper shipper) {
+		this.shipper = shipper;
+	}
 	
 
 	public String getStatusNote() {

@@ -1,7 +1,6 @@
 package com.techshopbe.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.techshopbe.dto.InvoiceDTO;
 import com.techshopbe.dto.InvoiceForUserDTO;
-import com.techshopbe.entity.Invoice;
+import com.techshopbe.entity.Category;
 import com.techshopbe.service.InvoiceService;
 import com.techshopbe.service.UserService;
 
@@ -68,6 +67,7 @@ public class InvoiceController {
 			InvoiceDTO invoice = invoiceService.getByInvoiceID(invoiceID);
 			return new ResponseEntity<InvoiceDTO>(invoice, HttpStatus.OK);
 		} catch(Exception e) {
+			System.out.println(e);
 			return new ResponseEntity<String>("Failed", HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -97,6 +97,14 @@ public class InvoiceController {
 				return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
+	@PutMapping(value="shipper/{invoiceID}/{shipperID}")
+	public Object updateShipperInfo(@PathVariable String invoiceID, @PathVariable String shipperID) {
+		try {
+			invoiceService.updateShipperInformation(invoiceID, shipperID);
+			return new ResponseEntity<String>("Update Successfully!", HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<String>("Failed", HttpStatus.BAD_REQUEST);
+		}
+	}
 	
-
 }

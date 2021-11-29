@@ -2,6 +2,7 @@ package com.techshopbe.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.techshopbe.entity.Shipper;
 
 @JsonInclude(Include.NON_NULL)
 public class InvoiceForUserDTO {

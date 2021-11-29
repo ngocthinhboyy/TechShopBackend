@@ -13,17 +13,19 @@ import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
 import com.techshopbe.dto.DetailedInvoiceDTO;
 import com.techshopbe.dto.InvoiceDTO;
-import com.techshopbe.dto.ShippingInfoDTO;
 import com.techshopbe.dto.InvoiceForUserDTO;
+import com.techshopbe.dto.ShippingInfoDTO;
 import com.techshopbe.entity.CancelInvoice;
 import com.techshopbe.entity.DetailedInvoice;
 import com.techshopbe.entity.Invoice;
-import com.techshopbe.entity.StatusInvoice;
+import com.techshopbe.entity.Shipper;
 import com.techshopbe.entity.ShippingInfo;
+import com.techshopbe.entity.StatusInvoice;
 import com.techshopbe.repository.CancelInvoiceRepository;
 import com.techshopbe.repository.DetailedInvoiceRepository;
 import com.techshopbe.repository.InvoiceRepository;
 import com.techshopbe.repository.ProductRepository;
+import com.techshopbe.repository.ShipperRepository;
 import com.techshopbe.repository.ShippingInfoRepository;
 import com.techshopbe.repository.StatusInvoiceRepository;
 import com.techshopbe.repository.UserRepository;
@@ -48,6 +50,8 @@ public class InvoiceServiceImpl implements InvoiceService {
 	StatusInvoiceRepository statusInvoiceRepository;
 	@Autowired
 	CancelInvoiceRepository cancelInvoiceRepository;
+	@Autowired
+	ShipperRepository shipperInfoRepository;
 
 	@Override
 	public void add(String invoice) {
@@ -209,6 +213,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 		ShippingInfoDTO shippingInfo = shippingInfoRepository.findByInvoiceID(invoiceID);
 		Invoice invoice = invoiceRepository.findByid(invoiceID);
 
+
 		StatusInvoice statusInvoice = statusInvoiceRepository.findByid(invoice.getStatusID());
 
 		InvoiceDTO invoiceDTO = new InvoiceDTO();
@@ -218,6 +223,11 @@ public class InvoiceServiceImpl implements InvoiceService {
 		invoiceDTO.setStatus(invoice.getStatus());
 		invoiceDTO.setTotal(invoice.getTotalCost());
 		invoiceDTO.setTotalItems(invoice.getTotalItems());
+		if (invoice.getShipperID() != null)  {
+			Shipper shipper = shipperInfoRepository.findById(invoice.getShipperID());
+			shipper.setId(null);
+			invoiceDTO.setShipper(shipper);
+		}
 		if(invoice.isCancelled()) {
 			CancelInvoice cancelInvoice = cancelInvoiceRepository.findById(invoice.getCancelID());
 			statusInvoice = statusInvoiceRepository.findByStep(1);
@@ -333,6 +343,13 @@ public class InvoiceServiceImpl implements InvoiceService {
 		}
 
 		return allInvoicesByMonthAndYear;
+	}
+
+	@Override
+	public void updateShipperInformation(String invoiceID, String shipperID) {
+		Invoice invoice = invoiceRepository.findByid(invoiceID);
+		invoice.setShipperID(shipperID);
+		invoiceRepository.save(invoice);
 	}
 
 }

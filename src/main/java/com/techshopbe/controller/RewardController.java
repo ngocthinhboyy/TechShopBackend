@@ -27,7 +27,7 @@ public class RewardController {
 	UserService userService;
 
 	@GetMapping
-	public Object getAll() {
+	public Object get() {
 		try {
 			List<Reward> listRewards = rewardService.getAll();
 			return new ResponseEntity<List<Reward>>(listRewards, HttpStatus.OK);

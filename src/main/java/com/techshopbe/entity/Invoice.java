@@ -13,6 +13,7 @@ public class Invoice {
 	private String id;
 	private String userID;
 	private int totalCost;
+	private String shipperID;
 	private String note;
 	private boolean otherShippingAddress;
 	private String status;
@@ -181,6 +182,16 @@ public class Invoice {
 
 	public void setTotalItems(int totalItems) {
 		this.totalItems = totalItems;
+	}
+
+
+	public String getShipperID() {
+		return shipperID;
+	}
+
+
+	public void setShipperID(String shipperID) {
+		this.shipperID = shipperID;
 	}
 	
 	

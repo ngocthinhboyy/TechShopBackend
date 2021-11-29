@@ -1,7 +1,6 @@
 package com.techshopbe.controller;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,31 +14,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.techshopbe.entity.Category;
-import com.techshopbe.service.CategoryService;
+import com.techshopbe.entity.Shipper;
+import com.techshopbe.service.ShipperService;
 
 @RestController
-@RequestMapping("api/v1/category")
-public class CategoryController {
-	@Autowired
-	private CategoryService categoryService;
+@RequestMapping("api/v1/shipper")
+public class ShipperController {
 
-	@GetMapping()
+	@Autowired
+	private ShipperService shipperService;
+	
+	@GetMapping
 	public Object get() {
 		try {
-			System.out.println(UUID.randomUUID().toString());
-			List<Category> categoryList = categoryService.getAll();
+			List<Shipper> shippers = shipperService.getAll();
 
-			return new ResponseEntity<List<Category>>(categoryList, HttpStatus.OK);
-		} catch (Exception e) {
+			return new ResponseEntity<List<Shipper>>(shippers, HttpStatus.OK);
+		} catch(Exception e) {
 			return new ResponseEntity<String>("Failed", HttpStatus.BAD_REQUEST);
 		}
 	}
-	
 	@PostMapping
-	public Object add(@RequestBody Category category) {
+	public Object add(@RequestBody Shipper shipper) {
 		try {
-			categoryService.add(category);
+			shipperService.add(shipper);
 			return new ResponseEntity<String>("Add Successfully!", HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<String>("Failed", HttpStatus.BAD_REQUEST);
@@ -47,9 +45,9 @@ public class CategoryController {
 	}
 	
 	@PutMapping
-	public Object update(@RequestBody Category category) {
+	public Object update(@RequestBody Shipper shipper) {
 		try {
-			categoryService.update(category);
+			shipperService.update(shipper);
 			return new ResponseEntity<String>("Update Successfully!", HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<String>("Failed", HttpStatus.BAD_REQUEST);
@@ -59,7 +57,7 @@ public class CategoryController {
 	@DeleteMapping(value="/{id}")
 	public Object delete(@PathVariable String id) {
 		try {
-			categoryService.delete(id);
+			shipperService.delete(id);
 			return new ResponseEntity<String>("Delete Successfully!", HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<String>("Failed", HttpStatus.BAD_REQUEST);

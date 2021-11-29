@@ -20,7 +20,7 @@ public class RoleController {
 	private RoleService roleService;
 	
 	@GetMapping
-	public Object index() {
+	public Object get() {
 		try {
 			List<Role> roleList = roleService.getAll();
 

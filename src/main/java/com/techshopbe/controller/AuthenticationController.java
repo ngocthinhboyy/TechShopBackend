@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techshopbe.dto.AuthenticationDTO;
+import com.techshopbe.dto.UserDTO;
+import com.techshopbe.service.UserService;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -26,6 +28,8 @@ public class AuthenticationController {
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
+	@Autowired
+	private UserService userService;
 	
 	@PostMapping("/login")
 	public Object login(@RequestBody AuthenticationDTO authenDTO) {
@@ -40,7 +44,9 @@ public class AuthenticationController {
 					.setExpiration(new Date(dateNow.getTime() + 864000000L))
 					.signWith(SignatureAlgorithm.HS512, "ngocthinh")
 					.compact();
-			return new ResponseEntity<String>(token, HttpStatus.OK);
+			UserDTO user = userService.getByEmail(authenDTO.getEmail());
+			user.setAccess_token(token);
+			return new ResponseEntity<UserDTO>(user, HttpStatus.OK);
 		}
 		catch(BadCredentialsException e) {
 			return new ResponseEntity<String>("Sai thong tin dang nhap", HttpStatus.UNAUTHORIZED);

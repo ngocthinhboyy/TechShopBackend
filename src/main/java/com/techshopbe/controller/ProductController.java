@@ -1,17 +1,13 @@
 package com.techshopbe.controller;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techshopbe.dto.DetailedProductDTO;
@@ -27,7 +23,7 @@ public class ProductController {
 	private ProductService productService;
 
 	@GetMapping(value = "")
-	public Object index() {
+	public Object get() {
 		try {
 			List<ProductDTO> productList = productService.getAll();
 			return new ResponseEntity<List<ProductDTO>>(productList, HttpStatus.OK);
@@ -105,7 +101,7 @@ public class ProductController {
 	}
 	
 	@GetMapping(value = "specification/{categoryID}/{brandID}")
-	public Object getProductSpecificationAttribute(@PathVariable int categoryID, @PathVariable int brandID) {
+	public Object getProductSpecificationAttribute(@PathVariable String categoryID, @PathVariable String brandID) {
 		try {
 			List<SpecificationAttributeDTO> specificationAttributes = productService.getProductSpecificationAttribute(categoryID, brandID);
 			return new ResponseEntity<List<SpecificationAttributeDTO>>(specificationAttributes, HttpStatus.OK);

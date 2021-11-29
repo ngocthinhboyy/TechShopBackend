@@ -27,7 +27,7 @@ public class UserController {
 	private UserService userService;
 	
 	@GetMapping
-	public Object index() {
+	public Object get() {
 		try {
 			List<User> userList = userService.getAll();
 			if(userList.isEmpty())

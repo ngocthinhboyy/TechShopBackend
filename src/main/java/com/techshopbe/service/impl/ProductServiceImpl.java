@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -103,7 +102,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<SpecificationAttributeDTO> getProductSpecificationAttribute(int categoryID, int brandID) {
+	public List<SpecificationAttributeDTO> getProductSpecificationAttribute(String categoryID, String brandID) {
 		List<Object[]> objects = productRepository.getSpecificationAttributeBycategoryIDAndbrandID(categoryID, brandID);
 		List<SpecificationAttributeDTO> specifcationAttributes = new ArrayList<SpecificationAttributeDTO>();
 		for (Object[] object : objects) {

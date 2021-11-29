@@ -17,5 +17,5 @@ public interface ProductService {
 	public List<ProductDTO> getRelatedCategoryProducts(int productID);
 	public List<ProductDTO> getRelatedBrandProducts(int productID);
 	public void updateRating(int productID, float rate);
-	public List<SpecificationAttributeDTO> getProductSpecificationAttribute(int categoryID, int brandID);
+	public List<SpecificationAttributeDTO> getProductSpecificationAttribute(String categoryID, String brandID);
 }

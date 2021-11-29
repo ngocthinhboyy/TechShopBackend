@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.techshopbe.dto.PostReviewDTO;
 import com.techshopbe.dto.ReviewDTO;
-import com.techshopbe.entity.Review;
 import com.techshopbe.service.InvoiceService;
 import com.techshopbe.service.ProductService;
 import com.techshopbe.service.ReviewService;
