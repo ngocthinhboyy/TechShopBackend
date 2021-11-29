@@ -26,6 +26,7 @@ public class BrandServiceImpl implements BrandService {
 		brand.setId(UUID.randomUUID().toString());
 		LocalDateTime createdDate = LocalDateTime.now();
 		brand.setCreatedDate(createdDate.toLocalDate().toString());
+		brand.setLastModified(createdDate.toLocalDate().toString());
 		brandRepository.save(brand);
 		
 	}

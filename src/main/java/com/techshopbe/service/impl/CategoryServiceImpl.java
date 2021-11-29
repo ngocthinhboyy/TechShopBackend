@@ -26,6 +26,7 @@ public class CategoryServiceImpl implements CategoryService {
 		LocalDateTime createdDate = LocalDateTime.now();
 		category.setId(categoryID);
 		category.setCreatedDate(createdDate.toLocalDate().toString());
+		category.setLastModified(createdDate.toLocalDate().toString());
 		categoryRepository.save(category);
 	}
 	@Override
