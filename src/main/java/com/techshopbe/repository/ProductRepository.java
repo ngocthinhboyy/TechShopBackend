@@ -30,15 +30,15 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Query("SELECT new com.techshopbe.dto.DetailedProductDTO(p.id, p.categoryID, p.brandID, c.name, b.name, p.rate, p.name, p.price, p.stock, p.warranty, p.purchased, p.totalReviews, p.images, p.shortDescrip) FROM Product p, Category c, Brand b WHERE p.categoryID = c.id AND p.brandID = b.id AND p.id = ?1")
 	DetailedProductDTO findDetailedProductByid(int id);
 	
-	String findQuery = "SELECT attr.name, attr_varchar.value FROM  PRODUCT p, ATTRIBUTE attr, ATTRIBUTE_VALUE_VARCHAR attr_varchar where p.id = ?1 and p.id = attr_varchar.productID and attr_varchar.attributeID = attr.id "
+	String findQuery = "SELECT attr_varchar.id, attr.name, attr_varchar.value, attr.dataType FROM  PRODUCT p, ATTRIBUTE attr, ATTRIBUTE_VALUE_VARCHAR attr_varchar where p.id = ?1 and p.id = attr_varchar.productID and attr_varchar.attributeID = attr.id "
 			+ "UNION ALL "
-			+ "SELECT attr.name, attr_float.value FROM  PRODUCT p, ATTRIBUTE attr, ATTRIBUTE_VALUE_FLOAT attr_float WHERE p.id = attr_float.productID and attr_float.attributeID = attr.id and p.id = ?1 "
+			+ "SELECT attr_float.id, attr.name, attr_float.value, attr.dataType FROM  PRODUCT p, ATTRIBUTE attr, ATTRIBUTE_VALUE_FLOAT attr_float WHERE p.id = attr_float.productID and attr_float.attributeID = attr.id and p.id = ?1 "
 			+ "UNION ALL "
-			+ "SELECT attr.name, attr_int.value FROM  PRODUCT p, ATTRIBUTE attr, ATTRIBUTE_VALUE_INT attr_int WHERE p.id = attr_int.productID and attr_int.attributeID = attr.id and p.id = ?1 "
+			+ "SELECT attr_int.id, attr.name, attr_int.value, attr.dataType FROM  PRODUCT p, ATTRIBUTE attr, ATTRIBUTE_VALUE_INT attr_int WHERE p.id = attr_int.productID and attr_int.attributeID = attr.id and p.id = ?1 "
 			+ "UNION ALL "
-			+ "SELECT attr.name as name, attr_text.value FROM  PRODUCT p, ATTRIBUTE attr, ATTRIBUTE_VALUE_TEXT attr_text WHERE p.id = attr_text.productID and attr_text.attributeID = attr.id and p.id = ?1 "
+			+ "SELECT attr_text.id, attr.name as name, attr_text.value, attr.dataType FROM  PRODUCT p, ATTRIBUTE attr, ATTRIBUTE_VALUE_TEXT attr_text WHERE p.id = attr_text.productID and attr_text.attributeID = attr.id and p.id = ?1 "
 			+ "UNION ALL "
-			+ "SELECT attr.name as name, attr_boolean.value FROM  PRODUCT p, ATTRIBUTE attr, ATTRIBUTE_VALUE_BOOL attr_boolean WHERE p.id = attr_boolean.productID and attr_boolean.attributeID = attr.id and p.id = ?1";
+			+ "SELECT attr_boolean.id, attr.name as name, attr_boolean.value, attr.dataType FROM  PRODUCT p, ATTRIBUTE attr, ATTRIBUTE_VALUE_BOOL attr_boolean WHERE p.id = attr_boolean.productID and attr_boolean.attributeID = attr.id and p.id = ?1";
 	@Query(value=findQuery, nativeQuery = true)
 //	@Query(value = "SELECT attr.name FROM ATTRIBUTE_VALUE_VARCHAR attr_varchar, ATTRIBUTE attr WHERE attr.id = attr_varchar.attributeID and attr_varchar.productID = 1", nativeQuery=true)
 	List<Object[]> findSpecificationsByid(int id);

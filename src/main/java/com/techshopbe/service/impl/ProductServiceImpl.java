@@ -6,10 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.techshopbe.dto.DetailedProductDTO;
 import com.techshopbe.dto.ProductDTO;
+import com.techshopbe.dto.ProductSpecificationDTO;
 import com.techshopbe.dto.RatingInfoDTO;
 import com.techshopbe.dto.SpecificationAttributeDTO;
 import com.techshopbe.repository.ProductRepository;
@@ -58,11 +61,24 @@ public class ProductServiceImpl implements ProductService {
 	public DetailedProductDTO getDetailedProduct(int productID) {
 		DetailedProductDTO detailedProduct = productRepository.findDetailedProductByid(productID);
 		List<Object[]> specs = productRepository.findSpecificationsByid(productID);
-		Map<String, Object> result = new HashMap<>();
+		List<ProductSpecificationDTO> productSpecsList = new ArrayList<ProductSpecificationDTO>();
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		boolean isAdminRole = auth.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"));
+
 		for (Object[] spec : specs) {
-			result.put(spec[0].toString(), spec[1]);
+			ProductSpecificationDTO specsDto = new ProductSpecificationDTO();
+			
+			if (isAdminRole) {
+				specsDto.setId(spec[0].toString());
+				specsDto.setDataType(spec[3].toString());
+			}
+			specsDto.setName(spec[1].toString());
+			specsDto.setValue(spec[2].toString());
+
+			productSpecsList.add(specsDto);
 		}
-		detailedProduct.setSpecifications(result);
+		detailedProduct.setSpecifications(productSpecsList);
 		if (detailedProduct.getStock() > 0)
 			detailedProduct.setStockStatus("in-stock");
 		else if (detailedProduct.getStock() == 0)
@@ -96,8 +112,6 @@ public class ProductServiceImpl implements ProductService {
 		RatingInfoDTO ratingInfoDTO = productRepository.findRatingInfoByid(productID);
 		int newTotalReviews = ratingInfoDTO.getTotalReviews() + 1;
 		float newRating = (ratingInfoDTO.getProductRate() * ratingInfoDTO.getTotalReviews() + rate) / newTotalReviews;
-		// System.out.println(newRating);
-		// System.out.println(newTotalReviews);
 		productRepository.updateRatingInfoByid(newRating, newTotalReviews, productID);
 	}
 

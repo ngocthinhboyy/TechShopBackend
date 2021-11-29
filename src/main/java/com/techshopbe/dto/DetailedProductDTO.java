@@ -1,6 +1,6 @@
 package com.techshopbe.dto;
 
-import java.util.Map;
+import java.util.List;
 
 public class DetailedProductDTO {
 	private int id;
@@ -18,7 +18,7 @@ public class DetailedProductDTO {
 	private int totalReviews;
 	private String images;
 	private String shortDescrip;
-	private Map<String, Object> specifications;
+	private List<ProductSpecificationDTO> specifications;
 	
 	
 	public int getTotalReviews() {
@@ -164,12 +164,14 @@ public class DetailedProductDTO {
 		this.shortDescrip = shortDescrip;
 	}
 
-	public Map<String, Object> getSpecifications() {
+	public List<ProductSpecificationDTO> getSpecifications() {
 		return specifications;
 	}
 
-	public void setSpecifications(Map<String, Object> specifications) {
+	public void setSpecifications(List<ProductSpecificationDTO> specifications) {
 		this.specifications = specifications;
 	}
+
+	
 	
 }

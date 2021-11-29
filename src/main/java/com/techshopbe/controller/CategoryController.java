@@ -27,7 +27,6 @@ public class CategoryController {
 	@GetMapping()
 	public Object get() {
 		try {
-			System.out.println(UUID.randomUUID().toString());
 			List<Category> categoryList = categoryService.getAll();
 
 			return new ResponseEntity<List<Category>>(categoryList, HttpStatus.OK);
