@@ -59,7 +59,7 @@ public class InvoiceForUserDTO {
 	public FirstProduct getFirstProduct() {
 		return firstProduct;
 	}
-	public void setFirstProduct(int id, String categorySlug, String name, String image, int quantity,
+	public void setFirstProduct(String id, String categorySlug, String name, String image, int quantity,
 			int oldPrice, int salePrice, int total) {
 		this.firstProduct = new FirstProduct();
 		this.firstProduct.id = id;
@@ -93,7 +93,7 @@ public class InvoiceForUserDTO {
 }
 
 class FirstProduct {
-	public int id;
+	public String id;
 	public String categorySlug;
 	public String name;
 	public String images;
@@ -102,7 +102,7 @@ class FirstProduct {
 	public int salePrice;
 	public int total;
 	public FirstProduct() {};
-	public FirstProduct(int id, String categorySlug, String name, String image, int quantity,
+	public FirstProduct(String id, String categorySlug, String name, String image, int quantity,
 			int oldPrice, int salePrice, int total) {
 		super();
 		this.id = id;

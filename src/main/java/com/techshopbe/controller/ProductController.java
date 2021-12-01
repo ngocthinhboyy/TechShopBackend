@@ -2,17 +2,24 @@ package com.techshopbe.controller;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techshopbe.dto.DetailedProductDTO;
 import com.techshopbe.dto.ProductDTO;
-import com.techshopbe.dto.SpecificationAttributeDTO;
+import com.techshopbe.dto.ProductRequestDTO;
+import com.techshopbe.dto.SpecificationAttributeValueDTO;
 import com.techshopbe.service.ProductService;
 
 
@@ -33,7 +40,7 @@ public class ProductController {
 	}
 
 	@GetMapping(value = "/{productID}")
-	public Object getDetailedProduct(@PathVariable int productID) {
+	public Object getDetailedProduct(@PathVariable String productID) {
 		try {
 			DetailedProductDTO detailedProduct = productService.getDetailedProduct(productID);
 			return new ResponseEntity<DetailedProductDTO>(detailedProduct, HttpStatus.OK);
@@ -76,7 +83,7 @@ public class ProductController {
 	}
 
 	@GetMapping(value = "related-category/{productID}")
-	public Object getRelatedCategoryProducts(@PathVariable int productID) {
+	public Object getRelatedCategoryProducts(@PathVariable String productID) {
 		
 		try {
 			List<ProductDTO> relatedCategoryProducts = productService.getRelatedCategoryProducts(productID);
@@ -89,7 +96,7 @@ public class ProductController {
 	}
 	
 	@GetMapping(value = "related-brand/{productID}")
-	public Object getRelatedBrandProducts(@PathVariable int productID) {
+	public Object getRelatedBrandProducts(@PathVariable String productID) {
 		
 		try {
 			List<ProductDTO> relatedBrandProducts = productService.getRelatedBrandProducts(productID);
@@ -103,12 +110,43 @@ public class ProductController {
 	@GetMapping(value = "specification/{categoryID}/{brandID}")
 	public Object getProductSpecificationAttribute(@PathVariable String categoryID, @PathVariable String brandID) {
 		try {
-			List<SpecificationAttributeDTO> specificationAttributes = productService.getProductSpecificationAttribute(categoryID, brandID);
-			return new ResponseEntity<List<SpecificationAttributeDTO>>(specificationAttributes, HttpStatus.OK);
+			List<SpecificationAttributeValueDTO> specificationAttributes = productService.getProductSpecificationAttribute(categoryID, brandID);
+			return new ResponseEntity<List<SpecificationAttributeValueDTO>>(specificationAttributes, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<String>("Failed", HttpStatus.BAD_REQUEST);
 		}
 	}
 	
-
+	@Transactional
+	@PostMapping
+	public Object addProduct(@RequestBody ProductRequestDTO product) {
+		try {
+			productService.add(product);
+			return new ResponseEntity<String>("Add Successfully", HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>("Failed " + e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@Transactional
+	@PutMapping
+	public Object updateProduct(@RequestBody ProductRequestDTO product) {
+		try {
+			productService.update(product);
+			return new ResponseEntity<String>("Update Successfully", HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>("Failed: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@DeleteMapping(value = "/{id}")
+	public Object deleteProduct(@PathVariable String id) {
+		try {
+			productService.delete(id);
+			return new ResponseEntity<String>("Delete Successfully", HttpStatus.OK);
+		} catch (Exception e) {
+			System.out.println(e);
+			return new ResponseEntity<String>("Failed: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
 }

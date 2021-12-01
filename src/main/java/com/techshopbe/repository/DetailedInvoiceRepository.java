@@ -21,7 +21,7 @@ public interface DetailedInvoiceRepository extends JpaRepository<DetailedInvoice
 	@Transactional
 	@Modifying
     @Query("UPDATE DetailedInvoice d SET d.isReviewed = true WHERE d.id = ?1 AND d.productID = ?2")
-    int updateRatingInfoByProductID(String invoiceID, int productID);
+    int updateRatingInfoByProductID(String invoiceID, String productID);
 	
 
 }

@@ -2,7 +2,7 @@ package com.techshopbe.dto;
 
 public class ReviewDTO {
 	private int id;
-	private int productID;
+	private String productID;
 	private String fullname;
 	private String reviewDate;
 	private String reviewContent;
@@ -11,7 +11,7 @@ public class ReviewDTO {
 	public ReviewDTO() {
 	}
 
-	public ReviewDTO(int id, int productID, String fullname, String reviewDate, String reviewContent,
+	public ReviewDTO(int id, String productID, String fullname, String reviewDate, String reviewContent,
 			float rate) {
 		super();
 		this.id = id;
@@ -30,11 +30,11 @@ public class ReviewDTO {
 		this.id = id;
 	}
 
-	public int getProductID() {
+	public String getProductID() {
 		return productID;
 	}
 
-	public void setProductID(int productID) {
+	public void setProductID(String productID) {
 		this.productID = productID;
 	}
 

@@ -12,7 +12,7 @@ public class Review {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private int productID;
+	private String productID;
 	private String userID;
 	private String reviewDate;
 	private String reviewContent;
@@ -21,7 +21,7 @@ public class Review {
 	public Review() {
 	}
 
-	public Review(int id, int productID, String userID, String reviewDate, String reviewContent, float rate) {
+	public Review(int id, String productID, String userID, String reviewDate, String reviewContent, float rate) {
 		super();
 		this.id = id;
 		this.productID = productID;
@@ -39,11 +39,11 @@ public class Review {
 		this.id = id;
 	}
 
-	public int getProductID() {
+	public String getProductID() {
 		return productID;
 	}
 
-	public void setProductID(int productID) {
+	public void setProductID(String productID) {
 		this.productID = productID;
 	}
 

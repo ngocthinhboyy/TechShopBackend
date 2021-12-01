@@ -3,7 +3,7 @@ package com.techshopbe.dto;
 import java.util.List;
 
 public class DetailedProductDTO {
-	private int id;
+	private String id;
 	private String categoryID;
 	private String brandID;
 	private String categoryName;
@@ -31,7 +31,7 @@ public class DetailedProductDTO {
 
 	public DetailedProductDTO() {}
 
-	public DetailedProductDTO(int id, String categoryID, String brandID, String categoryName, String brandName, float rate,
+	public DetailedProductDTO(String id, String categoryID, String brandID, String categoryName, String brandName, float rate,
 			String name, int price, int stock, int warranty,
 			int purchased,int totalReviews, String images, String shortDescrip) {
 		super();
@@ -67,11 +67,11 @@ public class DetailedProductDTO {
 		this.brandID = brandID;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

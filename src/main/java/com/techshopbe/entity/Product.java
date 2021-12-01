@@ -1,17 +1,16 @@
 package com.techshopbe.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.techshopbe.dto.ProductRequestDTO;
 
 @Entity
 @Table(name = "PRODUCT")
 public class Product {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private String id;
 	private String categoryID;
 	private String brandID;
 	private float rate;
@@ -21,16 +20,16 @@ public class Product {
 	private int stock;
 	private int warranty;
 	private int purchased;
-	private String specs;
-	private String shortTech;
 	private int totalReviews;
 	private String images;
+	private boolean isDeleted;
+	private String attributeSetID;
 
 	public Product() {
 	}
 
-	public Product(int id, String categoryID, String brandID, float rate, String name, int price, int stock, int warranty, int purchased, String specs,
-			String shortTech, int totalReviews, String images, 
+	public Product(String id, String categoryID, String brandID, float rate, String name, int price, int stock, int warranty, int purchased,
+			 int totalReviews, String images, 
 			String shortDescrip) {
 		super();
 		this.id = id;
@@ -43,8 +42,6 @@ public class Product {
 		this.stock = stock;
 		this.warranty = warranty;
 		this.purchased = purchased;
-		this.specs = specs;
-		this.shortTech = shortTech;
 		this.totalReviews = totalReviews;
 		this.images = images;
 	}
@@ -65,19 +62,12 @@ public class Product {
 		this.totalReviews = totalReviews;
 	}
 
-	public String getShortTech() {
-		return shortTech;
-	}
 
-	public void setShortTech(String shortTech) {
-		this.shortTech = shortTech;
-	}
-
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -152,13 +142,38 @@ public class Product {
 	public void setPurchased(int purchased) {
 		this.purchased = purchased;
 	}
-
-	public String getSpecs() {
-		return specs;
+	
+	public Product(ProductRequestDTO newProduct) {
+		super();
+		this.id = newProduct.getId();
+		this.categoryID = newProduct.getCategory();
+		this.brandID = newProduct.getBrand();
+		this.rate = 0;
+		this.name = newProduct.getName();
+		this.price = newProduct.getPrice();
+		this.shortDescrip = newProduct.getShortDescription();
+		this.stock = newProduct.getStock();
+		this.warranty = newProduct.getWarranty();
+		this.purchased = 0;
+		this.totalReviews = 0;
+		this.images = "";
 	}
 
-	public void setSpecs(String specs) {
-		this.specs = specs;
+	public boolean isDeleted() {
+		return isDeleted;
 	}
 
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+
+	public String getAttributeSetID() {
+		return attributeSetID;
+	}
+
+	public void setAttributeSetID(String attributeSetID) {
+		this.attributeSetID = attributeSetID;
+	}
+
+	
 }

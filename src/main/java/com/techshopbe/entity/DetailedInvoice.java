@@ -13,7 +13,7 @@ public class DetailedInvoice {
 	@Id
 	private String id;
 	private String invoiceID;
-	private int productID;
+	private String productID;
 	private int quantity;
 	private int price;
 	private int totalPrice;
@@ -24,7 +24,7 @@ public class DetailedInvoice {
 	}
 
 
-	public DetailedInvoice(String id, String invoiceID, int productID, int quantity, int price, int totalPrice, boolean isReviewed) {
+	public DetailedInvoice(String id, String invoiceID, String productID, int quantity, int price, int totalPrice, boolean isReviewed) {
 		super();
 		this.id = id;
 		this.invoiceID = invoiceID;
@@ -76,12 +76,12 @@ public class DetailedInvoice {
 	}
 
 
-	public int getProductID() {
+	public String getProductID() {
 		return productID;
 	}
 
 
-	public void setProductID(int productID) {
+	public void setProductID(String productID) {
 		this.productID = productID;
 	}
 

@@ -4,7 +4,7 @@ import java.util.Map;
 
 public class ProductDTO {
 
-	private int id;
+	private String id;
 	private String categoryName;
 	private String brandName;
 	private float rate;
@@ -44,11 +44,11 @@ public class ProductDTO {
 
 	public ProductDTO() {}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -116,7 +116,7 @@ public class ProductDTO {
 		this.purchased = purchased;
 	}
 
-	public ProductDTO(int id, String categoryName, String brandName, float rate, String name,
+	public ProductDTO(String id, String categoryName, String brandName, float rate, String name,
 			int price, int stock, int warranty, int purchased, String categorySlug, String images, String shortDescrip) {
 		super();
 		this.id = id;

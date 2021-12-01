@@ -2,7 +2,7 @@ package com.techshopbe.dto;
 
 // chi tiet hoa don
 public class DetailedInvoiceDTO {
-	private int id;
+	private String id;
 	private int oldPrice;
 	private int quantity;
 	private int totalPrice;
@@ -12,11 +12,11 @@ public class DetailedInvoiceDTO {
 	private String categorySlug;
 	private int salePrice;
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -84,7 +84,7 @@ public class DetailedInvoiceDTO {
 		this.salePrice = salePrice;
 	}
 
-	public DetailedInvoiceDTO(int id, int oldPrice, int quantity, int totalPrice, String name, boolean isReviewed,
+	public DetailedInvoiceDTO(String id, int oldPrice, int quantity, int totalPrice, String name, boolean isReviewed,
 			String images, String categorySlug, int salePrice) {
 		super();
 		this.id = id;

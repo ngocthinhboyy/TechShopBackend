@@ -249,7 +249,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 	}
 
 	@Override
-	public void updateReviewStatus(String invoiceID, int productID) {
+	public void updateReviewStatus(String invoiceID, String productID) {
 		detailedInvoiceRepository.updateRatingInfoByProductID(invoiceID, productID);
 
 	}

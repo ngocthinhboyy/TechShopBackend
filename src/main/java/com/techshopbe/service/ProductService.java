@@ -2,20 +2,33 @@ package com.techshopbe.service;
 
 import java.util.List;
 
-import javax.swing.SortOrder;
-
 import com.techshopbe.dto.DetailedProductDTO;
 import com.techshopbe.dto.ProductDTO;
-import com.techshopbe.dto.SpecificationAttributeDTO;
+import com.techshopbe.dto.ProductRequestDTO;
+import com.techshopbe.dto.SpecificationAttributeValueDTO;
 
 public interface ProductService {
 	public List<ProductDTO> getAll();
+
 	public List<ProductDTO> getTrendingProducts();
+
 	public List<ProductDTO> getProductsByCategory(String categorySlug);
+
 	public List<ProductDTO> getTopPurchasedProducts(int categoryID);
-	public DetailedProductDTO getDetailedProduct(int productID);
-	public List<ProductDTO> getRelatedCategoryProducts(int productID);
-	public List<ProductDTO> getRelatedBrandProducts(int productID);
-	public void updateRating(int productID, float rate);
-	public List<SpecificationAttributeDTO> getProductSpecificationAttribute(String categoryID, String brandID);
+
+	public DetailedProductDTO getDetailedProduct(String productID);
+
+	public List<ProductDTO> getRelatedCategoryProducts(String productID);
+
+	public List<ProductDTO> getRelatedBrandProducts(String productID);
+
+	public void updateRating(String productID, float rate);
+
+	public List<SpecificationAttributeValueDTO> getProductSpecificationAttribute(String categoryID, String brandID);
+
+	public void add(ProductRequestDTO product);
+
+	public void update(ProductRequestDTO product) throws Exception;
+	
+	public void delete(String id) throws Exception;
 }
