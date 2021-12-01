@@ -8,6 +8,7 @@ public class DetailedProductDTO {
 	private String brandID;
 	private String categoryName;
 	private String brandName;
+	private String longDescrip;
 	private float rate;
 	private String name;
 	private int price;
@@ -33,7 +34,7 @@ public class DetailedProductDTO {
 
 	public DetailedProductDTO(String id, String categoryID, String brandID, String categoryName, String brandName, float rate,
 			String name, int price, int stock, int warranty,
-			int purchased,int totalReviews, String images, String shortDescrip) {
+			int purchased,int totalReviews, String images, String shortDescrip, String longDescrip) {
 		super();
 		this.id = id;
 		this.categoryID = categoryID;
@@ -49,6 +50,7 @@ public class DetailedProductDTO {
 		this.totalReviews = totalReviews;
 		this.images = images;
 		this.shortDescrip = shortDescrip;
+		this.longDescrip = longDescrip;
 	}
 
 	public String getCategoryID() {
@@ -170,6 +172,14 @@ public class DetailedProductDTO {
 
 	public void setSpecifications(List<ProductSpecificationDTO> specifications) {
 		this.specifications = specifications;
+	}
+
+	public String getLongDescrip() {
+		return longDescrip;
+	}
+
+	public void setLongDescrip(String longDescrip) {
+		this.longDescrip = longDescrip;
 	}
 
 	

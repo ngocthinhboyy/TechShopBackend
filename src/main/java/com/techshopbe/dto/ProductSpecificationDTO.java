@@ -1,5 +1,9 @@
 package com.techshopbe.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(Include.NON_NULL)
 public class ProductSpecificationDTO {
 	private String id;
 	private String name;

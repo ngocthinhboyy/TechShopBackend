@@ -16,6 +16,7 @@ public class Product {
 	private float rate;
 	private String name;
 	private int price;
+	private String longDescrip;
 	private String shortDescrip;
 	private int stock;
 	private int warranty;
@@ -173,6 +174,14 @@ public class Product {
 
 	public void setAttributeSetID(String attributeSetID) {
 		this.attributeSetID = attributeSetID;
+	}
+
+	public String getLongDescrip() {
+		return longDescrip;
+	}
+
+	public void setLongDescrip(String longDescrip) {
+		this.longDescrip = longDescrip;
 	}
 
 	
