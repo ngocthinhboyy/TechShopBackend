@@ -139,13 +139,34 @@ public class ProductController {
 		}
 	}
 	
-	@DeleteMapping(value = "/{id}")
+	@Transactional
+	@DeleteMapping(value = "/specification/{id}")
 	public Object deleteProduct(@PathVariable String id) {
 		try {
-			productService.delete(id);
-			return new ResponseEntity<String>("Delete Successfully", HttpStatus.OK);
+			productService.deleteSpecification(id);
+			return new ResponseEntity<String>("Delete Specification Successfully", HttpStatus.OK);
 		} catch (Exception e) {
-			System.out.println(e);
+			return new ResponseEntity<String>("Failed: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@Transactional
+	@PutMapping(value = "/specification/{id}")
+	public Object disableSpecification(@PathVariable String id) {
+		try {
+			productService.disableSpecification(id);
+			return new ResponseEntity<String>("Disable Specification Successfully", HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>("Failed: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping(value = "/specification/affected-product/{id}")
+	public Object countAffectedProduct(@PathVariable String id) {
+		try {
+			int affectedProduct = productService.countProductAffectedWhenDeleteAttibute(id);
+			return new ResponseEntity<Integer>(affectedProduct, HttpStatus.OK);
+		} catch (Exception e) {
 			return new ResponseEntity<String>("Failed: " + e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}

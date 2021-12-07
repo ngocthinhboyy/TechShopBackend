@@ -125,7 +125,7 @@ public class ProductServiceImpl implements ProductService {
 		List<SpecificationAttributeValueDTO> specifcationAttributes = new ArrayList<SpecificationAttributeValueDTO>();
 		for (Object[] object : objects) {
 			specifcationAttributes.add(new SpecificationAttributeValueDTO(object[0].toString(), object[1].toString(),
-					object[2].toString()));
+					object[2].toString(), Boolean.parseBoolean(object[3].toString())));
 		}
 		return specifcationAttributes;
 	}
@@ -320,6 +320,53 @@ public class ProductServiceImpl implements ProductService {
 		}
 		deleteProduct.setDeleted(true);
 		productRepository.save(deleteProduct);
+	}
+
+	@Override
+	public void disableSpecification(String id) {
+		productRepository.disableAttribue(id);
+		
+	}
+
+	@Override
+	public void deleteSpecification(String id) {
+		String dataType = productRepository.getDataTypeOfAttribute(id)[0].toString();
+		switch (dataType) {
+		case "FLOAT":
+			productRepository.deleteFloatAttribute(id);
+			break;
+		case "VARCHAR":
+			productRepository.deleteVarcharAttribute(id);
+			break;
+		case "TEXT":
+			productRepository.deleteTextAttribute(id);
+			break;
+		case "BOOL":
+			productRepository.deleteBooleanAttribute(id);;
+			break;
+		case "INT":
+			productRepository.deleteIntAttribute(id);
+			break;
+		}
+		productRepository.deleteAttribue(id);
+	}
+
+	@Override
+	public int countProductAffectedWhenDeleteAttibute(String id) {
+		String dataType = productRepository.getDataTypeOfAttribute(id)[0].toString();
+		switch (dataType) {
+		case "FLOAT":
+			return Integer.parseInt(productRepository.countProductOfFloatAttribute(id)[0].toString());
+		case "VARCHAR":
+			return Integer.parseInt(productRepository.countProductOfVarcharAttribute(id)[0].toString());
+		case "TEXT":
+			return Integer.parseInt(productRepository.countProductOfTextAttribute(id)[0].toString());
+		case "BOOL":
+			return Integer.parseInt(productRepository.countProductOfBooleanAttribute(id)[0].toString());
+		case "INT":
+			return Integer.parseInt(productRepository.countProductOfIntAttribute(id)[0].toString());
+		}
+		return 0;
 	}
 
 }

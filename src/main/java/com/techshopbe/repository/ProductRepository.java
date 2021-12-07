@@ -63,7 +63,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Query("UPDATE Product p SET p.rate = ?1, p.totalReviews = ?2 WHERE p.id = ?3")
 	int updateRatingInfoByid(float rate, int totalReviews, String id);
 
-	@Query(value = "SELECT attr.id, attr.name, attr.dataType FROM attribute_set attr_set, attribute attr WHERE attr_set.id = attr.attributeSetID and attr_set.categoryID = ?1 and attr_set.brandID = ?2", nativeQuery = true)
+	@Query(value = "SELECT attr.id, attr.name, attr.dataType, attr.isDeleted FROM attribute_set attr_set, attribute attr WHERE attr_set.id = attr.attributeSetID and attr_set.categoryID = ?1 and attr_set.brandID = ?2", nativeQuery = true)
 	List<Object[]> getSpecificationAttributeBycategoryIDAndbrandID(String categoryID, String brandID);
 
 	@Query(value = "INSERT INTO ATTRIBUTE_SET (id, categoryID, brandID, `name`) VALUES(?1, ?2, ?3)", nativeQuery = true)
@@ -121,5 +121,43 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
 	@Query(value = "SELECT attr.id, attr.name, attr.dataType FROM attribute_set attr_set, attribute attr WHERE attr_set.id = attr.attributeSetID and attr.attributeSetID = ?1", nativeQuery = true)
 	List<Object[]> findAllAttributesByAttributeSetID(String attrSetID);
+	
+	@Modifying
+	@Query(value = "UPDATE ATTRIBUTE attr SET isDeleted = TRUE WHERE id = ?1", nativeQuery = true)
+	void disableAttribue(String id);
+	
+	
+	@Query(value = "SELECT attr.dataType from ATTRIBUTE attr WHERE attr.id = ?1", nativeQuery = true)
+	Object[] getDataTypeOfAttribute(String id);
+	
+	@Modifying
+	@Query(value = "DELETE FROM ATTRIBUTE_VALUE_INT WHERE attributeID = ?1", nativeQuery = true)
+	void deleteIntAttribute(String id);
+	@Modifying
+	@Query(value = "DELETE FROM ATTRIBUTE_VALUE_FLOAT WHERE attributeID = ?1", nativeQuery = true)
+	void deleteFloatAttribute(String id);
+	@Modifying
+	@Query(value = "DELETE FROM ATTRIBUTE_VALUE_BOOL WHERE attributeID = ?1", nativeQuery = true)
+	void deleteBooleanAttribute(String id);
+	@Modifying
+	@Query(value = "DELETE FROM ATTRIBUTE_VALUE_TEXT WHERE attributeID = ?1", nativeQuery = true)
+	void deleteTextAttribute(String id);
+	@Modifying
+	@Query(value = "DELETE FROM ATTRIBUTE_VALUE_VARCHAR WHERE attributeID = ?1", nativeQuery = true)
+	void deleteVarcharAttribute(String id);
+	@Modifying
+	@Query(value = "DELETE FROM ATTRIBUTE WHERE id = ?1", nativeQuery = true)
+	void deleteAttribue(String id);
+	
+	@Query(value = "SELECT COUNT(productID) FROM ATTRIBUTE_VALUE_INT WHERE attributeID = ?1", nativeQuery = true)
+	Object[] countProductOfIntAttribute(String id);
+	@Query(value = "SELECT COUNT(productID) FROM ATTRIBUTE_VALUE_FLOAT WHERE attributeID = ?1", nativeQuery = true)
+	Object[] countProductOfFloatAttribute(String id);
+	@Query(value = "SELECT COUNT(productID) FROM ATTRIBUTE_VALUE_BOOL WHERE attributeID = ?1", nativeQuery = true)
+	Object[] countProductOfBooleanAttribute(String id);
+	@Query(value = "SELECT COUNT(productID) FROM ATTRIBUTE_VALUE_TEXT WHERE attributeID = ?1", nativeQuery = true)
+	Object[] countProductOfTextAttribute(String id);
+	@Query(value = "SELECT COUNT(productID) FROM ATTRIBUTE_VALUE_VARCHAR WHERE attributeID = ?1", nativeQuery = true)
+	Object[] countProductOfVarcharAttribute(String id);
 
 }

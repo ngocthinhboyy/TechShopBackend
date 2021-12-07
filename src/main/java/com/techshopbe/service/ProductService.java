@@ -31,4 +31,10 @@ public interface ProductService {
 	public void update(ProductRequestDTO product) throws Exception;
 	
 	public void delete(String id) throws Exception;
+	
+	public void disableSpecification(String id);
+	
+	public void deleteSpecification(String id);
+	
+	public int countProductAffectedWhenDeleteAttibute(String id);
 }
