@@ -323,8 +323,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public void disableSpecification(String id) {
-		productRepository.disableAttribue(id);
+	public void updateAttributeStatus(String id) {
+		productRepository.updateAttributeStatus(id);
 		
 	}
 

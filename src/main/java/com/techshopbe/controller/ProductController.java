@@ -141,7 +141,7 @@ public class ProductController {
 	
 	@Transactional
 	@DeleteMapping(value = "/specification/{id}")
-	public Object deleteProduct(@PathVariable String id) {
+	public Object deleteProductSpecification(@PathVariable String id) {
 		try {
 			productService.deleteSpecification(id);
 			return new ResponseEntity<String>("Delete Specification Successfully", HttpStatus.OK);
@@ -150,12 +150,22 @@ public class ProductController {
 		}
 	}
 	
+	@DeleteMapping(value = "/{id}")
+	public Object deleteProduct(@PathVariable String id) {
+		try {
+			productService.delete(id);
+			return new ResponseEntity<String>("Delete Successfully", HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>("Failed: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
 	@Transactional
 	@PutMapping(value = "/specification/{id}")
-	public Object disableSpecification(@PathVariable String id) {
+	public Object updateAttributeStatus(@PathVariable String id) {
 		try {
-			productService.disableSpecification(id);
-			return new ResponseEntity<String>("Disable Specification Successfully", HttpStatus.OK);
+			productService.updateAttributeStatus(id);
+			return new ResponseEntity<String>("Update Attribute Status Successfully", HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<String>("Failed: " + e.getMessage(), HttpStatus.BAD_REQUEST);
 		}

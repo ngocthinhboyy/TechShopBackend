@@ -123,8 +123,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	List<Object[]> findAllAttributesByAttributeSetID(String attrSetID);
 	
 	@Modifying
-	@Query(value = "UPDATE ATTRIBUTE attr SET isDeleted = TRUE WHERE id = ?1", nativeQuery = true)
-	void disableAttribue(String id);
+	@Query(value = "UPDATE ATTRIBUTE attr SET isDeleted = !isDeleted WHERE id = ?1", nativeQuery = true)
+	void updateAttributeStatus(String id);
 	
 	
 	@Query(value = "SELECT attr.dataType from ATTRIBUTE attr WHERE attr.id = ?1", nativeQuery = true)

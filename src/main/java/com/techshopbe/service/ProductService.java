@@ -32,7 +32,7 @@ public interface ProductService {
 	
 	public void delete(String id) throws Exception;
 	
-	public void disableSpecification(String id);
+	public void updateAttributeStatus(String id);
 	
 	public void deleteSpecification(String id);
 	
