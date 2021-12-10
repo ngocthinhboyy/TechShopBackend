@@ -1,5 +1,7 @@
 package com.techshopbe.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 // chi tiet hoa don
 public class DetailedInvoiceDTO {
 	private String id;
@@ -11,6 +13,43 @@ public class DetailedInvoiceDTO {
 	private String images;
 	private String categorySlug;
 	private int salePrice;
+	@JsonIgnore
+	private String reviewID;
+	private String reviewContent;
+	private String reviewDate;
+	private float rate;
+
+	public String getReviewContent() {
+		return reviewContent;
+	}
+
+	public void setReviewContent(String reviewContent) {
+		this.reviewContent = reviewContent;
+	}
+
+	public String getReviewDate() {
+		return reviewDate;
+	}
+
+	public String getReviewID() {
+		return reviewID;
+	}
+
+	public void setReviewID(String reviewID) {
+		this.reviewID = reviewID;
+	}
+
+	public void setReviewDate(String reviewDate) {
+		this.reviewDate = reviewDate;
+	}
+
+	public float getRate() {
+		return rate;
+	}
+
+	public void setRate(float rate) {
+		this.rate = rate;
+	}
 
 	public String getId() {
 		return id;
@@ -85,7 +124,7 @@ public class DetailedInvoiceDTO {
 	}
 
 	public DetailedInvoiceDTO(String id, int oldPrice, int quantity, int totalPrice, String name, boolean isReviewed,
-			String images, String categorySlug, int salePrice) {
+			String images, String categorySlug, int salePrice, String reviewID) {
 		super();
 		this.id = id;
 		this.oldPrice = oldPrice;
@@ -96,6 +135,7 @@ public class DetailedInvoiceDTO {
 		this.images = images;
 		this.categorySlug = categorySlug;
 		this.salePrice = salePrice;
+		this.reviewID = reviewID;
 	}
 
 }

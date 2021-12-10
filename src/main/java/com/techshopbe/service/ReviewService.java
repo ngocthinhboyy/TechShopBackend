@@ -10,7 +10,7 @@ import com.techshopbe.dto.ReviewDTO;
 
 
 public interface ReviewService {
-	List<ReviewDTO> getAllReviewsByProductID(int productID, Pageable page);
-	void addReview(PostReviewDTO postReviewDTO);
+	List<ReviewDTO> getAllReviewsByProductID(String productID, Pageable page);
+	void addReview(List<PostReviewDTO> postReviewDTO);
 
 }

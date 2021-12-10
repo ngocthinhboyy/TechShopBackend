@@ -10,8 +10,7 @@ import javax.persistence.Table;
 @Table(name = "REVIEW")
 public class Review {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private String id;
 	private String productID;
 	private String userID;
 	private String reviewDate;
@@ -21,7 +20,7 @@ public class Review {
 	public Review() {
 	}
 
-	public Review(int id, String productID, String userID, String reviewDate, String reviewContent, float rate) {
+	public Review(String id, String productID, String userID, String reviewDate, String reviewContent, float rate) {
 		super();
 		this.id = id;
 		this.productID = productID;
@@ -31,11 +30,11 @@ public class Review {
 		this.rate = rate;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

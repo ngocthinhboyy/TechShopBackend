@@ -32,7 +32,7 @@ public class ReviewController {
 	InvoiceService invoiceService;
 
 	@GetMapping(value = "/{productID}")
-	public Object getAllReviewsByProductID(@PathVariable int productID, @RequestParam int limit,
+	public Object getAllReviewsByProductID(@PathVariable String productID, @RequestParam int limit,
 			@RequestParam int page) {
 		try {
 			//System.out.println(page);
@@ -44,28 +44,25 @@ public class ReviewController {
 	}
 	
 	@PostMapping
-	public Object addReview(@RequestBody PostReviewDTO postReviewDTO) {
+	public Object addReview(@RequestBody List<PostReviewDTO> postReviews) {
 		try {
-//			System.out.println(postReviewDTO.getOrderID());
-//			System.out.println(postReviewDTO.getProductID());
-//			System.out.println(postReviewDTO.getReviewContent());
-//			System.out.println(postReviewDTO.getRate());
-			// add review 
-			reviewService.addReview(postReviewDTO);
 			
-			// recalculate rate in product table
-			productService.updateRating(postReviewDTO.getProductID(), postReviewDTO.getRate());
-			
-			// update isReviewed in DetailedInvoice
-			invoiceService.updateReviewStatus(postReviewDTO.getOrderID(), postReviewDTO.getProductID());
+			reviewService.addReview(postReviews);
+//			
+//			// recalculate rate in product table
+//			productService.updateRating(postReviewDTO.getProductID(), postReviewDTO.getRate());
+//			
+//			// update isReviewed in DetailedInvoice
+//			invoiceService.updateReviewStatus(postReviewDTO.getOrderID(), postReviewDTO.getProductID());
+//			
 			
 			
-			
-			return new ResponseEntity<String>("Add Successfully!", HttpStatus.CREATED);
+			return new ResponseEntity<String>("Review Successfully!", HttpStatus.CREATED);
 		} catch(Exception e) {
 			
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
+	
 
 }

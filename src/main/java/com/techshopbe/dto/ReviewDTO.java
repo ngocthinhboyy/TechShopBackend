@@ -1,7 +1,11 @@
 package com.techshopbe.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(Include.NON_NULL)
 public class ReviewDTO {
-	private int id;
+	private String id;
 	private String productID;
 	private String fullname;
 	private String reviewDate;
@@ -11,7 +15,7 @@ public class ReviewDTO {
 	public ReviewDTO() {
 	}
 
-	public ReviewDTO(int id, String productID, String fullname, String reviewDate, String reviewContent,
+	public ReviewDTO(String id, String productID, String fullname, String reviewDate, String reviewContent,
 			float rate) {
 		super();
 		this.id = id;
@@ -22,11 +26,11 @@ public class ReviewDTO {
 		this.rate = rate;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

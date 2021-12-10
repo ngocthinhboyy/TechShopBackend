@@ -18,6 +18,7 @@ import com.techshopbe.dto.ShippingInfoDTO;
 import com.techshopbe.entity.CancelInvoice;
 import com.techshopbe.entity.DetailedInvoice;
 import com.techshopbe.entity.Invoice;
+import com.techshopbe.entity.Review;
 import com.techshopbe.entity.Shipper;
 import com.techshopbe.entity.ShippingInfo;
 import com.techshopbe.entity.StatusInvoice;
@@ -25,6 +26,7 @@ import com.techshopbe.repository.CancelInvoiceRepository;
 import com.techshopbe.repository.DetailedInvoiceRepository;
 import com.techshopbe.repository.InvoiceRepository;
 import com.techshopbe.repository.ProductRepository;
+import com.techshopbe.repository.ReviewRepository;
 import com.techshopbe.repository.ShipperRepository;
 import com.techshopbe.repository.ShippingInfoRepository;
 import com.techshopbe.repository.StatusInvoiceRepository;
@@ -52,6 +54,8 @@ public class InvoiceServiceImpl implements InvoiceService {
 	CancelInvoiceRepository cancelInvoiceRepository;
 	@Autowired
 	ShipperRepository shipperInfoRepository;
+	@Autowired
+	ReviewRepository reviewRepository;
 
 	@Override
 	public void add(String invoice) {
@@ -217,7 +221,18 @@ public class InvoiceServiceImpl implements InvoiceService {
 		StatusInvoice statusInvoice = statusInvoiceRepository.findByid(invoice.getStatusID());
 
 		InvoiceDTO invoiceDTO = new InvoiceDTO();
+		
+		for(DetailedInvoiceDTO detailedInvoice : detailedInvoices) {
+			if(detailedInvoice.isReviewed()) {
+				Review review = reviewRepository.findById(detailedInvoice.getReviewID());
+				detailedInvoice.setReviewContent(review.getReviewContent());
+				detailedInvoice.setReviewDate(review.getReviewDate());
+				detailedInvoice.setRate(review.getRate());
+			}
+		}
+		
 		invoiceDTO.setDetailedInvoices(detailedInvoices);
+		
 		invoiceDTO.setNote(invoice.getNote());
 		invoiceDTO.setShippingInfo(shippingInfo);
 		invoiceDTO.setStatus(invoice.getStatus());

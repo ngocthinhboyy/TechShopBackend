@@ -14,6 +14,7 @@ public class DetailedInvoice {
 	private String id;
 	private String invoiceID;
 	private String productID;
+	private String reviewID;
 	private int quantity;
 	private int price;
 	private int totalPrice;
@@ -103,6 +104,16 @@ public class DetailedInvoice {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+
+	public String getReviewID() {
+		return reviewID;
+	}
+
+
+	public void setReviewID(String reviewID) {
+		this.reviewID = reviewID;
 	}
 	
 }
