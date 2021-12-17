@@ -26,6 +26,7 @@ public class InvoiceDTO {
 	private String reason;
 	private int totalItems;
 	private Shipper shipper;
+	private String customerID;
 	public Shipper getShipper() {
 		return shipper;
 	}
@@ -170,6 +171,12 @@ public class InvoiceDTO {
 
 	public void setReason(String reason) {
 		this.reason = reason;
+	}
+	public String getCustomerID() {
+		return customerID;
+	}
+	public void setCustomerID(String customerID) {
+		this.customerID = customerID;
 	}
 	
 	

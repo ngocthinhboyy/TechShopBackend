@@ -238,9 +238,9 @@ public class InvoiceServiceImpl implements InvoiceService {
 		invoiceDTO.setStatus(invoice.getStatus());
 		invoiceDTO.setTotal(invoice.getTotalCost());
 		invoiceDTO.setTotalItems(invoice.getTotalItems());
+		invoiceDTO.setCustomerID(invoice.getUserID());
 		if (invoice.getShipperID() != null)  {
 			Shipper shipper = shipperInfoRepository.findById(invoice.getShipperID());
-			shipper.setId(null);
 			invoiceDTO.setShipper(shipper);
 		}
 		if(invoice.isCancelled()) {
