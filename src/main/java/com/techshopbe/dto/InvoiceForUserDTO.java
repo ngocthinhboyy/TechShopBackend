@@ -10,6 +10,7 @@ public class InvoiceForUserDTO {
 	private String status;
 	private String statusNote;
 	private String statusDetail;
+	private String whoCancel;
 	private String reason;
 	private int totalItems;
 	private int total;
@@ -88,6 +89,12 @@ public class InvoiceForUserDTO {
 	}
 	public void setLastConfirm(String lastConfirm) {
 		this.lastConfirm = lastConfirm;
+	}
+	public String getWhoCancel() {
+		return whoCancel;
+	}
+	public void setWhoCancel(String whoCancel) {
+		this.whoCancel = whoCancel;
 	}
 	
 }
