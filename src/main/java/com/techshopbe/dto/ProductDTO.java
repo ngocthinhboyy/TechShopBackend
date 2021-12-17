@@ -1,7 +1,5 @@
 package com.techshopbe.dto;
 
-import java.util.Map;
-
 public class ProductDTO {
 
 	private String id;
@@ -16,8 +14,19 @@ public class ProductDTO {
 	private String categorySlug;
 	private String images;
 	private String shortDescrip;
+	private boolean isDeleted;
 
 	
+
+
+	public boolean getIsDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+
 	public String getShortDescrip() {
 		return shortDescrip;
 	}

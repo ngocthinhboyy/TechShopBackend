@@ -121,8 +121,8 @@ public class ProductController {
 	@PostMapping
 	public Object addProduct(@RequestBody ProductRequestDTO product) {
 		try {
-			productService.add(product);
-			return new ResponseEntity<String>("Add Successfully", HttpStatus.OK);
+			DetailedProductDTO newProduct = productService.add(product);
+			return new ResponseEntity<DetailedProductDTO>(newProduct, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<String>("Failed " + e.getMessage(), HttpStatus.BAD_REQUEST);
 		}

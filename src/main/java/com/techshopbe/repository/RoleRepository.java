@@ -8,4 +8,6 @@ import com.techshopbe.entity.Role;
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Integer> {
 	Role findById(String id);
+	
+	Role findByRoleName(String roleName);
 }

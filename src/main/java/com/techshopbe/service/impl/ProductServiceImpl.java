@@ -132,7 +132,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Transactional
 	@Override
-	public void add(ProductRequestDTO product) {
+	public DetailedProductDTO add(ProductRequestDTO product) {
 		// save new product first. if not, other tables cannot use productID
 		String productID = UUID.randomUUID().toString();
 		Product newProduct = new Product(product);
@@ -191,7 +191,7 @@ public class ProductServiceImpl implements ProductService {
 			}
 
 		}
-
+		return getDetailedProduct(productID);
 	}
 
 	public void addNewAttributeValue(AttributeDTO attribute, String productID) {

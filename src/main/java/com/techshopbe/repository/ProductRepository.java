@@ -29,7 +29,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Query("SELECT new com.techshopbe.dto.ProductDTO(p.id, c.name, b.name, p.rate, p.name, p.price, p.stock, p.warranty, p.purchased, c.slug, p.images, p.shortDescrip) FROM Product p, Category c, Brand b WHERE p.categoryID = c.id AND p.brandID = b.id AND c.slug = ?1")
 	List<ProductDTO> findByCategorySlug(String categorySlug);
 
-	@Query("SELECT new com.techshopbe.dto.DetailedProductDTO(p.id, p.categoryID, p.brandID, c.name, b.name, p.rate, p.name, p.price, p.stock, p.warranty, p.purchased, p.totalReviews, p.images, p.shortDescrip, p.longDescrip) FROM Product p, Category c, Brand b WHERE p.categoryID = c.id AND p.brandID = b.id AND p.id = ?1")
+	@Query("SELECT new com.techshopbe.dto.DetailedProductDTO(p.id, p.categoryID, p.brandID, c.name, b.name, p.rate, p.name, p.price, p.stock, p.warranty, p.purchased, p.totalReviews, p.images, p.shortDescrip, p.longDescrip, p.isDeleted) FROM Product p, Category c, Brand b WHERE p.categoryID = c.id AND p.brandID = b.id AND p.id = ?1")
 	DetailedProductDTO findDetailedProductByid(String id);
 
 	String findQuery = "SELECT attr_varchar.id, attr.name, attr_varchar.value, attr.dataType FROM  PRODUCT p, ATTRIBUTE attr, ATTRIBUTE_VALUE_VARCHAR attr_varchar where p.id = ?1 and p.id = attr_varchar.productID and attr_varchar.attributeID = attr.id "

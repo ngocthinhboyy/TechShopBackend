@@ -34,4 +34,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	List<User> findAllByRewardID(String rewardID);
 
 	List<User> findAllByRewardIDAndIsDeleted(String id, boolean b);
+	
+	List<User> findAllByRoleID(String roleID);
 }

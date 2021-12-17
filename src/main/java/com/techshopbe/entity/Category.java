@@ -15,6 +15,7 @@ public class Category {
 	private String slug;
 	private String createdDate;
 	private String lastModified;
+	private String img;
 	@JsonIgnore
 	private boolean isDeleted;
 	
@@ -79,6 +80,14 @@ public class Category {
 
 	public void setSlug(String slug) {
 		this.slug = slug;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
 	}
 
 }

@@ -26,7 +26,7 @@ public interface ProductService {
 
 	public List<SpecificationAttributeValueDTO> getProductSpecificationAttribute(String categoryID, String brandID);
 
-	public void add(ProductRequestDTO product);
+	public DetailedProductDTO add(ProductRequestDTO product);
 
 	public void update(ProductRequestDTO product) throws Exception;
 	

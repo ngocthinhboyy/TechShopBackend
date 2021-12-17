@@ -19,8 +19,17 @@ public class DetailedProductDTO {
 	private int totalReviews;
 	private String images;
 	private String shortDescrip;
+	private boolean isDeleted;
 	private List<ProductSpecificationDTO> specifications;
 	
+	
+	public boolean getIsDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
 	
 	public int getTotalReviews() {
 		return totalReviews;
@@ -34,7 +43,7 @@ public class DetailedProductDTO {
 
 	public DetailedProductDTO(String id, String categoryID, String brandID, String categoryName, String brandName, float rate,
 			String name, int price, int stock, int warranty,
-			int purchased,int totalReviews, String images, String shortDescrip, String longDescrip) {
+			int purchased,int totalReviews, String images, String shortDescrip, String longDescrip, boolean isDeleted) {
 		super();
 		this.id = id;
 		this.categoryID = categoryID;
@@ -51,6 +60,7 @@ public class DetailedProductDTO {
 		this.images = images;
 		this.shortDescrip = shortDescrip;
 		this.longDescrip = longDescrip;
+		this.isDeleted = isDeleted;
 	}
 
 	public String getCategoryID() {
