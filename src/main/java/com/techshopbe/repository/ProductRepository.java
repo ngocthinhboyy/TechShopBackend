@@ -8,11 +8,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
-import com.techshopbe.dto.AttributeDTO;
 import com.techshopbe.dto.DetailedProductDTO;
 import com.techshopbe.dto.ProductDTO;
 import com.techshopbe.dto.RatingInfoDTO;
-import com.techshopbe.dto.SpecificationAttributeValueDTO;
 import com.techshopbe.entity.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
@@ -26,7 +24,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Query("SELECT new com.techshopbe.dto.ProductDTO(p.id, c.name, b.name, p.rate, p.name, p.price, p.stock, p.warranty, p.purchased, c.slug, p.images, p.shortDescrip) FROM Product p, Category c, Brand b WHERE p.categoryID = c.id AND p.brandID = b.id ORDER BY p.purchased DESC")
 	List<ProductDTO> findTrendingProducts();
 	
-	@Query("SELECT new com.techshopbe.dto.ProductDTO(p.id, c.name, b.name, p.rate, p.name, p.price, p.stock, p.warranty, p.purchased, c.slug, p.images, p.shortDescrip) FROM Product p, Category c, Brand b WHERE p.categoryID = c.id AND p.brandID = b.id AND p.id = ?1")
+	@Query("SELECT new com.techshopbe.dto.ProductDTO(p.id, c.name, b.name, p.rate, p.name, p.price, p.stock, p.warranty, p.purchased, c.slug, p.images, p.shortDescrip, p.longDescrip) FROM Product p, Category c, Brand b WHERE p.categoryID = c.id AND p.brandID = b.id AND p.id = ?1")
 	ProductDTO findProductDTOById(String id);
 
 	@Query("SELECT new com.techshopbe.dto.ProductDTO(p.id, c.name, b.name, p.rate, p.name, p.price, p.stock, p.warranty, p.purchased, c.slug, p.images, p.shortDescrip) FROM Product p, Category c, Brand b WHERE p.categoryID = c.id AND p.brandID = b.id AND c.slug = ?1")

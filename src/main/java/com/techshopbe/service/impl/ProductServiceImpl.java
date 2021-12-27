@@ -77,8 +77,16 @@ public class ProductServiceImpl implements ProductService {
 				specsDto.setId(spec[0].toString());
 				specsDto.setDataType(spec[3].toString());
 			}
+			if (spec[3].toString().equalsIgnoreCase("BOOL")) {
+				if (Integer.parseInt(spec[2].toString()) == 1) {
+					specsDto.setValue("Yes");
+				} else {
+					specsDto.setValue("No");
+				}
+			} else {
+				specsDto.setValue(spec[2].toString());
+			}
 			specsDto.setName(spec[1].toString());
-			specsDto.setValue(spec[2].toString());
 
 			productSpecsList.add(specsDto);
 		}
@@ -226,7 +234,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public void update(ProductRequestDTO product) throws Exception {
+	public ProductDTO update(ProductRequestDTO product) throws Exception {
 		String productID = product.getId();
 		Product newProduct = productRepository.findByIdAndIsDeleted(productID, false);
 
@@ -282,6 +290,7 @@ public class ProductServiceImpl implements ProductService {
 				updateAttributeValue(attribute);
 			}
 		}
+		return productRepository.findProductDTOById(productID);
 	}
 
 	public void updateAttributeValue(AttributeDTO attribute) {
@@ -327,7 +336,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void updateAttributeStatus(String id) {
 		productRepository.updateAttributeStatus(id);
-		
+
 	}
 
 	@Override
@@ -344,7 +353,8 @@ public class ProductServiceImpl implements ProductService {
 			productRepository.deleteTextAttribute(id);
 			break;
 		case "BOOL":
-			productRepository.deleteBooleanAttribute(id);;
+			productRepository.deleteBooleanAttribute(id);
+			;
 			break;
 		case "INT":
 			productRepository.deleteIntAttribute(id);

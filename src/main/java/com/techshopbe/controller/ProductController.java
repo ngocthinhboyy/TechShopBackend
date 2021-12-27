@@ -132,8 +132,8 @@ public class ProductController {
 	@PutMapping
 	public Object updateProduct(@RequestBody ProductRequestDTO product) {
 		try {
-			productService.update(product);
-			return new ResponseEntity<String>("Update Successfully", HttpStatus.OK);
+			ProductDTO updatedProduct= productService.update(product);
+			return new ResponseEntity<ProductDTO>(updatedProduct, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<String>("Failed: " + e.getMessage(), HttpStatus.BAD_REQUEST);
 		}

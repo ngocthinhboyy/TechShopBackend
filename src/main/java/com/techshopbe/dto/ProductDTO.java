@@ -15,6 +15,7 @@ public class ProductDTO {
 	private String images;
 	private String shortDescrip;
 	private boolean isDeleted;
+	private String longDescrip;
 
 	
 
@@ -142,6 +143,22 @@ public class ProductDTO {
 		this.shortDescrip = shortDescrip;
 	}
 	
-	
+	public ProductDTO(String id, String categoryName, String brandName, float rate, String name,
+			int price, int stock, int warranty, int purchased, String categorySlug, String images, String shortDescrip, String longDescrip) {
+		super();
+		this.id = id;
+		this.categoryName = categoryName;
+		this.brandName = brandName;
+		this.rate = rate;
+		this.name = name;
+		this.price = price;
+		this.stock = stock;
+		this.warranty = warranty;
+		this.purchased = purchased;
+		this.categorySlug = categorySlug;
+		this.images = images;
+		this.shortDescrip = shortDescrip;
+		this.longDescrip = longDescrip;
+	}
 	
 }

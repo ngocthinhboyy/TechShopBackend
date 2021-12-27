@@ -28,7 +28,7 @@ public interface ProductService {
 
 	public ProductDTO add(ProductRequestDTO product);
 
-	public void update(ProductRequestDTO product) throws Exception;
+	public ProductDTO update(ProductRequestDTO product) throws Exception;
 	
 	public void delete(String id) throws Exception;
 	

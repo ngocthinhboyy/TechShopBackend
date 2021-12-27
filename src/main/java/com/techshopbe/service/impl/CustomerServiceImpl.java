@@ -80,14 +80,18 @@ public class CustomerServiceImpl implements CustomerService {
 			if(invoice.isCancelled()) {
 				CancelInvoice cancelInvoice = cancelInvoiceRepository.findById(invoice.getCancelID());
 				invoiceForCustomer.setStatusDetail("Cancelled");
+				invoiceForCustomer.setStatus("Cancelled");
+				invoiceForCustomer.setWhoCancel(cancelInvoice.getWhoCancel());
+				invoiceForCustomer.setReason(cancelInvoice.getReason());
 				invoiceForCustomer.setLastConfirm(cancelInvoice.getCancelledDate());
 			} else {
 				StatusInvoice statusInvoice = statusInvoiceRepository.findByid(invoice.getStatusID());
 				invoiceForCustomer.setStatusDetail(statusInvoice.getDetail());
+				invoiceForCustomer.setStatus(statusInvoice.getStatus());
 				String[] processDate = invoice.getProcessDate().split(", ");
 				invoiceForCustomer.setLastConfirm(processDate[processDate.length - 1]);
 			}
-			System.out.println(invoice.getProcessDate());
+			
 			detailedCustomer.orders.add(invoiceForCustomer);
 		}
 
