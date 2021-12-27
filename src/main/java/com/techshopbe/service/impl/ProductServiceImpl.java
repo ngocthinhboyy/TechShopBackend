@@ -132,7 +132,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Transactional
 	@Override
-	public DetailedProductDTO add(ProductRequestDTO product) {
+	public ProductDTO add(ProductRequestDTO product) {
 		// save new product first. if not, other tables cannot use productID
 		String productID = UUID.randomUUID().toString();
 		Product newProduct = new Product(product);
@@ -152,6 +152,7 @@ public class ProductServiceImpl implements ProductService {
 			productRepository.addNewAttributeSet(attrSetID, product.getCategory(), product.getBrand(), attrSetName);
 		}
 		newProduct.setAttributeSetID(attrSetID);
+		newProduct.setLongDescrip(product.getLongDescription());
 		productRepository.save(newProduct);
 		if (existedAttributes.size() != 0) {
 			for (AttributeDTO attribute : existedAttributes) {
@@ -191,7 +192,7 @@ public class ProductServiceImpl implements ProductService {
 			}
 
 		}
-		return getDetailedProduct(productID);
+		return productRepository.findProductDTOById(productID);
 	}
 
 	public void addNewAttributeValue(AttributeDTO attribute, String productID) {

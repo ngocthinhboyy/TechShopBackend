@@ -8,6 +8,7 @@ public class ProductRequestDTO {
 	String id;
 	int price;
 	String shortDescription;
+	String longDescription;
 	int stock;
 	int warranty;
 	String brand;
@@ -109,5 +110,15 @@ public class ProductRequestDTO {
 	public void setCategory(String category) {
 		this.category = category;
 	}
+
+	public String getLongDescription() {
+		return longDescription;
+	}
+
+	public void setLongDescription(String longDescription) {
+		this.longDescription = longDescription;
+	}
+	
+	
 
 }

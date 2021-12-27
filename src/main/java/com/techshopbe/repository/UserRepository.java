@@ -28,6 +28,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("UPDATE User u SET u.totalInvoices = ?1 WHERE u.email = ?2")
     int updateTotalInvoicesByEmail(int totalInvoices, String email);
 	
+	
 	User findById(String id);
 	void deleteById(String id);
 

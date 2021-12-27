@@ -2,7 +2,6 @@ package com.techshopbe.service.impl;
 
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,6 +16,7 @@ import com.techshopbe.dto.ReviewDTO;
 import com.techshopbe.entity.DetailedInvoice;
 import com.techshopbe.entity.Review;
 import com.techshopbe.repository.DetailedInvoiceRepository;
+import com.techshopbe.repository.ProductRepository;
 import com.techshopbe.repository.ReviewRepository;
 import com.techshopbe.security.CustomUserDetails;
 import com.techshopbe.service.ReviewService;
@@ -29,6 +29,8 @@ public class ReviewServiceImpl implements ReviewService {
 	ReviewRepository reviewRepository;
 	@Autowired
 	DetailedInvoiceRepository detailedInvoiceRepository;
+	@Autowired
+	ProductRepository productRepository;
 	
 
 	@Override
@@ -57,6 +59,10 @@ public class ReviewServiceImpl implements ReviewService {
 			detailedInvoice.setIsReviewed(true);
 			detailedInvoice.setReviewID(review.getId());
 			detailedInvoiceRepository.save(detailedInvoice);
+			
+			int totalReviews = productRepository.findTotalReviewsById(postReview.getProductID());
+			totalReviews += 1;
+			productRepository.updateTotalReviewsById(totalReviews, postReview.getProductID());
 		}
 
 		

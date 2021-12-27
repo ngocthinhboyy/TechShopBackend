@@ -145,9 +145,16 @@ public class InvoiceServiceImpl implements InvoiceService {
 			detailedInvoice.setTotalPrice(detailedInvoiceDTO.getTotalPrice());
 			totalItems += detailedInvoiceDTO.getQuantity();
 			detailedInvoiceRepository.save(detailedInvoice);
+			
+			int stock = productRepository.findStockById(detailedInvoiceDTO.getId());
+			int purchased = productRepository.findPurchasedById(detailedInvoiceDTO.getId());
+			purchased += detailedInvoiceDTO.getQuantity();
+			stock -= detailedInvoiceDTO.getQuantity();
+			productRepository.updatePurchasedAndStockById(purchased, stock, detailedInvoiceDTO.getId());
 		}
 		invoiceEntity.setTotalItems(totalItems);
 		invoiceRepository.save(invoiceEntity);
+		
 
 	}
 
@@ -314,6 +321,16 @@ public class InvoiceServiceImpl implements InvoiceService {
 			
 			cancelInvoiceRepository.save(cancelInvoice);
 			invoiceRepository.save(invoice);
+			
+			List<DetailedInvoiceDTO> detailedInvoices = detailedInvoiceRepository.findAllByInvoiceID(invoiceID);
+			for(DetailedInvoiceDTO detailedInvoice : detailedInvoices) {
+				int stock = productRepository.findStockById(detailedInvoice.getId());
+				int purchased = productRepository.findPurchasedById(detailedInvoice.getId());
+				purchased -= detailedInvoice.getQuantity();
+				stock += detailedInvoice.getQuantity();
+				productRepository.updatePurchasedAndStockById(purchased, stock, detailedInvoice.getId());
+			}
+			
 		} else if (invoice.isCancelled()) {
 			throw new Exception("Already Cancelled");
 		} else if (invoice.getStep() >= 5) {

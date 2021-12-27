@@ -25,6 +25,9 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
 	@Query("SELECT new com.techshopbe.dto.ProductDTO(p.id, c.name, b.name, p.rate, p.name, p.price, p.stock, p.warranty, p.purchased, c.slug, p.images, p.shortDescrip) FROM Product p, Category c, Brand b WHERE p.categoryID = c.id AND p.brandID = b.id ORDER BY p.purchased DESC")
 	List<ProductDTO> findTrendingProducts();
+	
+	@Query("SELECT new com.techshopbe.dto.ProductDTO(p.id, c.name, b.name, p.rate, p.name, p.price, p.stock, p.warranty, p.purchased, c.slug, p.images, p.shortDescrip) FROM Product p, Category c, Brand b WHERE p.categoryID = c.id AND p.brandID = b.id AND p.id = ?1")
+	ProductDTO findProductDTOById(String id);
 
 	@Query("SELECT new com.techshopbe.dto.ProductDTO(p.id, c.name, b.name, p.rate, p.name, p.price, p.stock, p.warranty, p.purchased, c.slug, p.images, p.shortDescrip) FROM Product p, Category c, Brand b WHERE p.categoryID = c.id AND p.brandID = b.id AND c.slug = ?1")
 	List<ProductDTO> findByCategorySlug(String categorySlug);
@@ -159,5 +162,23 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	Object[] countProductOfTextAttribute(String id);
 	@Query(value = "SELECT COUNT(productID) FROM ATTRIBUTE_VALUE_VARCHAR WHERE attributeID = ?1", nativeQuery = true)
 	Object[] countProductOfVarcharAttribute(String id);
+	
+	@Modifying
+	@Transactional
+	@Query(value="UPDATE Product p SET p.purchased = ?1, p.stock = ?2 WHERE p.id = ?3")
+	void updatePurchasedAndStockById(int purchased, int stock, String id);
+	
+	@Query(value="SELECT purchased FROM Product p WHERE p.id = ?1")
+	int findPurchasedById(String id);
+	@Query(value="SELECT stock FROM Product p WHERE p.id = ?1")
+	int findStockById(String id);
+	
+	@Query(value="SELECT totalReviews FROM Product p WHERE p.id = ?1")
+	int findTotalReviewsById(String id);
+	
+	@Modifying
+	@Transactional
+	@Query(value="UPDATE Product p SET p.totalReviews = ?1 WHERE p.id = ?2")
+	void updateTotalReviewsById(int totalReviews, String id);
 
 }
