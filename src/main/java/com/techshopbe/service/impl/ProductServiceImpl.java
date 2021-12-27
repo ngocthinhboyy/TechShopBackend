@@ -237,6 +237,7 @@ public class ProductServiceImpl implements ProductService {
 		newProduct.setShortDescrip(product.getShortDescription());
 		newProduct.setStock(product.getStock());
 		newProduct.setWarranty(product.getWarranty());
+		newProduct.setLongDescrip(product.getLongDescription());
 
 		String attrSetID = productRepository.getAttributeSet(newProduct.getCategoryID(), newProduct.getBrandID());
 
