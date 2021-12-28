@@ -161,6 +161,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Query(value = "SELECT COUNT(productID) FROM ATTRIBUTE_VALUE_VARCHAR WHERE attributeID = ?1", nativeQuery = true)
 	Object[] countProductOfVarcharAttribute(String id);
 	
+	int countByIsDeleted(boolean isDeleted);
+	
 	@Modifying
 	@Transactional
 	@Query(value="UPDATE Product p SET p.purchased = ?1, p.stock = ?2 WHERE p.id = ?3")

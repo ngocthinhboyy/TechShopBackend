@@ -37,4 +37,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	List<User> findAllByRewardIDAndIsDeleted(String id, boolean b);
 	
 	List<User> findAllByRoleID(String roleID);
+	
+	int countByJoiningDateBetween(String startDate, String endDate);
 }

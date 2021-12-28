@@ -18,4 +18,6 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Integer>{
 	List<Invoice> findByUserID(String userID);
 	Invoice findByid(String id);
 	List<Invoice> findAll();
+	
+	List<Invoice> findByStepGreaterThan(int step);
 }

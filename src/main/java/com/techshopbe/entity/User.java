@@ -1,8 +1,6 @@
 package com.techshopbe.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -27,6 +25,7 @@ public class User {
 	private String rewardID;
 	private int accumulativeOrder = 0;
 	private int accumulativeSpending = 0;
+	private String joiningDate;
 	private boolean isDeleted;
 
 	public User() {
@@ -162,6 +161,14 @@ public class User {
 
 	public void setAccumulativeSpending(int accumulativeSpending) {
 		this.accumulativeSpending = accumulativeSpending;
+	}
+
+	public String getJoiningDate() {
+		return joiningDate;
+	}
+
+	public void setJoiningDate(String joiningDate) {
+		this.joiningDate = joiningDate;
 	}
 
 }

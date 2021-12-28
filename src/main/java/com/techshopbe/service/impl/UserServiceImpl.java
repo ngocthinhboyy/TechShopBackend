@@ -1,5 +1,6 @@
 package com.techshopbe.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -63,6 +64,8 @@ public class UserServiceImpl implements UserService {
 			user.setPswd(hashPassword);
 			String userID = UUID.randomUUID().toString();
 			user.setId(userID);
+			LocalDateTime joiningDate = LocalDateTime.now();
+			user.setJoiningDate(joiningDate.toLocalDate().toString());
 			userRepository.save(user);
 		} else {
 			throw new Exception("Email already existed");
