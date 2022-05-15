@@ -180,5 +180,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Transactional
 	@Query(value="UPDATE Product p SET p.totalReviews = ?1 WHERE p.id = ?2")
 	void updateTotalReviewsById(int totalReviews, String id);
+	
+	@Query(value="SELECT new com.techshopbe.dto.ProductDTO(p.id, p.name, p.price, p.images) FROM Product p WHERE p.id = ?1 and p.isDeleted = false")
+	ProductDTO getRcmProductById(String id);
 
 }

@@ -1,5 +1,6 @@
 package com.techshopbe.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -179,5 +180,11 @@ public class ProductController {
 		} catch (Exception e) {
 			return new ResponseEntity<String>("Failed: " + e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
+	}
+	@PostMapping(value = "/rcm")
+	public Object getRecommendProduct(@RequestBody List<String> ids) {
+		List<ProductDTO> rcmProducts = productService.getRecommendProducts(ids);
+		return rcmProducts;
+		
 	}
 }

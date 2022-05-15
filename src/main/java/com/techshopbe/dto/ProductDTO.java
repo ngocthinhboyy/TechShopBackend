@@ -1,5 +1,9 @@
 package com.techshopbe.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(Include.NON_NULL)
 public class ProductDTO {
 
 	private String id;
@@ -160,5 +164,11 @@ public class ProductDTO {
 		this.shortDescrip = shortDescrip;
 		this.longDescrip = longDescrip;
 	}
-	
+	public ProductDTO(String id,String name, int price,String images) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.images = images;
+	}
 }

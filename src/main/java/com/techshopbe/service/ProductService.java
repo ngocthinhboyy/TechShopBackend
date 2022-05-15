@@ -37,4 +37,6 @@ public interface ProductService {
 	public void deleteSpecification(String id);
 	
 	public int countProductAffectedWhenDeleteAttibute(String id);
+	
+	public List<ProductDTO> getRecommendProducts(List<String> ids);
 }

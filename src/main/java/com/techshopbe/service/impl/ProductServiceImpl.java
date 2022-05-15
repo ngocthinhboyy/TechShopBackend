@@ -381,4 +381,14 @@ public class ProductServiceImpl implements ProductService {
 		return 0;
 	}
 
+	@Override
+	public List<ProductDTO> getRecommendProducts(List<String> ids) {
+		List<ProductDTO> rcmProducts = new ArrayList<ProductDTO>();
+		for( String id : ids) {
+			ProductDTO rcmProduct = productRepository.getRcmProductById(id);
+			rcmProducts.add(rcmProduct);
+		}
+		return rcmProducts;
+	}
+
 }
