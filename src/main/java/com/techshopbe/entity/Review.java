@@ -15,6 +15,7 @@ public class Review {
 	private String userID;
 	private String reviewDate;
 	private String reviewContent;
+	private String status;
 	private float rate;
 
 	public Review() {
@@ -28,6 +29,16 @@ public class Review {
 		this.reviewDate = reviewDate;
 		this.reviewContent = reviewContent;
 		this.rate = rate;
+	}
+	public Review(String id, String productID, String userID, String reviewDate, String reviewContent, float rate, String status) {
+		super();
+		this.id = id;
+		this.productID = productID;
+		this.userID = userID;
+		this.reviewDate = reviewDate;
+		this.reviewContent = reviewContent;
+		this.rate = rate;
+		this.setStatus(status);
 	}
 
 	public String getId() {
@@ -76,6 +87,14 @@ public class Review {
 
 	public void setRate(float rate) {
 		this.rate = rate;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

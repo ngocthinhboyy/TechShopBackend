@@ -10,6 +10,7 @@ public class ReviewDTO {
 	private String fullname;
 	private String reviewDate;
 	private String reviewContent;
+	private String status;
 	private float rate;
 
 	public ReviewDTO() {
@@ -24,6 +25,17 @@ public class ReviewDTO {
 		this.reviewDate = reviewDate;
 		this.reviewContent = reviewContent;
 		this.rate = rate;
+	}
+	public ReviewDTO(String id, String productID, String fullname, String reviewDate, String reviewContent,
+			float rate, String status) {
+		super();
+		this.id = id;
+		this.productID = productID;
+		this.fullname = fullname;
+		this.reviewDate = reviewDate;
+		this.reviewContent = reviewContent;
+		this.rate = rate;
+		this.setStatus(status);
 	}
 
 	public String getId() {
@@ -72,6 +84,14 @@ public class ReviewDTO {
 
 	public void setRate(float rate) {
 		this.rate = rate;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }
