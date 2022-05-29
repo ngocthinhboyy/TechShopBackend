@@ -235,6 +235,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 				detailedInvoice.setReviewContent(review.getReviewContent());
 				detailedInvoice.setReviewDate(review.getReviewDate());
 				detailedInvoice.setRate(review.getRate());
+				detailedInvoice.setStatus(review.getStatus());
 			}
 		}
 		

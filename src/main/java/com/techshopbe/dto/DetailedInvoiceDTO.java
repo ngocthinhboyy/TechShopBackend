@@ -18,6 +18,7 @@ public class DetailedInvoiceDTO {
 	private String reviewContent;
 	private String reviewDate;
 	private float rate;
+	private String status;
 
 	public String getReviewContent() {
 		return reviewContent;
@@ -136,6 +137,31 @@ public class DetailedInvoiceDTO {
 		this.categorySlug = categorySlug;
 		this.salePrice = salePrice;
 		this.reviewID = reviewID;
+	}
+	public DetailedInvoiceDTO() {}
+	
+	public DetailedInvoiceDTO(String id, int oldPrice, int quantity, int totalPrice, String name, boolean isReviewed,
+			String images, String categorySlug, int salePrice, String reviewID, String status) {
+		super();
+		this.id = id;
+		this.oldPrice = oldPrice;
+		this.quantity = quantity;
+		this.totalPrice = totalPrice;
+		this.name = name;
+		this.isReviewed = isReviewed;
+		this.images = images;
+		this.categorySlug = categorySlug;
+		this.salePrice = salePrice;
+		this.reviewID = reviewID;
+		this.status = status;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }
